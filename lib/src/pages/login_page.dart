@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
 import 'package:health_safe_paciente/src/helpers/helpers.dart';
 import 'package:health_safe_paciente/src/services/services.dart';
@@ -13,6 +14,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig(context); // TODO pasar a LoadingPage
+
+    // TODO Bug: Cuando se carga la pagina se abre el teclado sin haber seleccionado ningun text field
 
     return SafeArea(
         child: Scaffold(
@@ -43,13 +46,17 @@ class _FormLogin extends StatelessWidget {
     final autenticacionService = Provider.of<AutenticacionService>(context);
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: SizeConfig.height * 0.015),
+      margin: EdgeInsets.symmetric(
+          vertical: SizeConfig.height * 0.015,
+          horizontal: SizeConfig.height * 0.015),
       child: Form(
         key: loginProvider.formKey,
         child: Column(
           children: [
             TextFormFieldCustom(
                 text: 'Correo',
+                withLabel: true,
+                labelColor: Colors.white,
                 keyboardType: TextInputType.emailAddress,
                 onChanged: (String value) => loginProvider.correo = value,
                 validator: (String? value) =>
@@ -57,6 +64,8 @@ class _FormLogin extends StatelessWidget {
             SizedBox(height: SizeConfig.height * 0.03),
             TextFormFieldCustom(
                 text: 'Contraseña',
+                withLabel: true,
+                labelColor: Colors.white,
                 isPassword: true,
                 onChanged: (String value) => loginProvider.contrasena = value,
                 validator: (String? value) =>
@@ -103,22 +112,9 @@ class _RegistroUsuarioBoton extends StatelessWidget {
               .button!
               .copyWith(color: Colors.white)),
       TextButton(
-          onPressed: () {
-            // TODO Navegar a Registro de usuario
-          },
+          onPressed: () =>
+              Navigator.pushNamed(context, RegistroUsuarioPage.routeName),
           child: const Text('Registrate'))
     ]);
   }
 }
-
-
-/**
- * /*String pattern =
-                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                  RegExp regExp = RegExp(pattern);
-
-                  return regExp.hasMatch(value ?? '')
-                      ? null
-                      : 'Ingrese un correo valido';*/
- * 
- */
