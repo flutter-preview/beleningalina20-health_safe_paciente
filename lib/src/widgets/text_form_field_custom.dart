@@ -2,33 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/helpers/helpers.dart';
 
 class TextFormFieldCustom extends StatelessWidget {
+  String value;
+
   final bool isPassword;
   final TextInputType keyboardType;
-  final String text;
-  final void Function(String)? onChanged;
+  final String? label;
   final String? Function(String?)? validator;
-  final bool withLabel;
+  final void Function(String)? onChanged;
+  final void Function()? onTap;
   final Color labelColor;
   final bool withBorder;
+  final bool readOnly;
+  final bool enabled;
+  final AutovalidateMode? autovalidateMode;
 
-  const TextFormFieldCustom(
+  TextFormFieldCustom(
       {super.key,
-      required this.text,
+      required this.value,
+      this.label,
       this.isPassword = false,
       this.keyboardType = TextInputType.name,
-      required this.onChanged,
       this.validator,
-      this.withLabel = false,
+      this.onChanged,
       this.withBorder = false,
-      this.labelColor = Colors.black});
+      this.labelColor = Colors.black,
+      this.onTap,
+      this.readOnly = false,
+      this.enabled = true,
+      this.autovalidateMode = AutovalidateMode.onUserInteraction});
 
   @override
   Widget build(BuildContext context) {
+    final controller = TextEditingController()..text = value;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (withLabel)
-          Text(text,
+        if (label != null)
+          Text(label!,
               style: Theme.of(context)
                   .textTheme
                   .bodyText2!
@@ -43,18 +53,20 @@ class TextFormFieldCustom extends StatelessWidget {
               border: (withBorder) ? Border.all(color: Colors.red) : null,
               borderRadius: BorderRadius.circular(SizeConfig.height * 0.01)),
           child: TextFormField(
+            controller: controller,
             keyboardType: keyboardType,
             obscureText: isPassword,
             autocorrect: true,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            autovalidateMode: autovalidateMode,
+            textCapitalization: TextCapitalization.words,
+            onTap: onTap,
             autofocus: true,
             onChanged: onChanged,
             validator: validator,
+            readOnly: readOnly,
             decoration: InputDecoration(
-              hintText: text,
-
-              // labelText: text,
-
+              contentPadding: const EdgeInsets.all(0.0),
+              hintText: label,
               border: InputBorder.none,
             ),
           ),

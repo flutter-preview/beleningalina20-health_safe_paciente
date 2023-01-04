@@ -3,4 +3,5 @@ import 'package:health_safe_paciente/src/pages/pages.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
       LoginPage.routeName: (_) => const LoginPage(),
+      RegistroUsuarioPage.routeName: (_) => const RegistroUsuarioPage(),
     };

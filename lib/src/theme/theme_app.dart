@@ -7,11 +7,12 @@ class ThemeApp {
         // Logo - Nombre app
         headline1: TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
         // Logo - Slogan
-        headline2: TextStyle(fontSize: 25),
+        headline2: TextStyle(fontSize: 25, fontWeight: FontWeight.w300),
+        // Labels para los text field custom
         // TextField
-        subtitle1: TextStyle(),
+        subtitle1: TextStyle(fontSize: 15),
         // Text
-        bodyText2: TextStyle(),
+        bodyText2: TextStyle(fontSize: 18),
         // Texto que acompaña al text button
         button: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
 
@@ -38,5 +39,14 @@ class ThemeApp {
           style: TextButton.styleFrom(
               foregroundColor: Colors.blue,
               textStyle:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w400))));
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w400))),
+      dialogTheme: DialogTheme(
+          actionsPadding: const EdgeInsets.all(15),
+          alignment: Alignment.center,
+          contentTextStyle: const TextStyle(color: Colors.black, fontSize: 16),
+          iconColor: Colors.blue,
+          titleTextStyle: const TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.25))));
 }

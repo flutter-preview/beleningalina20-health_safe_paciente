@@ -54,20 +54,18 @@ class _FormLogin extends StatelessWidget {
         child: Column(
           children: [
             TextFormFieldCustom(
-                text: 'Correo',
-                withLabel: true,
+                label: 'Correo',
                 labelColor: Colors.white,
                 keyboardType: TextInputType.emailAddress,
-                onChanged: (String value) => loginProvider.correo = value,
+                value: loginProvider.correo,
                 validator: (String? value) =>
                     (value != '') ? null : 'Ingrese su correo'),
             SizedBox(height: SizeConfig.height * 0.03),
             TextFormFieldCustom(
-                text: 'Contraseña',
-                withLabel: true,
+                label: 'Contraseña',
                 labelColor: Colors.white,
                 isPassword: true,
-                onChanged: (String value) => loginProvider.contrasena = value,
+                value: loginProvider.contrasena,
                 validator: (String? value) =>
                     (value != '') ? null : 'Ingrese su contraseña'),
             ElevatedButtonCustom(
@@ -76,20 +74,11 @@ class _FormLogin extends StatelessWidget {
                 onPressed: (!loginProvider.isLoading)
                     ? () async {
                         FocusScope.of(context).unfocus();
-
                         if (!loginProvider.isValidForm()) return;
 
                         loginProvider.isLoading = true;
 
-                        bool resp = await autenticacionService.login(
-                            loginProvider.correo, loginProvider.contrasena);
-
-                        if (resp) {
-                          // Navegar a home
-                          // Conectar socket
-                        } else {
-                          // Mensaje de error
-                        }
+                        // TODO Ir a Home Paciente
                       }
                     : () {},
                 text: 'Iniciar Sesión'),
