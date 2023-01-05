@@ -29,10 +29,10 @@ class _ImagenPerfilState extends State<ImagenPerfil> {
         child: (widget.imagenPerfil != null)
             ? CircleAvatar(
                 backgroundImage: FileImage(widget.imagenPerfil!),
-                radius: SizeConfig.height * 0.09)
+                radius: SizeConfig.height * 0.1)
             : CircleAvatar(
                 backgroundImage: const AssetImage('assets/imgs/no-person.png'),
-                radius: SizeConfig.height * 0.09),
+                radius: SizeConfig.height * 0.1),
       ),
       if (widget.cambiarImagenPerfil)
         Positioned(
