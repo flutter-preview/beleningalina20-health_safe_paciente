@@ -22,17 +22,15 @@ class LoginPage extends StatelessWidget {
             backgroundColor: ColorsApp.azulLogin,
             body: Padding(
               padding: EdgeInsets.all(SizeConfig.height * 0.02),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      const LogoHealthSafe(),
-                      ChangeNotifierProvider(
-                          create: (_) => LoginProvider(), child: _FormLogin()),
-                      _RegistroUsuarioBoton()
-                    ],
-                  ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    const LogoHealthSafe(),
+                    ChangeNotifierProvider(
+                        create: (_) => LoginProvider(), child: _FormLogin()),
+                    _RegistroUsuarioBoton()
+                  ],
                 ),
               ),
             )));
@@ -68,17 +66,16 @@ class _FormLogin extends StatelessWidget {
                 value: loginProvider.contrasena,
                 validator: (String? value) =>
                     (value != '') ? null : 'Ingrese su contraseña'),
+            SizedBox(height: SizeConfig.height * 0.03),
             ElevatedButtonCustom(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.blue,
                 onPressed: (!loginProvider.isLoading)
                     ? () async {
-                        FocusScope.of(context).unfocus();
-                        if (!loginProvider.isValidForm()) return;
+                        // TODO validar form & login
 
-                        loginProvider.isLoading = true;
-
-                        // TODO Ir a Home Paciente
+                        Navigator.pushReplacementNamed(
+                            context, HomePage.routeName);
                       }
                     : () {},
                 text: 'Iniciar Sesión'),
