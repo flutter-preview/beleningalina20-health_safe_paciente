@@ -21,8 +21,8 @@ class ElevatedButtonCustom extends StatelessWidget {
     return Container(
         width: double.infinity,
         margin: EdgeInsets.symmetric(
-            vertical: SizeConfig.height * 0.04,
-            horizontal: SizeConfig.height * 0.06),
+            vertical: SizeConfig.height * 0.02,
+            horizontal: SizeConfig.height * 0.05),
         child: ElevatedButton(
           onPressed: onPressed,
           style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
