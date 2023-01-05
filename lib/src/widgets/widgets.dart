@@ -1,3 +1,6 @@
+export 'package:health_safe_paciente/src/widgets/drawer_custom.dart';
+export 'package:health_safe_paciente/src/widgets/appbar_custom.dart';
+export 'package:health_safe_paciente/src/widgets/imagen_dni.dart';
 export 'package:health_safe_paciente/src/widgets/alert_dialog_custom.dart';
 export 'package:health_safe_paciente/src/widgets/drop_down_button_custom.dart';
 export 'package:health_safe_paciente/src/widgets/date_time_picker_custom.dart';
