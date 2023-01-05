@@ -3,15 +3,15 @@
     "options" : [
         {
             "title": "Inicio",
-            "routeName" : "HomePacientePage"
+            "routeName" : "HomePage"
         },
         {
             "title": "Mi cuenta",
-            "routeName": "MiCuentaPacientePage"
+            "routeName": "MiCuentaPage"
         }, 
         {
             "title": "Mis turnos",
-            "routeName": "MisTurnosPacientePage"
+            "routeName": "MisTurnosPage"
         },
         {
             "title": "Configuracion",
