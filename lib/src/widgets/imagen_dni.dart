@@ -27,7 +27,6 @@ class _ImagenDniState extends State<ImagenDni> {
     return Stack(
       children: [
         Container(
-            color: Colors.red,
             margin: EdgeInsets.all(SizeConfig.height * 0.005),
             padding: EdgeInsets.all(SizeConfig.height * 0.01),
             child: ClipRRect(
