@@ -5,36 +5,32 @@ import 'package:health_safe_paciente/src/widgets/widgets.dart';
 import 'package:health_safe_paciente/src/helpers/size_config.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 
-class ImagenPerfil extends StatefulWidget {
+class ImagenPerfil extends StatelessWidget {
   File? imagenPerfil;
   final bool cambiarImagenPerfil;
+  final void Function(File)? onChanged;
 
-  ImagenPerfil({
-    super.key,
-    this.imagenPerfil,
-    this.cambiarImagenPerfil = false,
-  });
+  ImagenPerfil(
+      {super.key,
+      this.imagenPerfil,
+      this.cambiarImagenPerfil = false,
+      this.onChanged});
 
-  @override
-  State<ImagenPerfil> createState() => _ImagenPerfilState();
-}
-
-class _ImagenPerfilState extends State<ImagenPerfil> {
   @override
   Widget build(BuildContext context) {
     return Stack(clipBehavior: Clip.none, children: <Widget>[
       CircleAvatar(
         backgroundColor: ColorsApp.celesteFondo,
         radius: SizeConfig.height * 0.11,
-        child: (widget.imagenPerfil != null)
+        child: (imagenPerfil != null)
             ? CircleAvatar(
-                backgroundImage: FileImage(widget.imagenPerfil!),
+                backgroundImage: FileImage(imagenPerfil!),
                 radius: SizeConfig.height * 0.1)
             : CircleAvatar(
                 backgroundImage: const AssetImage('assets/imgs/no-person.png'),
                 radius: SizeConfig.height * 0.1),
       ),
-      if (widget.cambiarImagenPerfil)
+      if (cambiarImagenPerfil)
         Positioned(
             top: SizeConfig.height * 0.15,
             left: SizeConfig.height * 0.15,
@@ -42,12 +38,12 @@ class _ImagenPerfilState extends State<ImagenPerfil> {
                 backgroundColor: ColorsApp.azulBusqueda,
                 radius: SizeConfig.height * 0.035,
                 child: IconButton(
-                    onPressed: seleccionImagenPerfil,
+                    onPressed: () => seleccionImagenPerfil(context),
                     icon: const Icon(Icons.camera_alt, color: Colors.white))))
     ]);
   }
 
-  void seleccionImagenPerfil() {
+  void seleccionImagenPerfil(BuildContext context) {
     showDialog(
         context: context,
         useSafeArea: true,
@@ -57,18 +53,14 @@ class _ImagenPerfilState extends State<ImagenPerfil> {
             const Divider(),
             TextButton.icon(
                 onPressed: () async {
-                  Navigator.pop(context);
-                  widget.imagenPerfil = await pickImage(ImageSource.camera);
-                  setState(() {});
+                  await pickImage(context, ImageSource.camera);
                 },
                 icon: const Icon(Icons.camera_alt),
                 label: const Text("Abrir cámara")),
             const Divider(),
             TextButton.icon(
                 onPressed: () async {
-                  Navigator.pop(context);
-                  widget.imagenPerfil = await pickImage(ImageSource.gallery);
-                  setState(() {});
+                  await pickImage(context, ImageSource.gallery);
                 },
                 icon: const Icon(Icons.image),
                 label: const Text("Abrir galería de fotos"))
@@ -76,9 +68,12 @@ class _ImagenPerfilState extends State<ImagenPerfil> {
         });
   }
 
-  Future<File?> pickImage(ImageSource source) async {
+  Future<void> pickImage(BuildContext context, ImageSource source) async {
+    Navigator.pop(context);
     ImagePicker imagePicker = ImagePicker();
-    var imagen = await imagePicker.pickImage(source: source);
-    return (imagen != null) ? File(imagen.path) : null;
+    var image = await imagePicker.pickImage(source: source);
+    if (onChanged != null && image != null) {
+      onChanged!(File(image.path));
+    }
   }
 }

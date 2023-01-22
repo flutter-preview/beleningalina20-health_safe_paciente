@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/pages/pages.dart';
+import 'package:health_safe_paciente/src/services/services.dart';
 import 'package:health_safe_paciente/src/helpers/helpers.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
@@ -138,6 +138,7 @@ class _CorreoContrasenaImagenPerfilTextFormField extends StatelessWidget {
             child: ImagenPerfil(
           cambiarImagenPerfil: true,
           imagenPerfil: registroUsuarioProvider.imagenPerfil,
+          onChanged: (value) => registroUsuarioProvider.imagenPerfil = value,
         )),
       ],
     );
@@ -230,6 +231,7 @@ class _ImagenesDniFormField extends StatelessWidget {
           tipoImagenDni: 'frente',
           imagenDni: registroUsuarioProvider.imagenDniFrente,
           cambiarImagenDni: true,
+          onChanged: (value) => registroUsuarioProvider.imagenDniFrente = value,
         )),
         SizedBox(height: SizeConfig.height * 0.015),
         Text('Imagen de dni dorso',
@@ -242,6 +244,7 @@ class _ImagenesDniFormField extends StatelessWidget {
           tipoImagenDni: 'dorso',
           imagenDni: registroUsuarioProvider.imagenDniDorso,
           cambiarImagenDni: true,
+          onChanged: (value) => registroUsuarioProvider.imagenDniDorso = value,
         )),
       ],
     );
@@ -327,10 +330,16 @@ class _BotonFinalizar extends StatelessWidget {
         foregroundColor: Colors.blue,
         onPressed: (!registroUsuarioProvider.isLoading)
             ? () async {
-                /*FocusScope.of(context).unfocus();
-                if (!registroUsuarioProvider.isValidForm()) return;*/
+                FocusScope.of(context).unfocus();
+                if (!registroUsuarioProvider.isValidForm()) {
+                  return;
+                }
 
-                Navigator.pushReplacementNamed(context, HomePage.routeName);
+                final autenticacionSevice =
+                    Provider.of<AutenticacionService>(context, listen: false);
+
+                // TODO Registro Usuario service
+                // TODO Navigator.pushReplacementNamed(context, HomePage.routeName);
               }
             : () {},
         text: 'Finalizar');

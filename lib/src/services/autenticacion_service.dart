@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:health_safe_paciente/src/global/environments.dart';
-import 'package:http/http.dart' as http;
 import 'package:health_safe_paciente/src/models/models.dart';
 
 class AutenticacionService with ChangeNotifier {
@@ -35,22 +35,15 @@ class AutenticacionService with ChangeNotifier {
     await storage.delete(key: 'token');
   }
 
-  Future<bool> login(String correo, String contrasena) async {
-    isLoading = true;
-    final data = {"correo": correo, "contrasena": contrasena};
-    final url = Uri.https(Environment.apiUrl, '/autenticacion/login');
+  Future<bool> registroUsuario() async {
+    // TODO
 
-    // TODO Revisar el endpoint de login, los datos que devuelve y el token
+    return true;
+  }
 
-    final resp = await http.post(url,
-        headers: {'Content-Type': 'application/json'}, body: jsonEncode(data));
-    isLoading = false;
+  Future<bool> login() async {
+    // TODO
 
-    if (resp.statusCode != 201) return false;
-
-    final loginResponse = json.decode(resp.body);
-    usuario = Usuario.fromJson(loginResponse['usuario']);
-    await _guardarToken(loginResponse['token']);
     return true;
   }
 

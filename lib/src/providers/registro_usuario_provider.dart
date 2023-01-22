@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class RegistroUsuarioProvider with ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // PageView
   int _paginaActual = 0;
   int cantidadPages = 3;
   final PageController _pageController = PageController(initialPage: 0);
@@ -17,8 +15,6 @@ class RegistroUsuarioProvider with ChangeNotifier {
   }
 
   PageController get pageController => _pageController;
-
-  // Form
 
   List<String> sexos = ['Femenino', 'Masculino'];
 
@@ -67,7 +63,12 @@ class RegistroUsuarioProvider with ChangeNotifier {
 
   bool isValidForm() {
     if (formKey.currentState == null) return false;
-    return formKey.currentState!.validate() && imagenPerfil != null;
+
+    return formKey.currentState!.validate() &&
+        imagenPerfil != null &&
+        imagenDniFrente != null &&
+        imagenDniDorso != null &&
+        fechaNacimiento != null;
   }
 
   String? correoValidator(String? value) {

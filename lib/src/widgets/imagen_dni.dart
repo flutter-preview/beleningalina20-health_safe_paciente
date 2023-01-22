@@ -5,23 +5,19 @@ import 'package:health_safe_paciente/src/helpers/helpers.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
 
-class ImagenDni extends StatefulWidget {
+class ImagenDni extends StatelessWidget {
   File? imagenDni;
   String tipoImagenDni; // frente o dorso
   final bool cambiarImagenDni;
+  final void Function(File)? onChanged;
 
-  ImagenDni({
-    super.key,
-    required this.tipoImagenDni,
-    this.imagenDni,
-    this.cambiarImagenDni = false,
-  });
+  ImagenDni(
+      {super.key,
+      required this.tipoImagenDni,
+      this.imagenDni,
+      this.cambiarImagenDni = false,
+      this.onChanged});
 
-  @override
-  State<ImagenDni> createState() => _ImagenDniState();
-}
-
-class _ImagenDniState extends State<ImagenDni> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -31,15 +27,14 @@ class _ImagenDniState extends State<ImagenDni> {
             padding: EdgeInsets.all(SizeConfig.height * 0.01),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(SizeConfig.height * 0.005),
-                child: (widget.imagenDni != null)
-                    ? Image(
-                        image: FileImage(widget.imagenDni!), fit: BoxFit.cover)
+                child: (imagenDni != null)
+                    ? Image(image: FileImage(imagenDni!), fit: BoxFit.cover)
                     : Image(
-                        image: AssetImage((widget.tipoImagenDni == 'frente')
+                        image: AssetImage((tipoImagenDni == 'frente')
                             ? 'assets/imgs/dni_frente.png'
                             : 'assets/imgs/dni_dorso.png'),
                         fit: BoxFit.cover))),
-        if (widget.cambiarImagenDni)
+        if (cambiarImagenDni)
           Positioned(
               top: SizeConfig.height * 0.2,
               left: SizeConfig.height * 0.33,
@@ -47,36 +42,13 @@ class _ImagenDniState extends State<ImagenDni> {
                   backgroundColor: ColorsApp.azulBusqueda,
                   radius: SizeConfig.height * 0.03,
                   child: IconButton(
-                      onPressed: seleccionImagenPerfil,
+                      onPressed: () => seleccionImagenPerfil(context),
                       icon: const Icon(Icons.camera_alt, color: Colors.white))))
       ],
     );
-    /*return Stack(clipBehavior: Clip.none, children: <Widget>[
-      CircleAvatar(
-        backgroundColor: ColorsApp.celesteFondo,
-        radius: SizeConfig.height * 0.08,
-        child: (widget.imagenDni != null)
-            ? CircleAvatar(
-                backgroundImage: FileImage(widget.imagenDni!),
-                radius: SizeConfig.height * 0.075)
-            : CircleAvatar(
-                backgroundImage: const AssetImage('assets/imgs/no-person.png'),
-                radius: SizeConfig.height * 0.075),
-      ),
-      if (widget.cambiarImagenDni)
-        Positioned(
-            top: SizeConfig.height * 0.1,
-            left: SizeConfig.height * 0.1,
-            child: CircleAvatar(
-                backgroundColor: ColorsApp.azulBusqueda,
-                radius: SizeConfig.height * 0.03,
-                child: IconButton(
-                    onPressed: seleccionImagenPerfil,
-                    icon: const Icon(Icons.camera_alt, color: Colors.white))))
-    ]);*/
   }
 
-  void seleccionImagenPerfil() {
+  void seleccionImagenPerfil(BuildContext context) {
     showDialog(
         context: context,
         useSafeArea: true,
@@ -86,18 +58,14 @@ class _ImagenDniState extends State<ImagenDni> {
             const Divider(),
             TextButton.icon(
                 onPressed: () async {
-                  Navigator.pop(context);
-                  widget.imagenDni = await pickImage(ImageSource.camera);
-                  setState(() {});
+                  await pickImage(context, ImageSource.camera);
                 },
                 icon: const Icon(Icons.camera_alt),
                 label: const Text("Abrir cámara")),
             const Divider(),
             TextButton.icon(
                 onPressed: () async {
-                  Navigator.pop(context);
-                  widget.imagenDni = await pickImage(ImageSource.gallery);
-                  setState(() {});
+                  await pickImage(context, ImageSource.gallery);
                 },
                 icon: const Icon(Icons.image),
                 label: const Text("Abrir galería de fotos"))
@@ -105,9 +73,13 @@ class _ImagenDniState extends State<ImagenDni> {
         });
   }
 
-  Future<File?> pickImage(ImageSource source) async {
+  Future<void> pickImage(BuildContext context, ImageSource source) async {
+    Navigator.pop(context);
+
     ImagePicker imagePicker = ImagePicker();
-    var imagen = await imagePicker.pickImage(source: source);
-    return (imagen != null) ? File(imagen.path) : null;
+    var image = await imagePicker.pickImage(source: source);
+    if (onChanged != null && image != null) {
+      onChanged!(File(image.path));
+    }
   }
 }
