@@ -15,8 +15,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig(context); // TODO pasar a LoadingPage
 
-    // TODO Bug: Cuando se carga la pagina se abre el teclado sin haber seleccionado ningun text field
-
     return SafeArea(
         child: Scaffold(
             backgroundColor: ColorsApp.azulLogin,
@@ -67,24 +65,40 @@ class _FormLogin extends StatelessWidget {
                 validator: (String? value) =>
                     (value != '') ? null : 'Ingrese su contraseña'),
             SizedBox(height: SizeConfig.height * 0.03),
-            ElevatedButtonCustom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.blue,
-                onPressed: (!loginProvider.isLoading)
-                    ? () async {
-                        // TODO validar form & login
-
-                        Navigator.pushReplacementNamed(
-                            context, HomePage.routeName);
-                      }
-                    : () {},
-                text: 'Iniciar Sesión'),
+            (!autenticacionService.isLoading)
+                ? ElevatedButtonCustom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.blue,
+                    onPressed: (!loginProvider.isLoading)
+                        ? () => loginUsuario(context)
+                        : () {},
+                    text: 'Iniciar Sesión')
+                : const CircularProgressIndicatorCustom(),
             if (autenticacionService.isLoading)
               const CircularProgressIndicator()
           ],
         ),
       ),
     );
+  }
+
+  void loginUsuario(BuildContext context) async {
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    FocusScope.of(context).unfocus();
+    if (!loginProvider.isValidForm()) return;
+
+    final autenticacionSevice =
+        Provider.of<AutenticacionService>(context, listen: false);
+
+    await autenticacionSevice.login(loginProvider.loginRequest()).then((resp) {
+      if (resp) {
+        Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Falló login de usuario')));
+        Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+      }
+    });
   }
 }
 

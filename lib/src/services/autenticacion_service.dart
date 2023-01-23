@@ -40,9 +40,7 @@ class AutenticacionService with ChangeNotifier {
     Uri url = Uri.parse('${Environment.apiUrl}/usuarios/');
 
     var request = http.MultipartRequest("post", url);
-    request.headers.addAll({
-      'Content-Type': 'application/json',
-    });
+    request.headers.addAll({'Content-Type': 'application/json'});
 
     request.fields.addAll(registroUsuarioRequest.toJson());
 
@@ -55,30 +53,38 @@ class AutenticacionService with ChangeNotifier {
           'imagenDniDorso', registroUsuarioRequest.imagenDniDorso.path),
     ]);
 
-    try {
-      var response = await request.send();
-      var resp = await http.Response.fromStream(response);
+    var response = await request.send();
+    var resp = await http.Response.fromStream(response);
 
-      // body -> Connection refused
+    // body -> Connection refused
 
-      if (resp.statusCode != 201) return false;
+    if (resp.statusCode != 201) return false;
 
-      final autenticacionUsuarioResponse =
-          autenticacionResponseFromJson(resp.body);
-      usuario = autenticacionUsuarioResponse.usuario;
-      await _guardarToken(autenticacionUsuarioResponse.token);
+    final autenticacionUsuarioResponse =
+        autenticacionResponseFromJson(resp.body);
+    usuario = autenticacionUsuarioResponse.usuario;
+    await _guardarToken(autenticacionUsuarioResponse.token);
 
-      isLoading = false;
+    isLoading = false;
 
-      return true;
-    } catch (error) {
-      isLoading = false;
-      rethrow;
-    }
+    return true;
   }
 
-  Future<bool> login() async {
-    // TODO
+  Future<bool> login(LoginRequest loginRequest) async {
+    isLoading = true;
+
+    var url = Uri.parse('${Environment.apiUrl}/api/auth/login');
+
+    final resp = await http.post(url,
+        headers: {'Content-Type': 'application/json'},
+        body: loginRequest.toJson());
+
+    if (resp.statusCode != 201) return false;
+    final loginUsuarioResponse = autenticacionResponseFromJson(resp.body);
+    usuario = loginUsuarioResponse.usuario;
+    await _guardarToken(loginUsuarioResponse.token);
+
+    isLoading = false;
 
     return true;
   }
