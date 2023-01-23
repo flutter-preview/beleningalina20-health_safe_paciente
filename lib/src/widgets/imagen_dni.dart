@@ -25,19 +25,31 @@ class ImagenDni extends StatelessWidget {
         Container(
             margin: EdgeInsets.all(SizeConfig.height * 0.005),
             padding: EdgeInsets.all(SizeConfig.height * 0.01),
+            decoration: BoxDecoration(
+              color: ColorsApp.celesteFondo,
+              borderRadius: BorderRadius.circular(SizeConfig.height * 0.01),
+            ),
             child: ClipRRect(
-                borderRadius: BorderRadius.circular(SizeConfig.height * 0.005),
+                borderRadius: BorderRadius.circular(SizeConfig.height * 0.01),
                 child: (imagenDni != null)
-                    ? Image(image: FileImage(imagenDni!), fit: BoxFit.cover)
+                    ? Image(
+                        image: FileImage(imagenDni!),
+                        fit: BoxFit.cover,
+                        height: SizeConfig.height * 0.25,
+                        width: double.infinity,
+                      )
                     : Image(
                         image: AssetImage((tipoImagenDni == 'frente')
                             ? 'assets/imgs/dni_frente.png'
                             : 'assets/imgs/dni_dorso.png'),
-                        fit: BoxFit.cover))),
+                        fit: BoxFit.cover,
+                        height: SizeConfig.height * 0.25,
+                        width: double.infinity,
+                      ))),
         if (cambiarImagenDni)
           Positioned(
-              top: SizeConfig.height * 0.2,
-              left: SizeConfig.height * 0.33,
+              top: SizeConfig.height * 0.22,
+              left: SizeConfig.height * 0.34,
               child: CircleAvatar(
                   backgroundColor: ColorsApp.azulBusqueda,
                   radius: SizeConfig.height * 0.03,
