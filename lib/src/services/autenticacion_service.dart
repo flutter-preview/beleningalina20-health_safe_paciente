@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -35,34 +34,52 @@ class AutenticacionService with ChangeNotifier {
     await storage.delete(key: 'token');
   }
 
-  Future<bool> registroUsuario() async {
-    // TODO
+  Future<bool> registroUsuario(
+      RegistroUsuarioRequest registroUsuarioRequest) async {
+    isLoading = true;
+    Uri url = Uri.parse('${Environment.apiUrl}/usuarios/');
 
-    return true;
+    var request = http.MultipartRequest("post", url);
+    request.headers.addAll({
+      'Content-Type': 'application/json',
+    });
+
+    request.fields.addAll(registroUsuarioRequest.toJson());
+
+    request.files.addAll([
+      http.MultipartFile.fromString(
+          'imagenPerfil', registroUsuarioRequest.imagenPerfil.path),
+      http.MultipartFile.fromString(
+          'imagenDniFrente', registroUsuarioRequest.imagenDniFrente.path),
+      http.MultipartFile.fromString(
+          'imagenDniDorso', registroUsuarioRequest.imagenDniDorso.path),
+    ]);
+
+    try {
+      var response = await request.send();
+      var resp = await http.Response.fromStream(response);
+
+      // body -> Connection refused
+
+      if (resp.statusCode != 201) return false;
+
+      final autenticacionUsuarioResponse =
+          autenticacionResponseFromJson(resp.body);
+      usuario = autenticacionUsuarioResponse.usuario;
+      await _guardarToken(autenticacionUsuarioResponse.token);
+
+      isLoading = false;
+
+      return true;
+    } catch (error) {
+      isLoading = false;
+      rethrow;
+    }
   }
 
   Future<bool> login() async {
     // TODO
 
-    return true;
-  }
-
-  Future<bool> isLoggedIn() async {
-    final token = await _storage.read(key: 'token');
-    if (token == null) return false;
-
-    final resp = await http.get(
-        Uri.parse("${Environment.apiUrl}/autenticacion/login/renew"),
-        headers: {'Content-Type': 'application/json', 'x-token': token});
-
-    if (resp.statusCode != 200) {
-      logout();
-      return false;
-    }
-
-    final loginResponse = json.decode(resp.body);
-    usuario = Usuario.fromJson(loginResponse['usuario']);
-    _guardarToken(loginResponse['token']);
     return true;
   }
 

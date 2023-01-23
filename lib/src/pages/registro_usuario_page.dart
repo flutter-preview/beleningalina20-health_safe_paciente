@@ -7,6 +7,7 @@ import 'package:health_safe_paciente/src/providers/providers.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
 import 'package:health_safe_paciente/src/helpers/functions/functions.dart';
+import 'package:health_safe_paciente/src/pages/pages.dart';
 
 class RegistroUsuarioPage extends StatelessWidget {
   static const String routeName = 'RegistroUsuarioPage';
@@ -325,23 +326,38 @@ class _BotonFinalizar extends StatelessWidget {
     final registroUsuarioProvider =
         Provider.of<RegistroUsuarioProvider>(context);
 
-    return ElevatedButtonCustom(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.blue,
-        onPressed: (!registroUsuarioProvider.isLoading)
-            ? () async {
-                FocusScope.of(context).unfocus();
-                if (!registroUsuarioProvider.isValidForm()) {
-                  return;
-                }
+    final autenticacionService = Provider.of<AutenticacionService>(context);
 
-                final autenticacionSevice =
-                    Provider.of<AutenticacionService>(context, listen: false);
+    return (!autenticacionService.isLoading)
+        ? ElevatedButtonCustom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.blue,
+            onPressed: (!registroUsuarioProvider.isLoading)
+                ? () => registrarUsuario(context)
+                : () {},
+            text: 'Finalizar')
+        : const CircularProgressIndicatorCustom();
+  }
 
-                // TODO Registro Usuario service
-                // TODO Navigator.pushReplacementNamed(context, HomePage.routeName);
-              }
-            : () {},
-        text: 'Finalizar');
+  void registrarUsuario(BuildContext context) async {
+    final registroUsuarioProvider =
+        Provider.of<RegistroUsuarioProvider>(context, listen: false);
+    FocusScope.of(context).unfocus();
+    if (!registroUsuarioProvider.isValidForm()) return;
+
+    final autenticacionSevice =
+        Provider.of<AutenticacionService>(context, listen: false);
+
+    await autenticacionSevice
+        .registroUsuario(registroUsuarioProvider.registroUsuarioRequest())
+        .then((resp) {
+      if (resp) {
+        Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Falló registro de usuario')));
+        Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+      }
+    });
   }
 }

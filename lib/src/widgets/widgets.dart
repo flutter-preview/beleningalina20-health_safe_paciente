@@ -1,3 +1,4 @@
+export 'package:health_safe_paciente/src/widgets/circular_progress_indicator_custom.dart';
 export 'package:health_safe_paciente/src/widgets/drawer_custom.dart';
 export 'package:health_safe_paciente/src/widgets/appbar_custom.dart';
 export 'package:health_safe_paciente/src/widgets/imagen_dni.dart';
