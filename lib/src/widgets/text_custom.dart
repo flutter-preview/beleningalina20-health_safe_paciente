@@ -14,8 +14,8 @@ class TitleText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text, // 30.54
-      style: TextStyle(fontSize: SizeConfig.height * 0.037, color: color),
+      text,
+      style: TextStyle(fontSize: SizeConfig.height * 0.035, color: color),
     );
   }
 }
@@ -46,7 +46,7 @@ class DescriptionText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text, // 22.28
-      style: TextStyle(fontSize: SizeConfig.height * 0.023, color: color),
+      style: TextStyle(fontSize: SizeConfig.height * 0.025, color: color),
     );
   }
 }
@@ -67,7 +67,7 @@ class DisclaimerText extends StatelessWidget {
     return Text(
       text, // 19.81
       style: TextStyle(
-          fontSize: SizeConfig.height * 0.021,
+          fontSize: SizeConfig.height * 0.02,
           color: color,
           fontWeight: fontWeight),
     );

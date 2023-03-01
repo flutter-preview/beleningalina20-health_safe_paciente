@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:health_safe_paciente/src/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/helpers/helpers.dart';
 import 'package:health_safe_paciente/src/services/autenticacion_service.dart';
@@ -61,11 +62,8 @@ class _HeaderDrawer extends StatelessWidget {
               backgroundImage: NetworkImage(urlImagenPerfil),
               radius: SizeConfig.height * 0.09),
           SizedBox(height: SizeConfig.height * 0.02),
-          Text("$nombre $apellido".toUpperCase(),
-              style: Theme.of(context)
-                  .textTheme
-                  .headline2!
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.w400)),
+          SubtitleText(
+              text: "$nombre $apellido".toUpperCase(), color: Colors.white),
         ],
       ),
     );
@@ -84,11 +82,7 @@ class _ListTileDrawer extends StatelessWidget {
         const Divider(color: ColorsApp.celesteFondo),
         ListTile(
             contentPadding: EdgeInsets.all(SizeConfig.height * 0.01),
-            title: Text(opcion.title,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2!
-                    .copyWith(color: Colors.white)),
+            title: DisclaimerText(text: opcion.title, color: Colors.white),
             onTap: () {
               // todo onTap
             }),
