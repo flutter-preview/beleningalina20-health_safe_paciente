@@ -34,59 +34,90 @@ class AutenticacionService with ChangeNotifier {
     await storage.delete(key: 'token');
   }
 
-  Future<bool> registroUsuario(
-      RegistroUsuarioRequest registroUsuarioRequest) async {
+  Future registroUsuario() async {
     isLoading = true;
-    Uri url = Uri.parse('${Environment.apiUrl}/usuarios/');
+    Uri url = Uri.parse("${Environment.apiUrl}/usuarios");
 
-    var request = http.MultipartRequest("post", url);
-    request.headers.addAll({'Content-Type': 'application/json'});
+    try {
+      /*var request = http.MultipartRequest("post", url)
+        ..headers.addAll({'Content-Type': 'application/json'})
+        ..fields.addAll({})
+        ..files.addAll([
+          http.MultipartFile.fromString('imagenPerfil', ''),
+          http.MultipartFile.fromString('imagenDniFrente', ''),
+          http.MultipartFile.fromString('imagenDniDorso', ''),
+        ]);
 
-    request.fields.addAll(registroUsuarioRequest.toJson());
+      var response = await request.send();
+      var resp = await http.Response.fromStream(response);
 
-    request.files.addAll([
-      http.MultipartFile.fromString(
-          'imagenPerfil', registroUsuarioRequest.imagenPerfil.path),
-      http.MultipartFile.fromString(
-          'imagenDniFrente', registroUsuarioRequest.imagenDniFrente.path),
-      http.MultipartFile.fromString(
-          'imagenDniDorso', registroUsuarioRequest.imagenDniDorso.path),
-    ]);
+      if (resp.statusCode != 201) return false;*/
+      isLoading = false;
+      /*
 
-    var response = await request.send();
-    var resp = await http.Response.fromStream(response);
+      final autenticacionUsuarioResponse =
+          autenticacionResponseFromJson(resp.body);*/
+      usuario = Usuario(
+        idusuario: 6,
+        correo: "maria-perez@gmail.com",
+        contrasena: "MariaPerez3",
+        dni: 25789654,
+        nombre: "Maria",
+        apellido: "Perez",
+        fechaNacimiento: DateTime(1984, 10, 25),
+        sexo: "FEMENINO",
+        imagenPerfil:
+            'https://aishlatino.com/wp-content/uploads/2021/11/que-tipo-de-persona-te-gustaria-ser-730x411-SP.jpg',
+        imagenDniFrente: "",
+        imagenDniDorso: "",
+        rol: Rol(idrol: 1, descripcion: "PACIENTE"),
+      );
+      await _guardarToken('token');
 
-    // body -> Connection refused
-
-    if (resp.statusCode != 201) return false;
-
-    final autenticacionUsuarioResponse =
-        autenticacionResponseFromJson(resp.body);
-    usuario = autenticacionUsuarioResponse.usuario;
-    await _guardarToken(autenticacionUsuarioResponse.token);
-
-    isLoading = false;
-
-    return true;
+      isLoading = false;
+    } catch (e) {
+      isLoading = false;
+      throw Exception(e.toString());
+    }
   }
 
-  Future<bool> login(LoginRequest loginRequest) async {
+  Future login(String correo, String contrasena) async {
     isLoading = true;
 
     var url = Uri.parse('${Environment.apiUrl}/api/auth/login');
 
-    final resp = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
-        body: loginRequest.toJson());
+    try {
+      /*final resp = await http.post(url,
+          headers: {'Content-Type': 'application/json'},
+          body: {'correo': correo, 'contrasena': contrasena});
 
-    if (resp.statusCode != 201) return false;
-    final loginUsuarioResponse = autenticacionResponseFromJson(resp.body);
-    usuario = loginUsuarioResponse.usuario;
-    await _guardarToken(loginUsuarioResponse.token);
+      if (resp.statusCode != 201) return false;*/
+      isLoading = false;
 
-    isLoading = false;
+      /*final loginUsuarioResponse = autenticacionResponseFromJson(resp.body);
+      usuario = loginUsuarioResponse.usuario;*/
 
-    return true;
+      usuario = Usuario(
+        idusuario: 6,
+        correo: "maria-perez@gmail.com",
+        contrasena: "MariaPerez3",
+        dni: 25789654,
+        nombre: "Maria",
+        apellido: "Perez",
+        fechaNacimiento: DateTime(1984, 10, 25),
+        sexo: "FEMENINO",
+        imagenPerfil:
+            'https://aishlatino.com/wp-content/uploads/2021/11/que-tipo-de-persona-te-gustaria-ser-730x411-SP.jpg',
+        imagenDniFrente: "",
+        imagenDniDorso: "",
+        rol: Rol(idrol: 1, descripcion: "PACIENTE"),
+      );
+
+      await _guardarToken('token');
+    } catch (e) {
+      isLoading = false;
+      throw Exception(e.toString());
+    }
   }
 
   Future _guardarToken(String token) async =>

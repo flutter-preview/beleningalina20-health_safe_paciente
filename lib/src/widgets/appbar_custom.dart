@@ -8,10 +8,7 @@ class AppbarCustom extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       actions: <Widget>[
         IconButton(
-            icon: const Icon(Icons.chat_bubble_outline_sharp),
-            onPressed: () {
-              // TODO Navegar a la casilla de mensajes
-            })
+            icon: const Icon(Icons.chat_bubble_outline_sharp), onPressed: () {})
       ],
     );
   }

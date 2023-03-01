@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/helpers/helpers.dart';
+import 'package:health_safe_paciente/src/resources/dimens.dart';
+import 'package:health_safe_paciente/src/widgets/text_custom.dart';
 
 class ElevatedButtonCustom extends StatelessWidget {
   final bool large;
@@ -7,6 +9,7 @@ class ElevatedButtonCustom extends StatelessWidget {
   final String text;
   final Color backgroundColor;
   final Color foregroundColor;
+  final EdgeInsetsGeometry? margin;
 
   const ElevatedButtonCustom(
       {super.key,
@@ -14,24 +17,23 @@ class ElevatedButtonCustom extends StatelessWidget {
       required this.onPressed,
       required this.text,
       this.backgroundColor = Colors.blue,
-      this.foregroundColor = Colors.white});
+      this.foregroundColor = Colors.white,
+      this.margin});
 
   @override
   Widget build(BuildContext context) {
     return Container(
         width: double.infinity,
-        margin: EdgeInsets.symmetric(
-            vertical: SizeConfig.height * 0.02,
-            horizontal: SizeConfig.height * 0.05),
+        margin: margin,
         child: ElevatedButton(
           onPressed: onPressed,
-          style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-                foregroundColor: MaterialStateProperty.resolveWith(
-                    (states) => foregroundColor),
-                backgroundColor: MaterialStateProperty.resolveWith(
-                    (states) => backgroundColor),
-              ),
-          child: Text(text),
+          style: ElevatedButton.styleFrom(
+              backgroundColor: backgroundColor,
+              padding: const EdgeInsets.all(15),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Dimens.radius))),
+          child: DisclaimerText(
+              text: text, color: foregroundColor, fontWeight: FontWeight.bold),
         ));
   }
 }

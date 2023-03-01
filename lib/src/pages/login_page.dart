@@ -50,20 +50,19 @@ class _FormLogin extends StatelessWidget {
         child: Column(
           children: [
             TextFormFieldCustom(
-                label: 'Correo',
-                labelColor: Colors.white,
-                keyboardType: TextInputType.emailAddress,
-                value: loginProvider.correo,
-                validator: (String? value) =>
-                    (value != '') ? null : 'Ingrese su correo'),
+              label: 'Correo',
+              labelColor: Colors.white,
+              keyboardType: TextInputType.emailAddress,
+              value: loginProvider.correo,
+              onChanged: (value) => loginProvider.correo = value,
+            ),
             SizedBox(height: SizeConfig.height * 0.03),
             TextFormFieldCustom(
                 label: 'Contraseña',
                 labelColor: Colors.white,
                 isPassword: true,
                 value: loginProvider.contrasena,
-                validator: (String? value) =>
-                    (value != '') ? null : 'Ingrese su contraseña'),
+                onChanged: (value) => loginProvider.contrasena = value),
             SizedBox(height: SizeConfig.height * 0.03),
             (!autenticacionService.isLoading)
                 ? ElevatedButtonCustom(
@@ -73,9 +72,7 @@ class _FormLogin extends StatelessWidget {
                         ? () => loginUsuario(context)
                         : () {},
                     text: 'Iniciar Sesión')
-                : const CircularProgressIndicatorCustom(),
-            if (autenticacionService.isLoading)
-              const CircularProgressIndicator()
+                : const CircularProgressIndicatorCustom()
           ],
         ),
       ),
@@ -90,14 +87,12 @@ class _FormLogin extends StatelessWidget {
     final autenticacionSevice =
         Provider.of<AutenticacionService>(context, listen: false);
 
-    await autenticacionSevice.login(loginProvider.loginRequest()).then((resp) {
-      if (resp) {
-        Navigator.of(context).pushReplacementNamed(HomePage.routeName);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Falló login de usuario')));
-        Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
-      }
+    await autenticacionSevice
+        .login(loginProvider.correo, loginProvider.contrasena)
+        .then((resp) =>
+            Navigator.of(context).pushReplacementNamed(HomePage.routeName))
+        .onError((error, stackTrace) {
+      // TODO
     });
   }
 }
@@ -106,11 +101,7 @@ class _RegistroUsuarioBoton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Text('¿No tienes cuenta aún?',
-          style: Theme.of(context)
-              .textTheme
-              .button!
-              .copyWith(color: Colors.white)),
+      const DisclaimerText(text: '¿No tienes cuenta aún?', color: Colors.white),
       TextButton(
           onPressed: () =>
               Navigator.pushNamed(context, RegistroUsuarioPage.routeName),

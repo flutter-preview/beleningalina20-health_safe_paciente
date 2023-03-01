@@ -106,18 +106,4 @@ class RegistroUsuarioProvider with ChangeNotifier {
     double edad = DateTime.now().difference(fechaNacimiento).inDays / 365;
     return edad >= 18;
   }
-
-  RegistroUsuarioRequest registroUsuarioRequest() {
-    return RegistroUsuarioRequest(
-        correo: correo,
-        contrasena: contrasena,
-        dni: dni,
-        nombre: nombre,
-        apellido: apellido,
-        imagenPerfil: imagenPerfil!,
-        imagenDniFrente: imagenDniFrente!,
-        imagenDniDorso: imagenDniDorso!,
-        sexo: sexo,
-        fechaNacimiento: fechaNacimiento!);
-  }
 }

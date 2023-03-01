@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/helpers/helpers.dart';
+import 'package:health_safe_paciente/src/services/autenticacion_service.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 
 class DrawerCustom extends StatelessWidget {
@@ -9,18 +11,18 @@ class DrawerCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO llamar a usuario provider
+    final autenticacionService = Provider.of<AutenticacionService>(context);
+    final usuario = autenticacionService.usuario;
 
     return Drawer(
         child: Container(
       color: ColorsApp.azulLogin,
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        const _HeaderDrawer(
-            urlImagenPerfil:
-                'https://aishlatino.com/wp-content/uploads/2021/11/que-tipo-de-persona-te-gustaria-ser-730x411-SP.jpg',
-            nombre: 'Belén',
-            apellido: 'Ingalina'),
+        _HeaderDrawer(
+            urlImagenPerfil: usuario.imagenPerfil,
+            nombre: usuario.nombre,
+            apellido: usuario.apellido),
         FutureBuilder(
           future: _DrawerProvider.drawerProvider.opciones,
           builder: (BuildContext context,

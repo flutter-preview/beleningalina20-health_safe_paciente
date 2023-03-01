@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/helpers/helpers.dart';
+import 'package:health_safe_paciente/src/widgets/text_custom.dart';
 
 class TextFormFieldCustom extends StatelessWidget {
   String value;
@@ -37,12 +38,7 @@ class TextFormFieldCustom extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label != null)
-          Text(label!,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2!
-                  .copyWith(color: labelColor)),
+        if (label != null) DescriptionText(text: label!, color: labelColor),
         SizedBox(height: SizeConfig.height * 0.015),
         Container(
           padding: EdgeInsets.symmetric(

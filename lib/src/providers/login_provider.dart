@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
 
 class LoginProvider with ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -16,8 +15,4 @@ class LoginProvider with ChangeNotifier {
   }
 
   bool isValidForm() => formKey.currentState?.validate() ?? false;
-
-  LoginRequest loginRequest() {
-    return LoginRequest(correo: correo, contrasena: contrasena);
-  }
 }

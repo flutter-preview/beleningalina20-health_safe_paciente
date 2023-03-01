@@ -44,30 +44,13 @@ class RegistroUsuarioPage extends StatelessWidget {
 class _TituloRegistroPaciente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Text(
-        'Registro de usuario',
-        style: Theme.of(context).textTheme.headline1!.copyWith(
-            color: Colors.white, decoration: TextDecoration.underline),
-      ),
-      SizedBox(width: SizeConfig.height * 0.015),
-      IconButton(
-          icon: Icon(Icons.help_outline_rounded,
-              color: Colors.white, size: SizeConfig.height * 0.035),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) => const AlertDialogCustom(content: [
-                      Text('Información para registrarse:'),
-                      Text(
-                          '1- Tomar foto del frente y dorso de su DNI para verificar que sus datos'),
-                      Text('2- Subir una foto de perfil'),
-                      Text('3- Completar sus datos personales'),
-                      Text(
-                          '4- Establecer un correo y una contraseña para el inicio de sesión'),
-                    ]));
-          })
-    ]);
+    return Text(
+      'Registro de usuario',
+      style: Theme.of(context)
+          .textTheme
+          .headline1!
+          .copyWith(color: Colors.white, decoration: TextDecoration.underline),
+    );
   }
 }
 
@@ -349,15 +332,9 @@ class _BotonFinalizar extends StatelessWidget {
         Provider.of<AutenticacionService>(context, listen: false);
 
     await autenticacionSevice
-        .registroUsuario(registroUsuarioProvider.registroUsuarioRequest())
-        .then((resp) {
-      if (resp) {
-        Navigator.of(context).pushReplacementNamed(HomePage.routeName);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Falló registro de usuario')));
-        Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
-      }
-    });
+        .registroUsuario()
+        .then((resp) =>
+            Navigator.of(context).pushReplacementNamed(HomePage.routeName))
+        .onError((error, stackTrace) {});
   }
 }

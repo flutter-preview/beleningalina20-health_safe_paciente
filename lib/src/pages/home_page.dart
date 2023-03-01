@@ -19,17 +19,15 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const LogoHealthSafe(textColor: Colors.black),
+              SizedBox(height: SizeConfig.height * 0.1),
               ElevatedButtonCustom(
-                onPressed: () {
-                  // TODO Navegar a sacar turno
-                },
+                onPressed: () {},
                 text: 'Sacar turno',
                 backgroundColor: ColorsApp.azulBusqueda,
               ),
+              SizedBox(height: SizeConfig.height * 0.03),
               ElevatedButtonCustom(
-                  onPressed: () {
-                    // TODO Navegar a solicitar asistencia inmediata
-                  },
+                  onPressed: () {},
                   text: 'Solicitar asistencia inmediata',
                   backgroundColor: ColorsApp.rojoAsistenciaInmediata),
             ],
