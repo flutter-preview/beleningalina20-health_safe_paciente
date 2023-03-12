@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/helpers/helpers.dart';
 import 'package:health_safe_paciente/src/theme/colors_app.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
 
@@ -9,7 +8,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Container(); /*SafeArea(
       child: Scaffold(
         appBar: const AppbarCustom(),
         body: Padding(
@@ -35,6 +34,6 @@ class HomePage extends StatelessWidget {
         ),
         drawer: const DrawerCustom(),
       ),
-    );
+    );*/
   }
 }

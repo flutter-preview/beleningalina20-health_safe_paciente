@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/services/services.dart';
-import 'package:health_safe_paciente/src/helpers/helpers.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
@@ -15,7 +14,7 @@ class RegistroUsuarioPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Container(); /* SafeArea(
         child: Scaffold(
             backgroundColor: ColorsApp.azulLogin,
             body: Padding(
@@ -37,11 +36,11 @@ class RegistroUsuarioPage extends StatelessWidget {
                       _BotonFinalizar()
                     ],
                   ),
-                ))));
+                ))));*/
   }
 }
 
-class _TituloRegistroPaciente extends StatelessWidget {
+/*class _TituloRegistroPaciente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -338,3 +337,4 @@ class _BotonFinalizar extends StatelessWidget {
         .onError((error, stackTrace) {});
   }
 }
+*/
