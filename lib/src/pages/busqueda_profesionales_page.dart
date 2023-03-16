@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
 import 'package:health_safe_paciente/src/services/services.dart';
@@ -70,9 +71,19 @@ class FiltrosBusquedaProfesionales extends StatelessWidget {
           ElevatedButtonCustom(
               text: "Buscar profesionales",
               onPressed: (busquedaProfesionalesProvider.esValidaBusqueda())
-                  ? () {
-                      // TODO Navegar al listado de profesionales
-                    }
+                  ? () => Navigator.pushNamed(
+                          context, ListadoProfesionalesPage.routeName,
+                          arguments: {
+                            'especialidad':
+                                busquedaProfesionalesProvider.especialidad,
+                            'modalidadAtencion':
+                                busquedaProfesionalesProvider.modalidadAtencion,
+                            'localidad': (busquedaProfesionalesProvider
+                                        .modalidadAtencion?.descripcion ==
+                                    "Presencial")
+                                ? busquedaProfesionalesProvider.localidad
+                                : null
+                          })
                   : null,
               backgroundColor: Colors.white,
               foregroundColor: ColorsApp.azulBusqueda)
@@ -178,11 +189,12 @@ class ListadoLocalidades extends StatelessWidget {
           (BuildContext context, AsyncSnapshot<List<Localidad>?> snapshot) {
         if (snapshot.hasData) {
           return DropDownButtonCustom<Localidad>(
-            label: 'Ciudad',
+            label: 'Localidad',
             labelColor: Colors.white,
             items: snapshot.data!,
-            value: busquedaProfesionalesProvider.ciudad,
-            onChanged: (value) => busquedaProfesionalesProvider.ciudad = value,
+            value: busquedaProfesionalesProvider.localidad,
+            onChanged: (value) =>
+                busquedaProfesionalesProvider.localidad = value,
           );
         } else {
           return Container();
