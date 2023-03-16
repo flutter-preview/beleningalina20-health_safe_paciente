@@ -16,16 +16,16 @@ class BusquedaProfesionalesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Localidad? _ciudad;
-  Localidad? get ciudad => _ciudad;
-  set ciudad(Localidad? value) {
-    _ciudad = value;
+  Localidad? _localidad;
+  Localidad? get localidad => _localidad;
+  set localidad(Localidad? value) {
+    _localidad = value;
     notifyListeners();
   }
 
   bool esValidaBusqueda() {
     if (especialidad == null || modalidadAtencion == null) return false;
-    if (modalidadAtencion?.descripcion == "Presencial" && ciudad == null) {
+    if (modalidadAtencion?.descripcion == "Presencial" && localidad == null) {
       return false;
     }
     return true;

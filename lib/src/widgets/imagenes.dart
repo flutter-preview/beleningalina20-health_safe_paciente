@@ -168,3 +168,25 @@ Future<void> _pickImage(BuildContext context, ImageSource source,
     onChanged(File(image.path));
   }
 }
+
+class ImagenPerfilProfesional extends StatelessWidget {
+  final String urlImagenPerfil;
+  const ImagenPerfilProfesional({super.key, required this.urlImagenPerfil});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(Dimens.roundedCornerRadius10),
+        child: FadeInImage(
+            placeholder: const AssetImage('assets/imgs/loading.gif'),
+            placeholderFit: BoxFit.cover,
+            imageErrorBuilder: (context, error, stackTrace) => const Image(
+                  image: AssetImage('assets/imgs/no-person.png'),
+                  height: 80,
+                  fit: BoxFit.cover,
+                ),
+            height: 80,
+            fit: BoxFit.cover,
+            image: NetworkImage(urlImagenPerfil)));
+  }
+}
