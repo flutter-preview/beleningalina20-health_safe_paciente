@@ -30,7 +30,6 @@ class Dimens {
   static double circleAvatarRadius70 = SizeConfig.height * 0.070;
   static double circleAvatarRadius30 = SizeConfig.height * 0.030;
 
-  static double iconSize30 = SizeConfig.height * 0.03;
   static double iconSize50 = SizeConfig.height * 0.05;
   static double iconSize60 = SizeConfig.height * 0.06;
   static double iconSize70 = SizeConfig.height * 0.07;

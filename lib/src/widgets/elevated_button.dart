@@ -8,7 +8,6 @@ class ElevatedButtonCustom extends StatelessWidget {
   final Color backgroundColor;
   final Color foregroundColor;
   final EdgeInsetsGeometry? margin;
-  final bool expanded;
 
   const ElevatedButtonCustom(
       {super.key,
@@ -16,8 +15,7 @@ class ElevatedButtonCustom extends StatelessWidget {
       required this.onPressed,
       this.backgroundColor = ColorsApp.azulBusqueda,
       this.foregroundColor = Colors.white,
-      this.margin,
-      this.expanded = true});
+      this.margin});
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +42,12 @@ class ElevatedButtonCustom extends StatelessWidget {
           elevation: Dimens.elevation2,
           // enableFeedback: ,
           // enabledMouseCursor: ,
-          fixedSize: (expanded) ? Size.fromWidth(SizeConfig.width) : null,
+          fixedSize: Size.fromWidth(SizeConfig.width),
           foregroundColor: foregroundColor,
           // maximumSize: ,
           // minimumSize: ,
           // onPrimary, primary, onSurface => Deprecado
-          padding: EdgeInsets.symmetric(
-              vertical: Dimens.padding20, horizontal: Dimens.padding10),
+          padding: EdgeInsets.symmetric(vertical: Dimens.padding20),
           // shadowColor: ,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(Dimens.roundedCornerRadius10),
@@ -70,13 +67,13 @@ class ElevatedButtonCustom extends StatelessWidget {
 }
 
 class TextButtonCustom extends StatelessWidget {
-  final String text;
+  final Widget child;
   final void Function() onPressed;
   final Color foregroundColor;
 
   const TextButtonCustom(
       {super.key,
-      required this.text,
+      required this.child,
       required this.onPressed,
       this.foregroundColor = Colors.lightBlue});
 
@@ -120,7 +117,7 @@ class TextButtonCustom extends StatelessWidget {
         ),
         // visualDensity: ,
       ),
-      child: Text(text),
+      child: child,
     );
   }
 }

@@ -128,7 +128,7 @@ class _RegistroUsuarioPage extends StatelessWidget {
       const DescriptionText(
           text: "¿No tienes cuenta aún?", color: Colors.white),
       TextButtonCustom(
-          text: "Registraté",
+          child: const Text("Registraté"),
           onPressed: () =>
               Navigator.of(context).pushNamed(RegistroUsuarioPage.routeName))
     ]);

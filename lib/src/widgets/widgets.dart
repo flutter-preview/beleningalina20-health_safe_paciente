@@ -1,4 +1,3 @@
-export 'package:health_safe_paciente/src/widgets/header_page.dart';
 export 'package:health_safe_paciente/src/widgets/circular_progress_indicator.dart';
 export 'package:health_safe_paciente/src/widgets/drawer.dart';
 export 'package:health_safe_paciente/src/widgets/appbar.dart';
@@ -6,8 +5,7 @@ export 'package:health_safe_paciente/src/widgets/alert_dialog.dart';
 export 'package:health_safe_paciente/src/widgets/drop_down_button.dart';
 export 'package:health_safe_paciente/src/widgets/imagenes.dart';
 export 'package:health_safe_paciente/src/widgets/logo_health_safe.dart';
-export 'package:health_safe_paciente/src/widgets/button.dart';
+export 'package:health_safe_paciente/src/widgets/elevated_button.dart';
 export 'package:health_safe_paciente/src/widgets/text_form_field.dart';
 export 'package:health_safe_paciente/src/widgets/text.dart';
 export 'package:health_safe_paciente/src/widgets/list_tile.dart';
-export 'package:health_safe_paciente/src/widgets/rating_bar.dart';
