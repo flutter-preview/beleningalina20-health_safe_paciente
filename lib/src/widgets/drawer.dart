@@ -14,7 +14,7 @@ class DrawerCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     final autenticacionService =
         Provider.of<AutenticacionService>(context, listen: false);
-    final usuario = autenticacionService.usuario;
+    final usuario = autenticacionService.usuario!;
 
     return Drawer(
       backgroundColor: ColorsApp.azulLogin,

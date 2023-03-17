@@ -8,8 +8,8 @@ class CircularProgressIndicatorCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: SizeConfig.height * 0.05,
-        width: SizeConfig.height * 0.05,
+        height: SizeConfig.height * 0.02,
+        width: SizeConfig.height * 0.02,
         margin: EdgeInsets.symmetric(vertical: Dimens.padding20),
         child: const CircularProgressIndicator());
   }

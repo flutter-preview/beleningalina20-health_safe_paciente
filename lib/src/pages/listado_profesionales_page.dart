@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/services.dart';
+import 'package:health_safe_paciente/src/theme/size_config.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
 
@@ -58,10 +59,14 @@ class _ListadoProfesionales extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<List<Profesional>> snapshot) {
         if (snapshot.hasData) {
+          print("Hay data");
           List<Profesional> profesionales = snapshot.data!;
           if (profesionales.isEmpty) {
+            print("Vacio");
             // TODO Mensaje de listado sin resultado
+            return Container(child: Text("No hay profesionales para mostrar"));
           } else {
+            print("Hay info");
             return ListView.separated(
               itemCount: profesionales.length,
               itemBuilder: (BuildContext context, int index) =>
@@ -74,9 +79,32 @@ class _ListadoProfesionales extends StatelessWidget {
           }
         }
         if (snapshot.hasError) {
-          // TODO Mensaje de error en la comunicacion
+          return Container(
+            alignment: Alignment.center,
+            color: Colors.white,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DescriptionText(
+                  text: snapshot.error.toString(),
+                  textAlign: TextAlign.center,
+                  fontWeight: FontWeight.bold,
+                ),
+                SizedBox(height: Dimens.padding10),
+                Icon(Icons.warning,
+                    color: Colors.orange, size: SizeConfig.height * 0.1),
+                ElevatedButtonCustom(
+                    margin: EdgeInsets.all(Dimens.padding20),
+                    text: "Atrás",
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })
+              ],
+            ),
+          );
         }
-        return const CircularProgressIndicatorCustom();
+        print("loading");
+        return Center(child: const CircularProgressIndicator());
       },
     );
   }

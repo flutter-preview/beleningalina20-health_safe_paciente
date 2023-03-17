@@ -1,8 +1,12 @@
 import 'dart:io';
-import 'package:health_safe_paciente/src/models/responses/obtener_localidades_response.dart';
+import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/services/mocks/obtener_localidades_response_mock.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/utils/api_exceptions.dart';
+import 'package:http/http.dart' as http;
+import 'package:health_safe_paciente/src/models/responses/obtener_localidades_response.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
+import 'package:health_safe_paciente/src/services/utils/api_response_mapper.dart';
+import 'package:health_safe_paciente/src/services/utils/environments.dart';
 
 class LocalidadService {
   static final LocalidadService localidadService = LocalidadService._();
@@ -18,27 +22,26 @@ class LocalidadService {
   Future<List<Localidad>?> obtenerLocalidades() async {
     return await obtenerLocalidadesService().then((value) {
       return value.localidades;
-    }).onError((error, stackTrace) {
-      // return null;
-      throw FetchDataException(msg: error.toString());
+    }).onError((Exception error, stackTrace) {
+      throw error;
     });
   }
 
   Future<ObtenerLocalidadesResponse> obtenerLocalidadesService() async {
-    // late Map<String, dynamic> response;
-    // Uri url = Uri.parse('${Environments.apiUrl}/localidades/');
+    late Map<String, dynamic> response;
+    Uri url = Uri.parse('${Environments.apiUrl}/localidades/');
 
     try {
-      /*final resp = await http.get(url).timeout(const Duration(seconds: 3));
+      return obtenerLocalidadesResponseMock;
+      final resp = await http.get(url).timeout(const Duration(seconds: 3));
 
       debugPrint(resp.body.toString());
 
       response = apiResponseMapper(resp);
 
-      return ObtenerEspecialidadesResponse.fromJson(response);*/
-      return obtenerLocalidadesResponseMock;
+      return ObtenerLocalidadesResponse.fromJson(response);
     } on SocketException {
-      throw FetchDataException(msg: 'No Internet Connection');
+      throw ApiException(message: 'Falló la comunicación con el servidor');
     } catch (e) {
       rethrow;
     }

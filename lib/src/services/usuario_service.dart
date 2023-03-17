@@ -1,37 +1,51 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/services/mocks/registro_usuario_response_mock.dart';
-import 'package:health_safe_paciente/src/services/utils/api_exceptions.dart';
+import 'package:http/http.dart' as http;
+import 'package:health_safe_paciente/src/services/utils/api_response_mapper.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/models/responses/registro_usuario_response.dart';
-import 'package:health_safe_paciente/src/services/utils/api_response.dart';
+import 'package:health_safe_paciente/src/services/utils/api_exceptions.dart';
+import 'package:health_safe_paciente/src/services/utils/environments.dart';
+import 'package:health_safe_paciente/src/services/utils/local_storage_manager.dart';
 
 class UsuarioService extends ChangeNotifier {
-  ApiResponse<RegistroUsuarioResponse>? _registroStatus;
-  ApiResponse<RegistroUsuarioResponse>? get registroStatus => _registroStatus;
-  set registroStatus(ApiResponse<RegistroUsuarioResponse>? value) {
-    _registroStatus = value;
+  Usuario? _usuario;
+  bool _isLoading = false;
+
+  Usuario? get usuario => _usuario;
+  set usuario(Usuario? value) {
+    _usuario = value;
+    notifyListeners();
+  }
+
+  bool get isLoading => _isLoading;
+  set isLoading(bool value) {
+    _isLoading = value;
     notifyListeners();
   }
 
   Future registro(Map<String, String> data, File imagenPerfil,
       File imagenDniFrente, File imagenDniDorso) async {
-    registroStatus = ApiResponse.loading();
+    isLoading = true;
 
     await registroService(data, imagenPerfil, imagenDniFrente, imagenDniDorso)
         .then((value) {
-      registroStatus = ApiResponse.completed(value);
-    }).onError((error, stackTrace) {
-      registroStatus = ApiResponse.error(error.toString());
+      isLoading = false;
+      usuario = value.usuario;
+      LocalStorage.localStorage.setToken(value.token);
+    }).onError((Exception error, stackTrace) {
+      isLoading = false;
+      throw error;
     });
   }
 
   Future<RegistroUsuarioResponse> registroService(Map<String, String> data,
       File imagenPerfil, File imagenDniFrente, File imagenDniDorso) async {
-    // late Map<String, dynamic> response;
-    // Uri url = Uri.parse('${Environments.apiUrl}/usuarios/');
+    late Map<String, dynamic> response;
+    Uri url = Uri.parse('${Environments.apiUrl}/usuarios/');
 
     try {
-      /*http.MultipartRequest request = http.MultipartRequest("post", url)
+      http.MultipartRequest request = http.MultipartRequest("post", url)
         ..fields.addAll(data)
         ..files.addAll([
           await http.MultipartFile.fromPath('imagenPerfil', imagenPerfil.path),
@@ -49,10 +63,9 @@ class UsuarioService extends ChangeNotifier {
 
       response = apiResponseMapper(resp);
 
-      return RegistroUsuarioResponse.fromJson(response);*/
-      return registroUsuaarioResponseMock;
+      return RegistroUsuarioResponse.fromJson(response);
     } on SocketException {
-      throw FetchDataException(msg: 'No Internet Connection');
+      throw ApiException(message: 'Falló la comunicación con el servidor');
     } catch (e) {
       rethrow;
     }

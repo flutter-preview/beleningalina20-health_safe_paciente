@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/services/services.dart';
-import 'package:health_safe_paciente/src/services/utils/services_status.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
 import 'package:health_safe_paciente/src/theme/size_config.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
@@ -68,7 +67,7 @@ class _LoginForm extends StatelessWidget {
               value: loginFormProvider.contrasena,
               onChanged: (String value) => loginFormProvider.contrasena = value,
             ),
-            (autenticacionService.loginStatus?.status == Status.LOADING)
+            (autenticacionService.isLoading)
                 ? Padding(
                     padding: EdgeInsets.all(Dimens.padding40),
                     child: const Center(child: CircularProgressIndicator()),
@@ -79,7 +78,6 @@ class _LoginForm extends StatelessWidget {
                     onPressed: (loginFormProvider.isValidForm())
                         ? () async {
                             FocusScope.of(context).unfocus();
-
                             await login(
                               context,
                               autenticacionService,
@@ -97,24 +95,27 @@ class _LoginForm extends StatelessWidget {
 
   Future<void> login(BuildContext context, AutenticacionService service,
       String correo, String contrasena) async {
-    await service.login(correo, contrasena).then((value) {
-      switch (service.loginStatus?.status) {
-        case Status.COMPLETED:
-          // TODO Validar que el usuario tenga creado su registro de paciente
-          // true -> home
-          // false -> registroPaciente
+    await service.login(correo, contrasena).then(
+      (_) {
+        var registroCompleto = true;
+        if (registroCompleto) {
           Navigator.of(context).pushReplacementNamed(HomePage.routeName);
-          break;
-
-        case Status.ERROR:
-          showDialogCustom(context, [
-            const DescriptionText(
-                text: "El correo y/o contraseña son incorrectos.",
-                textAlign: TextAlign.center),
+        } else {
+          // TODO Navegar registro paciente
+        }
+      },
+    ).onError((Exception error, stackTrace) {
+      showDialogCustom(
+          context,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          [
+            DescriptionText(
+                text: error.toString(), textAlign: TextAlign.center),
+            SizedBox(height: Dimens.padding10),
+            Icon(Icons.warning,
+                color: Colors.orange, size: SizeConfig.height * 0.1),
           ]);
-          break;
-        default:
-      }
     });
   }
 }

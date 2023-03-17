@@ -68,6 +68,7 @@ class FiltrosBusquedaProfesionales extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Filtros(),
+          SizedBox(height: Dimens.padding30),
           ElevatedButtonCustom(
               text: "Buscar profesionales",
               onPressed: (busquedaProfesionalesProvider.esValidaBusqueda())
@@ -103,7 +104,6 @@ class Filtros extends StatelessWidget {
 
     return Column(
       children: [
-        SizedBox(height: Dimens.padding30),
         const ListadoEspecialidades(),
         SizedBox(height: Dimens.padding30),
         const ListadoModalidadesAtencion(),
@@ -128,18 +128,14 @@ class ListadoEspecialidades extends StatelessWidget {
       future: EspecialidadService.especialidadService.especialidades,
       builder:
           (BuildContext context, AsyncSnapshot<List<Especialidad>?> snapshot) {
-        if (snapshot.hasData) {
-          return DropDownButtonCustom<Especialidad>(
-            label: 'Especialidad',
-            labelColor: Colors.white,
-            items: snapshot.data!,
-            value: busquedaProfesionalesProvider.especialidad,
-            onChanged: (value) =>
-                busquedaProfesionalesProvider.especialidad = value,
-          );
-        } else {
-          return Container();
-        }
+        return DropDownButtonCustom<Especialidad>(
+          label: 'Especialidad',
+          labelColor: Colors.white,
+          items: snapshot.data ?? [],
+          value: busquedaProfesionalesProvider.especialidad,
+          onChanged: (value) =>
+              busquedaProfesionalesProvider.especialidad = value,
+        );
       },
     );
   }
@@ -158,18 +154,14 @@ class ListadoModalidadesAtencion extends StatelessWidget {
           ModalidadAtencionService.modalidadAtencionService.modalidadesAtencion,
       builder: (BuildContext context,
           AsyncSnapshot<List<ModalidadAtencion>?> snapshot) {
-        if (snapshot.hasData) {
-          return DropDownButtonCustom<ModalidadAtencion>(
-            label: 'Modalidad Atención',
-            labelColor: Colors.white,
-            items: snapshot.data!,
-            value: busquedaProfesionalesProvider.modalidadAtencion,
-            onChanged: (value) =>
-                busquedaProfesionalesProvider.modalidadAtencion = value,
-          );
-        } else {
-          return Container();
-        }
+        return DropDownButtonCustom<ModalidadAtencion>(
+          label: 'Modalidad Atención',
+          labelColor: Colors.white,
+          items: snapshot.data ?? [],
+          value: busquedaProfesionalesProvider.modalidadAtencion,
+          onChanged: (value) =>
+              busquedaProfesionalesProvider.modalidadAtencion = value,
+        );
       },
     );
   }
@@ -187,18 +179,13 @@ class ListadoLocalidades extends StatelessWidget {
       future: LocalidadService.localidadService.localidades,
       builder:
           (BuildContext context, AsyncSnapshot<List<Localidad>?> snapshot) {
-        if (snapshot.hasData) {
-          return DropDownButtonCustom<Localidad>(
-            label: 'Localidad',
-            labelColor: Colors.white,
-            items: snapshot.data!,
-            value: busquedaProfesionalesProvider.localidad,
-            onChanged: (value) =>
-                busquedaProfesionalesProvider.localidad = value,
-          );
-        } else {
-          return Container();
-        }
+        return DropDownButtonCustom<Localidad>(
+          label: 'Localidad',
+          labelColor: Colors.white,
+          items: snapshot.data ?? [],
+          value: busquedaProfesionalesProvider.localidad,
+          onChanged: (value) => busquedaProfesionalesProvider.localidad = value,
+        );
       },
     );
   }

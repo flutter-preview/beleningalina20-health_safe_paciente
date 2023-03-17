@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/pages/login_page.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
 import 'package:health_safe_paciente/src/services/usuario_service.dart';
-import 'package:health_safe_paciente/src/services/utils/services_status.dart';
 import 'package:health_safe_paciente/src/theme/size_config.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
@@ -113,8 +112,11 @@ class _RegistroUsuarioForm extends StatelessWidget {
             ),
           ),
           const _DeclaracionTerminosCondiciones(),
-          (usuarioService.registroStatus?.status != Status.LOADING)
-              ? ElevatedButtonCustom(
+          (usuarioService.isLoading)
+              ? Padding(
+                  padding: EdgeInsets.all(Dimens.padding20),
+                  child: const CircularProgressIndicator())
+              : ElevatedButtonCustom(
                   margin: EdgeInsets.all(Dimens.padding20),
                   onPressed: (registroUsuarioFormProvider.isValidForm())
                       ? () async {
@@ -163,9 +165,6 @@ class _RegistroUsuarioForm extends StatelessWidget {
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.blue,
                 )
-              : Padding(
-                  padding: EdgeInsets.all(Dimens.padding20),
-                  child: const CircularProgressIndicator())
         ],
       ),
     );
@@ -178,30 +177,25 @@ class _RegistroUsuarioForm extends StatelessWidget {
     await usuarioService
         .registro(data, imagenPerfil, imagenDniFrente, imagenDniDorso)
         .then((value) {
-      switch (usuarioService.registroStatus?.status) {
-        case Status.COMPLETED:
-          // TODO Navegar a registro de paciente
-          break;
-        case Status.ERROR:
-          showDialogCustom(
-              context,
-              [
-                const DescriptionText(
-                  text: "Este email ya se encuentra registrado. Inicie sesión",
-                  textAlign: TextAlign.center,
-                  fontWeight: FontWeight.bold,
-                ),
-                Icon(Icons.warning,
-                    color: Colors.orange, size: SizeConfig.height * 0.1),
-              ],
-              onAccept: () => Navigator.of(context).pushNamedAndRemoveUntil(
-                  LoginPage.routeName, (route) => false),
-              barrierDismissible: false,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center);
-          break;
-        default:
-      }
+      // TODO Navegar a registro de paciente
+    }).onError((error, stackTrace) {
+      showDialogCustom(
+          context,
+          [
+            DescriptionText(
+              text: error.toString(),
+              textAlign: TextAlign.center,
+              fontWeight: FontWeight.bold,
+            ),
+            SizedBox(height: Dimens.padding10),
+            Icon(Icons.warning,
+                color: Colors.orange, size: SizeConfig.height * 0.1),
+          ],
+          onAccept: () => Navigator.of(context)
+              .pushNamedAndRemoveUntil(LoginPage.routeName, (route) => false),
+          barrierDismissible: false,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center);
     });
   }
 }
