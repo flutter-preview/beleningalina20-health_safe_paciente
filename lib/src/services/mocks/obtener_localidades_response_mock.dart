@@ -1,5 +1,4 @@
 import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:health_safe_paciente/src/models/responses/obtener_localidades_response.dart';
 
 ObtenerLocalidadesResponse obtenerLocalidadesResponseMock =
     ObtenerLocalidadesResponse(localidades: [

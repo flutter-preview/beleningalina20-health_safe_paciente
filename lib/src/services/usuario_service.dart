@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:health_safe_paciente/src/services/utils/api_response_mapper.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:health_safe_paciente/src/models/responses/registro_usuario_response.dart';
 import 'package:health_safe_paciente/src/services/utils/api_exceptions.dart';
 import 'package:health_safe_paciente/src/services/utils/environments.dart';
 import 'package:health_safe_paciente/src/services/utils/local_storage_manager.dart';

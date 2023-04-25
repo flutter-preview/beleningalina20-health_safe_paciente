@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/pages/login_page.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
 import 'package:health_safe_paciente/src/services/usuario_service.dart';
-import 'package:health_safe_paciente/src/theme/size_config.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
 import 'package:health_safe_paciente/src/helpers/functions/date_time_extension.dart';

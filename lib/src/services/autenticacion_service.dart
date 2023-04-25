@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/services/mocks/login_response_mock.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/utils/api_exceptions.dart';
-import 'package:health_safe_paciente/src/services/utils/api_response_mapper.dart';
-import 'package:health_safe_paciente/src/services/utils/environments.dart';
+// import 'package:health_safe_paciente/src/services/utils/api_response_mapper.dart';
+// import 'package:health_safe_paciente/src/services/utils/environments.dart';
 import 'package:health_safe_paciente/src/services/utils/local_storage_manager.dart';
 
 class AutenticacionService extends ChangeNotifier {
@@ -43,12 +43,12 @@ class AutenticacionService extends ChangeNotifier {
   }
 
   Future<LoginResponse> loginService(String correo, String contrasena) async {
-    late Map<String, dynamic> response;
-    Uri url = Uri.parse('${Environments.apiUrl}/autenticacion/login');
+    // late Map<String, dynamic> response;
+    // Uri url = Uri.parse('${Environments.apiUrl}/autenticacion/login');
 
     try {
       return loginResponseMock;
-      final resp = await http.post(url, body: {
+      /*final resp = await http.post(url, body: {
         'correo': correo,
         'contrasena': contrasena
       }).timeout(const Duration(seconds: 3));
@@ -57,7 +57,7 @@ class AutenticacionService extends ChangeNotifier {
 
       response = apiResponseMapper(resp);
 
-      return LoginResponse.fromJson(response);
+      return LoginResponse.fromJson(response);*/
     } on SocketException {
       throw ApiException(message: 'Falló la comunicación con el servidor');
     } catch (e) {

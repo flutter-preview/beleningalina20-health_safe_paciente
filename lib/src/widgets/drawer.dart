@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:health_safe_paciente/src/theme/size_config.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/services/services.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';

@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/services/services.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
-import 'package:health_safe_paciente/src/theme/size_config.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
 
@@ -97,25 +96,14 @@ class _LoginForm extends StatelessWidget {
       String correo, String contrasena) async {
     await service.login(correo, contrasena).then(
       (_) {
-        var registroCompleto = true;
-        if (registroCompleto) {
+        if (true) {
           Navigator.of(context).pushReplacementNamed(HomePage.routeName);
         } else {
           // TODO Navegar registro paciente
         }
       },
     ).onError((Exception error, stackTrace) {
-      showDialogCustom(
-          context,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          [
-            DescriptionText(
-                text: error.toString(), textAlign: TextAlign.center),
-            SizedBox(height: Dimens.padding10),
-            Icon(Icons.warning,
-                color: Colors.orange, size: SizeConfig.height * 0.1),
-          ]);
+      // TODO Login mensaje de error
     });
   }
 }

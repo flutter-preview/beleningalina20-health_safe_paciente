@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/theme/size_config.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 
 class CircularProgressIndicatorCustom extends StatelessWidget {

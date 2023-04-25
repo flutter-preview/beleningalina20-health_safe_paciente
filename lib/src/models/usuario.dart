@@ -5,7 +5,7 @@ Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
 
 class Usuario {
   Usuario({
-    required this.idusuario,
+    required this.id,
     required this.correo,
     required this.contrasena,
     required this.dni,
@@ -21,7 +21,7 @@ class Usuario {
     required this.rol,
   });
 
-  int idusuario;
+  int id;
   String correo;
   String contrasena;
   int dni;
@@ -37,7 +37,7 @@ class Usuario {
   Rol rol;
 
   factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(
-        idusuario: json["idusuario"],
+        id: json["idusuario"],
         correo: json["correo"],
         contrasena: json["contrasena"],
         dni: json["dni"],

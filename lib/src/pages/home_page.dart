@@ -39,9 +39,7 @@ class _BotonesNavegacionHome extends StatelessWidget {
           margin: EdgeInsets.only(bottom: Dimens.padding40)),
       ElevatedButtonCustom(
           text: "Solicitar asistencia inmediata",
-          onPressed: () {
-            // TODO Navegar sala de asistencia inmediata
-          },
+          onPressed: () => {}, // TODO Navegar sala de asistencia inmediata
           backgroundColor: ColorsApp.rojoAsistenciaInmediata,
           margin: EdgeInsets.only(bottom: Dimens.padding40))
     ]);

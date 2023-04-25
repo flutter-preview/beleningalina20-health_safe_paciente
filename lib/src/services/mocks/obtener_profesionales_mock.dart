@@ -1,14 +1,13 @@
 import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:health_safe_paciente/src/models/responses/obtener_profesionales_response.dart';
 
 ObtenerProfesionalesResponse obtenerProfesionalesResponseMock =
     ObtenerProfesionalesResponse(profesionales: [
   Profesional(
-      idprofesional: 1,
+      id: 1,
       createdAt: DateTime(2023, 03, 14, 0, 34, 22),
       updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
       usuario: Usuario(
-        idusuario: 1,
+        id: 1,
         correo: "mariajuarez@gmail.com",
         contrasena: "",
         dni: 34564234,
@@ -20,7 +19,7 @@ ObtenerProfesionalesResponse obtenerProfesionalesResponseMock =
             'https://res.cloudinary.com/healthsafeapp/image/upload/v1678944556/profesional_avatar_2_xhik8b.jpg',
         imagenDniFrente: "",
         imagenDniDorso: "",
-        rol: Rol(idrol: 1, descripcion: "Profesional"),
+        rol: Rol(id: 1, descripcion: "Profesional"),
         createdAt: DateTime(2023, 03, 14, 0, 34, 22),
         updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
       ),
@@ -31,7 +30,7 @@ ObtenerProfesionalesResponse obtenerProfesionalesResponseMock =
       especialidades: [
         EspecialidadProfesional(
             especialidad: Especialidad(
-              idEspecialidad: 1,
+              id: 1,
               descripcion: "Médico General",
               createdAt: DateTime(2023, 03, 14, 0, 34, 22),
               updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
@@ -39,7 +38,7 @@ ObtenerProfesionalesResponse obtenerProfesionalesResponseMock =
             anoOtorgamiento: 2010),
         EspecialidadProfesional(
             especialidad: Especialidad(
-              idEspecialidad: 2,
+              id: 2,
               descripcion: "Cardiología",
               createdAt: DateTime(2023, 03, 14, 0, 34, 22),
               updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
@@ -48,39 +47,39 @@ ObtenerProfesionalesResponse obtenerProfesionalesResponseMock =
       ],
       matriculasProfesionales: [
         MatriculaProfesional(
-            idmatriculaprofesional: 1,
+            id: 1,
             numeroMatricula: 123456,
             tipoMatriculaProfesional: TipoMatriculaProfesional(
-              idtipomatricula: 1,
+              id: 1,
               descripcion: "MN",
               createdAt: DateTime(2023, 03, 14, 0, 34, 22),
               updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
             ),
-            universidad: Universidad(iduniversidad: 1, descripcion: "UNT"),
+            universidad: Universidad(id: 1, descripcion: "UNT"),
             createdAt: DateTime(2023, 03, 14, 0, 34, 22),
             updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
             anoOtorgamiento: 2010),
         MatriculaProfesional(
-            idmatriculaprofesional: 2,
+            id: 2,
             numeroMatricula: 123457,
             tipoMatriculaProfesional: TipoMatriculaProfesional(
-              idtipomatricula: 2,
+              id: 2,
               descripcion: "MP - Tucumán",
               createdAt: DateTime(2023, 03, 14, 0, 34, 22),
               updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
             ),
-            universidad: Universidad(
-                iduniversidad: 1, descripcion: "Universidad San Pablo - T"),
+            universidad:
+                Universidad(id: 1, descripcion: "Universidad San Pablo - T"),
             createdAt: DateTime(2023, 03, 14, 0, 34, 22),
             updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
             anoOtorgamiento: 2013),
       ]),
   Profesional(
-      idprofesional: 3,
+      id: 3,
       createdAt: DateTime(2023, 03, 14, 0, 34, 22),
       updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
       usuario: Usuario(
-        idusuario: 3,
+        id: 3,
         correo: "juanperez@gmail.com",
         contrasena: "",
         dni: 34564234,
@@ -92,7 +91,7 @@ ObtenerProfesionalesResponse obtenerProfesionalesResponseMock =
             'https://res.cloudinary.com/healthsafeapp/image/upload/v1678944554/profesional_avatar_1_ioyjpm.png',
         imagenDniFrente: "",
         imagenDniDorso: "",
-        rol: Rol(idrol: 1, descripcion: "Profesional"),
+        rol: Rol(id: 1, descripcion: "Profesional"),
         createdAt: DateTime(2023, 03, 14, 0, 34, 22),
         updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
       ),
@@ -103,7 +102,7 @@ ObtenerProfesionalesResponse obtenerProfesionalesResponseMock =
       especialidades: [
         EspecialidadProfesional(
             especialidad: Especialidad(
-              idEspecialidad: 1,
+              id: 1,
               descripcion: "Médico General",
               createdAt: DateTime(2023, 03, 14, 0, 34, 22),
               updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
@@ -111,7 +110,7 @@ ObtenerProfesionalesResponse obtenerProfesionalesResponseMock =
             anoOtorgamiento: 2010),
         EspecialidadProfesional(
             especialidad: Especialidad(
-              idEspecialidad: 3,
+              id: 3,
               descripcion: "Gastroenterología",
               createdAt: DateTime(2023, 03, 14, 0, 34, 22),
               updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
@@ -120,29 +119,29 @@ ObtenerProfesionalesResponse obtenerProfesionalesResponseMock =
       ],
       matriculasProfesionales: [
         MatriculaProfesional(
-            idmatriculaprofesional: 5,
+            id: 5,
             numeroMatricula: 123459,
             tipoMatriculaProfesional: TipoMatriculaProfesional(
-              idtipomatricula: 1,
+              id: 1,
               descripcion: "MN",
               createdAt: DateTime(2023, 03, 14, 0, 34, 22),
               updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
             ),
-            universidad: Universidad(iduniversidad: 1, descripcion: "UNT"),
+            universidad: Universidad(id: 1, descripcion: "UNT"),
             createdAt: DateTime(2023, 03, 14, 0, 34, 22),
             updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
             anoOtorgamiento: 2010),
         MatriculaProfesional(
-            idmatriculaprofesional: 5,
+            id: 5,
             numeroMatricula: 123480,
             tipoMatriculaProfesional: TipoMatriculaProfesional(
-              idtipomatricula: 2,
+              id: 2,
               descripcion: "MP - Tucumán",
               createdAt: DateTime(2023, 03, 14, 0, 34, 22),
               updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
             ),
-            universidad: Universidad(
-                iduniversidad: 1, descripcion: "Universidad San Pablo - T"),
+            universidad:
+                Universidad(id: 1, descripcion: "Universidad San Pablo - T"),
             createdAt: DateTime(2023, 03, 14, 0, 34, 22),
             updatedAt: DateTime(2023, 03, 14, 0, 34, 22),
             anoOtorgamiento: 2013),

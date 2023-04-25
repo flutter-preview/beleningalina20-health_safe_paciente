@@ -104,21 +104,21 @@ class Filtros extends StatelessWidget {
 
     return Column(
       children: [
-        const ListadoEspecialidades(),
+        const MenuEspecialidades(),
         SizedBox(height: Dimens.padding30),
-        const ListadoModalidadesAtencion(),
+        const MenuModalidadesAtencion(),
         SizedBox(height: Dimens.padding30),
         (busquedaProfesionalesProvider.modalidadAtencion?.descripcion ==
                 "Presencial")
-            ? const ListadoLocalidades()
+            ? const MenuLocalidades()
             : Container()
       ],
     );
   }
 }
 
-class ListadoEspecialidades extends StatelessWidget {
-  const ListadoEspecialidades({super.key});
+class MenuEspecialidades extends StatelessWidget {
+  const MenuEspecialidades({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -141,8 +141,8 @@ class ListadoEspecialidades extends StatelessWidget {
   }
 }
 
-class ListadoModalidadesAtencion extends StatelessWidget {
-  const ListadoModalidadesAtencion({super.key});
+class MenuModalidadesAtencion extends StatelessWidget {
+  const MenuModalidadesAtencion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -167,8 +167,8 @@ class ListadoModalidadesAtencion extends StatelessWidget {
   }
 }
 
-class ListadoLocalidades extends StatelessWidget {
-  const ListadoLocalidades({super.key});
+class MenuLocalidades extends StatelessWidget {
+  const MenuLocalidades({super.key});
 
   @override
   Widget build(BuildContext context) {

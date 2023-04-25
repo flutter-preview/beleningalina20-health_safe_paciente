@@ -2,7 +2,7 @@ import 'package:health_safe_paciente/src/models/models.dart';
 
 class MatriculaProfesional {
   MatriculaProfesional({
-    required this.idmatriculaprofesional,
+    required this.id,
     required this.numeroMatricula,
     required this.tipoMatriculaProfesional,
     required this.universidad,
@@ -11,7 +11,7 @@ class MatriculaProfesional {
     required this.anoOtorgamiento,
   });
 
-  int idmatriculaprofesional;
+  int id;
   int numeroMatricula;
   TipoMatriculaProfesional tipoMatriculaProfesional;
   Universidad universidad;
@@ -21,7 +21,7 @@ class MatriculaProfesional {
 
   factory MatriculaProfesional.fromJson(Map<String, dynamic> json) =>
       MatriculaProfesional(
-        idmatriculaprofesional: json["idmatriculaprofesional"],
+        id: json["idmatriculaprofesional"],
         numeroMatricula: json["numero"],
         tipoMatriculaProfesional: TipoMatriculaProfesional.fromJson(
             json["tipo_matricula_profesional"]),

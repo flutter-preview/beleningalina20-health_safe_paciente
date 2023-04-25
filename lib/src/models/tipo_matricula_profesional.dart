@@ -1,19 +1,19 @@
 class TipoMatriculaProfesional {
   TipoMatriculaProfesional({
-    required this.idtipomatricula,
+    required this.id,
     required this.descripcion,
     required this.createdAt,
     required this.updatedAt,
   });
 
-  int idtipomatricula;
+  int id;
   String descripcion;
   DateTime createdAt;
   DateTime updatedAt;
 
   factory TipoMatriculaProfesional.fromJson(Map<String, dynamic> json) =>
       TipoMatriculaProfesional(
-          idtipomatricula: json["idtipomatricula"],
+          id: json["idtipomatricula"],
           descripcion: json["descripcion"],
           createdAt: DateTime.parse(json["createdAt"]),
           updatedAt: DateTime.parse(json["updatedAt"]));

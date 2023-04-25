@@ -2,7 +2,7 @@ import 'package:health_safe_paciente/src/models/models.dart';
 
 class Profesional {
   Profesional(
-      {required this.idprofesional,
+      {required this.id,
       this.descripcion,
       required this.createdAt,
       required this.updatedAt,
@@ -14,7 +14,7 @@ class Profesional {
       this.calificacion = 0.0,
       this.cantidadOpiniones = 0});
 
-  int idprofesional;
+  int id;
   String? descripcion;
   DateTime createdAt;
   DateTime updatedAt;
@@ -28,7 +28,7 @@ class Profesional {
   int cantidadOpiniones;
 
   factory Profesional.fromJson(Map<String, dynamic> json) => Profesional(
-      idprofesional: json["idprofesional"],
+      id: json["idprofesional"],
       descripcion: json["descripcion"],
       createdAt: DateTime.parse(json["createdAt"]),
       updatedAt: DateTime.parse(json["updatedAt"]),

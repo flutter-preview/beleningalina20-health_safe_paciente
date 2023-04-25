@@ -1,8 +1,4 @@
-import 'dart:convert';
 import 'package:health_safe_paciente/src/models/models.dart';
-
-LoginResponse autenticacionResponseFromJson(String str) =>
-    LoginResponse.fromJson(json.decode(str));
 
 class LoginResponse {
   LoginResponse({
