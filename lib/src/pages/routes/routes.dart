@@ -9,4 +9,5 @@ Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
           const BusquedaProfesionalesPage(),
       ListadoProfesionalesPage.routeName: (_) =>
           const ListadoProfesionalesPage(),
+      PerfilProfesionalPage.routeName: (_) => const PerfilProfesionalPage()
     };

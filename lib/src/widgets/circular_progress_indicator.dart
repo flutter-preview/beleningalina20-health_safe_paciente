@@ -9,7 +9,7 @@ class CircularProgressIndicatorCustom extends StatelessWidget {
     return Container(
         height: SizeConfig.height * 0.02,
         width: SizeConfig.height * 0.02,
-        margin: EdgeInsets.symmetric(vertical: Dimens.padding20),
+        margin: EdgeInsets.symmetric(vertical: Dimens.dimens20),
         child: const CircularProgressIndicator());
   }
 }

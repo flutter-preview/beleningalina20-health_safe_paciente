@@ -18,7 +18,7 @@ class HeaderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.symmetric(
-            vertical: Dimens.padding20, horizontal: Dimens.padding10),
+            vertical: Dimens.dimens20, horizontal: Dimens.dimens10),
         color: ColorsApp.azulBusqueda,
         child: Row(
           children: [
@@ -28,7 +28,7 @@ class HeaderPage extends StatelessWidget {
                     text: title,
                     color: Colors.white,
                     textAlign: TextAlign.center,
-                    fontSize: (title.length > 32) ? Dimens.fontSize20 : null)),
+                    fontSize: (title.length > 32) ? Dimens.dimens20 : null)),
             sufixIcon ?? Container()
           ],
         ));

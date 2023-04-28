@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: ColorsApp.azulLogin,
         body: Padding(
-          padding: EdgeInsets.all(Dimens.padding20),
+          padding: EdgeInsets.all(Dimens.dimens20),
           child: LayoutBuilder(
             builder: (context, constraint) => SingleChildScrollView(
               // https://github.com/flutter/flutter/issues/18711
@@ -61,18 +61,18 @@ class _LoginForm extends StatelessWidget {
             EmailTextFormField(
               onChanged: (String value) => loginFormProvider.correo = value,
             ),
-            SizedBox(height: Dimens.padding30),
+            SizedBox(height: Dimens.dimens30),
             ContrasenaTextFormField(
               value: loginFormProvider.contrasena,
               onChanged: (String value) => loginFormProvider.contrasena = value,
             ),
             (autenticacionService.isLoading)
                 ? Padding(
-                    padding: EdgeInsets.all(Dimens.padding40),
+                    padding: EdgeInsets.all(Dimens.dimens40),
                     child: const Center(child: CircularProgressIndicator()),
                   )
                 : ElevatedButtonCustom(
-                    margin: EdgeInsets.only(top: Dimens.padding40),
+                    margin: EdgeInsets.only(top: Dimens.dimens40),
                     text: 'Iniciar sesión',
                     onPressed: (loginFormProvider.isValidForm())
                         ? () async {
@@ -96,11 +96,11 @@ class _LoginForm extends StatelessWidget {
       String correo, String contrasena) async {
     await service.login(correo, contrasena).then(
       (_) {
-        if (true) {
-          Navigator.of(context).pushReplacementNamed(HomePage.routeName);
-        } else {
+        //if (true) {
+        Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+        /*} else {
           // TODO Navegar registro paciente
-        }
+        }*/
       },
     ).onError((Exception error, stackTrace) {
       // TODO Login mensaje de error

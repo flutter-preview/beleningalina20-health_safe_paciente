@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
             appBar: const AppbarCustom(),
             backgroundColor: Colors.white,
             body: Padding(
-                padding: EdgeInsets.all(Dimens.padding20),
+                padding: EdgeInsets.all(Dimens.dimens20),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: const <Widget>[
@@ -36,12 +36,12 @@ class _BotonesNavegacionHome extends StatelessWidget {
           onPressed: () =>
               Navigator.pushNamed(context, BusquedaProfesionalesPage.routeName),
           backgroundColor: ColorsApp.azulBusqueda,
-          margin: EdgeInsets.only(bottom: Dimens.padding40)),
+          margin: EdgeInsets.only(bottom: Dimens.dimens40)),
       ElevatedButtonCustom(
           text: "Solicitar asistencia inmediata",
           onPressed: () => {}, // TODO Navegar sala de asistencia inmediata
           backgroundColor: ColorsApp.rojoAsistenciaInmediata,
-          margin: EdgeInsets.only(bottom: Dimens.padding40))
+          margin: EdgeInsets.only(bottom: Dimens.dimens40))
     ]);
   }
 }

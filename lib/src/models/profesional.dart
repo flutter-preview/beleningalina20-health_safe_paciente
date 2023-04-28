@@ -12,7 +12,8 @@ class Profesional {
       this.consultorioPrincipal = "~ No definido ~",
       this.rangoPrecioTurno = "~ No definido ~",
       this.calificacion = 0.0,
-      this.cantidadOpiniones = 0});
+      this.cantidadOpiniones = 0,
+      this.agendasTurnos = const []});
 
   int id;
   String? descripcion;
@@ -26,6 +27,8 @@ class Profesional {
   String rangoPrecioTurno;
   double calificacion;
   int cantidadOpiniones;
+
+  List<AgendaTurnos> agendasTurnos;
 
   factory Profesional.fromJson(Map<String, dynamic> json) => Profesional(
       id: json["idprofesional"],

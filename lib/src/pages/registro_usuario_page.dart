@@ -113,10 +113,10 @@ class _RegistroUsuarioForm extends StatelessWidget {
           const _DeclaracionTerminosCondiciones(),
           (usuarioService.isLoading)
               ? Padding(
-                  padding: EdgeInsets.all(Dimens.padding20),
+                  padding: EdgeInsets.all(Dimens.dimens20),
                   child: const CircularProgressIndicator())
               : ElevatedButtonCustom(
-                  margin: EdgeInsets.all(Dimens.padding20),
+                  margin: EdgeInsets.all(Dimens.dimens20),
                   onPressed: (registroUsuarioFormProvider.isValidForm())
                       ? () async {
                           FocusScope.of(context).unfocus();
@@ -186,7 +186,7 @@ class _RegistroUsuarioForm extends StatelessWidget {
               textAlign: TextAlign.center,
               fontWeight: FontWeight.bold,
             ),
-            SizedBox(height: Dimens.padding10),
+            SizedBox(height: Dimens.dimens10),
             Icon(Icons.warning,
                 color: Colors.orange, size: SizeConfig.height * 0.1),
           ],
@@ -214,7 +214,7 @@ class _DatosUsuario extends StatelessWidget {
               registroUsuarioFormProvider.correo = value,
           validator: registroUsuarioFormProvider.correoValidator,
         ),
-        SizedBox(height: Dimens.padding30),
+        SizedBox(height: Dimens.dimens30),
         ContrasenaTextFormField(
           value: registroUsuarioFormProvider.contrasena,
           onChanged: (String value) =>
@@ -222,7 +222,7 @@ class _DatosUsuario extends StatelessWidget {
           validator: registroUsuarioFormProvider.contrasenaValidator,
           withMaxLenght: true,
         ),
-        SizedBox(height: Dimens.padding30),
+        SizedBox(height: Dimens.dimens30),
         ImagenPerfil(
             onChanged: (value) =>
                 registroUsuarioFormProvider.imagenPerfil = value,
@@ -246,18 +246,18 @@ class _DatosPersonales extends StatelessWidget {
           hintText: 'Nombre',
           onChanged: (value) => registroUsuarioFormProvider.nombre = value,
         ),
-        SizedBox(height: Dimens.padding30),
+        SizedBox(height: Dimens.dimens30),
         BasicTextFormField(
           hintText: 'Apellido',
           onChanged: (value) => registroUsuarioFormProvider.apellido = value,
         ),
-        SizedBox(height: Dimens.padding30),
+        SizedBox(height: Dimens.dimens30),
         NumericTextFormField(
             hintText: 'DNI',
             onChanged: (value) => registroUsuarioFormProvider.dni = value,
             validator: registroUsuarioFormProvider.dniValidator,
             maxLength: 8),
-        SizedBox(height: Dimens.padding30),
+        SizedBox(height: Dimens.dimens30),
         Theme(
           data: ThemeData(canvasColor: Colors.white),
           child: DropDownButtonCustom<String>(
@@ -269,7 +269,7 @@ class _DatosPersonales extends StatelessWidget {
                 registroUsuarioFormProvider.sexo = value ?? 'Femenino',
           ),
         ),
-        SizedBox(height: Dimens.padding30),
+        SizedBox(height: Dimens.dimens30),
         DateTimeTextFormField(
           controller: TextEditingController(
               text: registroUsuarioFormProvider.fechaNacimiento
@@ -300,7 +300,7 @@ class _ImagenesDni extends StatelessWidget {
             imagenPlaceholder: const AssetImage('assets/imgs/dni_frente.png'),
             onChanged: (value) =>
                 registroUsuarioFormProvider.imagenDniFrente = value),
-        SizedBox(height: Dimens.padding30),
+        SizedBox(height: Dimens.dimens30),
         ImagenDni(
             label: 'Imagen DNI dorso',
             imagenDni: registroUsuarioFormProvider.imagenDniDorso,
@@ -318,11 +318,11 @@ class _DeclaracionTerminosCondiciones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimens.padding20),
+      padding: EdgeInsets.symmetric(horizontal: Dimens.dimens20),
       child: Text.rich(
         TextSpan(
             text: "Al registrarme, acepto los ",
-            style: TextStyle(fontSize: Dimens.fontSize18, color: Colors.white),
+            style: TextStyle(fontSize: Dimens.dimens18, color: Colors.white),
             children: [
               TextSpan(
                   text: "términos y condiciones ",
@@ -331,13 +331,13 @@ class _DeclaracionTerminosCondiciones extends StatelessWidget {
                       // Todo Navegar a los terminos y condiciones
                     },
                   style: TextStyle(
-                      fontSize: Dimens.fontSize18,
+                      fontSize: Dimens.dimens18,
                       color: Colors.lightBlue,
                       decoration: TextDecoration.underline)),
               TextSpan(
                   text: " y ",
                   style: TextStyle(
-                      fontSize: Dimens.fontSize18, color: Colors.white)),
+                      fontSize: Dimens.dimens18, color: Colors.white)),
               TextSpan(
                 text: "politicas de privacidad ",
                 recognizer: TapGestureRecognizer()
@@ -345,14 +345,14 @@ class _DeclaracionTerminosCondiciones extends StatelessWidget {
                     // Todo Navegar a las politicas de privacidad
                   },
                 style: TextStyle(
-                    fontSize: Dimens.fontSize18,
+                    fontSize: Dimens.dimens18,
                     color: Colors.lightBlue,
                     decoration: TextDecoration.underline),
               ),
               TextSpan(
                   text: "de Health Safe",
-                  style: TextStyle(
-                      fontSize: Dimens.fontSize18, color: Colors.white))
+                  style:
+                      TextStyle(fontSize: Dimens.dimens18, color: Colors.white))
             ]),
         textAlign: TextAlign.center,
       ),

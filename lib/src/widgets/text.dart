@@ -7,9 +7,9 @@ extension TitleTextExtensions on TitleText {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-            padding: EdgeInsets.only(right: Dimens.padding20),
+            padding: EdgeInsets.only(right: Dimens.dimens20),
             child:
-                Icon(prefixIcon, color: Colors.white, size: Dimens.iconSize70)),
+                Icon(prefixIcon, color: Colors.white, size: Dimens.dimens70)),
         this
       ],
     );
@@ -22,8 +22,8 @@ extension DescriptionTextExtensions on DescriptionText {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
-            padding: EdgeInsets.only(right: Dimens.padding10),
-            child: Icon(prefixIcon, color: color, size: Dimens.iconSize30)),
+            padding: EdgeInsets.only(right: Dimens.dimens10),
+            child: Icon(prefixIcon, color: color, size: Dimens.dimens30)),
         this
       ],
     );
@@ -50,7 +50,7 @@ class TitleText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-          fontSize: Dimens.fontSize35, color: color, fontWeight: fontWeight),
+          fontSize: Dimens.dimens35, color: color, fontWeight: fontWeight),
       textAlign: textAlign,
     );
   }
@@ -77,7 +77,7 @@ class SubtitleText extends StatelessWidget {
       text,
       textAlign: textAlign,
       style: TextStyle(
-        fontSize: Dimens.fontSize30,
+        fontSize: Dimens.dimens30,
         color: color,
         fontWeight: fontWeight,
       ),
@@ -104,7 +104,7 @@ class BodyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text,
         style: TextStyle(
-          fontSize: fontSize ?? Dimens.fontSize25,
+          fontSize: fontSize ?? Dimens.dimens25,
           color: color,
         ),
         overflow: overflow,
@@ -134,7 +134,34 @@ class DescriptionText extends StatelessWidget {
       textAlign: textAlign,
       overflow: overflow,
       style: TextStyle(
-          fontSize: Dimens.fontSize20, color: color, fontWeight: fontWeight),
+          fontSize: Dimens.dimens20, color: color, fontWeight: fontWeight),
+    );
+  }
+}
+
+class SubdescriptionText extends StatelessWidget {
+  final String text;
+  final Color color;
+  final TextAlign textAlign;
+  final FontWeight? fontWeight;
+  final TextOverflow? overflow;
+
+  const SubdescriptionText(
+      {super.key,
+      required this.text,
+      this.color = Colors.black,
+      this.textAlign = TextAlign.start,
+      this.fontWeight,
+      this.overflow});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: textAlign,
+      overflow: overflow,
+      style: TextStyle(
+          fontSize: Dimens.dimens18, color: color, fontWeight: fontWeight),
     );
   }
 }

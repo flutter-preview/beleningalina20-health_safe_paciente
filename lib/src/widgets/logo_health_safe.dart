@@ -11,14 +11,14 @@ class LogoHealthSafe extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: double.infinity,
-        margin: EdgeInsets.symmetric(vertical: SizeConfig.height * 0.03),
+        margin: EdgeInsets.symmetric(vertical: Dimens.dimens30),
         child: Column(children: <Widget>[
           TitleText(text: '¡Bienvenido a Health Safe!', color: textColor),
-          SizedBox(height: SizeConfig.height * 0.02),
+          SizedBox(height: Dimens.dimens20),
           Image(
               image: const AssetImage('assets/imgs/logo_health_safe.png'),
-              height: SizeConfig.height * 0.25),
-          SizedBox(height: Dimens.padding20),
+              height: Dimens.dimens250),
+          SizedBox(height: Dimens.dimens20),
           SubtitleText(text: 'Estamos aquí para cuidarte', color: textColor)
         ]));
   }

@@ -38,7 +38,7 @@ class _TextFormFieldCustom extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DescriptionText(text: hintText, color: labelColor ?? Colors.white),
-        SizedBox(height: Dimens.padding10),
+        SizedBox(height: Dimens.dimens10),
         TextFormField(
           controller: controller,
           /*autocorrect: ,
@@ -85,7 +85,7 @@ class _TextFormFieldCustom extends StatelessWidget {
           strutStyle: ,*/
 
           style: TextStyle(
-            fontSize: Dimens.fontSize20,
+            fontSize: Dimens.dimens20,
             color: Colors.black,
           ),
           textAlign: TextAlign.start,
@@ -101,12 +101,11 @@ class _TextFormFieldCustom extends StatelessWidget {
           ),*/
           validator: validator,
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(Dimens.padding20),
+            contentPadding: EdgeInsets.all(Dimens.dimens20),
             // alignLabelWithHint: ,
             border: OutlineInputBorder(
                 borderSide: BorderSide.none,
-                borderRadius:
-                    BorderRadius.circular(Dimens.roundedCornerRadius10)),
+                borderRadius: BorderRadius.circular(Dimens.dimens10)),
             // constraints
             counter: null, // Cambiar cuando sea necesario
             counterStyle: null,

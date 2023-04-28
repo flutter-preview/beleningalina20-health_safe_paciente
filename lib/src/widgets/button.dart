@@ -49,17 +49,17 @@ class ElevatedButtonCustom extends StatelessWidget {
           // minimumSize: ,
           // onPrimary, primary, onSurface => Deprecado
           padding: EdgeInsets.symmetric(
-              vertical: Dimens.padding20, horizontal: Dimens.padding10),
+              vertical: Dimens.dimens20, horizontal: Dimens.dimens10),
           // shadowColor: ,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Dimens.roundedCornerRadius10),
+            borderRadius: BorderRadius.circular(Dimens.dimens10),
           ),
           // side: ,
           // splashFactory: ,
           // surfaceTintColor: ,
           // tapTargetSize: ,
-          textStyle: TextStyle(
-              fontSize: Dimens.fontSize20, fontWeight: FontWeight.bold),
+          textStyle:
+              TextStyle(fontSize: Dimens.dimens20, fontWeight: FontWeight.bold),
           // visualDensity:
         ),
         child: Text(text),
@@ -106,7 +106,7 @@ class TextButtonCustom extends StatelessWidget {
         // maximumSize: ,
         // minimumSize: ,
         // onSurface, primary Deprecado
-        padding: EdgeInsets.all(Dimens.padding20),
+        padding: EdgeInsets.all(Dimens.dimens20),
         // shadowColor: ,
         // shape: ,
         // side: ,
@@ -114,7 +114,7 @@ class TextButtonCustom extends StatelessWidget {
         // surfaceTintColor: ,
         // tapTargetSize: ,
         textStyle: TextStyle(
-          fontSize: Dimens.fontSize20,
+          fontSize: Dimens.dimens20,
           decoration: TextDecoration.underline,
         ),
         // visualDensity: ,

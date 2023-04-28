@@ -18,7 +18,7 @@ class RatingBar extends StatelessWidget {
     return Row(
       children: [
         RatingBarIndicator(
-            itemPadding: EdgeInsets.symmetric(vertical: Dimens.padding10),
+            itemPadding: EdgeInsets.symmetric(vertical: Dimens.dimens10),
             rating: calificacion / 1,
             itemBuilder: (context, index) =>
                 const Icon(Icons.star, color: Colors.cyan),

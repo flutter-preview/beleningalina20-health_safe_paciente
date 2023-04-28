@@ -18,7 +18,7 @@ class BusquedaProfesionalesPage extends StatelessWidget {
             appBar: const AppbarCustom(),
             backgroundColor: ColorsApp.azulBusqueda,
             body: Padding(
-                padding: EdgeInsets.all(Dimens.padding20),
+                padding: EdgeInsets.all(Dimens.dimens20),
                 child: Column(
                   children: [
                     const BusquedaProfesionalesTitulo(),
@@ -44,7 +44,7 @@ class BusquedaProfesionalesTitulo extends StatelessWidget {
               fontWeight: FontWeight.bold)
           .withPrefixIcon(Icons.note_alt_outlined),
       Padding(
-        padding: EdgeInsets.symmetric(vertical: Dimens.padding20),
+        padding: EdgeInsets.symmetric(vertical: Dimens.dimens20),
         child: const BodyText(
             text:
                 'Más de 1000 profesionales están aquí para ayudarte. Encontra a los especialistas de tu ciudad y solicita el turno que más te convenga',
@@ -68,7 +68,7 @@ class FiltrosBusquedaProfesionales extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Filtros(),
-          SizedBox(height: Dimens.padding30),
+          SizedBox(height: Dimens.dimens30),
           ElevatedButtonCustom(
               text: "Buscar profesionales",
               onPressed: (busquedaProfesionalesProvider.esValidaBusqueda())
@@ -105,9 +105,9 @@ class Filtros extends StatelessWidget {
     return Column(
       children: [
         const MenuEspecialidades(),
-        SizedBox(height: Dimens.padding30),
+        SizedBox(height: Dimens.dimens30),
         const MenuModalidadesAtencion(),
-        SizedBox(height: Dimens.padding30),
+        SizedBox(height: Dimens.dimens30),
         (busquedaProfesionalesProvider.modalidadAtencion?.descripcion ==
                 "Presencial")
             ? const MenuLocalidades()

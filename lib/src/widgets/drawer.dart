@@ -43,12 +43,11 @@ class _HeaderDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(Dimens.padding20),
+      padding: EdgeInsets.all(Dimens.dimens20),
       child: Column(
         children: <Widget>[
           CircleAvatarImagenPerfil(
-              radius: Dimens.circleAvatarRadius90,
-              image: NetworkImage(imagenPerfil)),
+              radius: Dimens.dimens90, image: NetworkImage(imagenPerfil)),
           SubtitleText(
               text: "$nombre $apellido",
               color: Colors.white,

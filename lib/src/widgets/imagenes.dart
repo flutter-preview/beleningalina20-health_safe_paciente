@@ -14,7 +14,7 @@ class CircleAvatarImagenPerfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(Dimens.padding20),
+      padding: EdgeInsets.all(Dimens.dimens20),
       child: CircleAvatar(
         backgroundColor: Colors.white,
         backgroundImage: image,
@@ -55,7 +55,7 @@ class ImagenPerfil extends StatelessWidget {
       children: [
         DescriptionText(
             text: 'Imagen de perfil', color: labelColor ?? Colors.white),
-        SizedBox(height: Dimens.padding10),
+        SizedBox(height: Dimens.dimens10),
         Center(
           child: Stack(clipBehavior: Clip.none, children: <Widget>[
             CircleAvatar(
@@ -63,13 +63,13 @@ class ImagenPerfil extends StatelessWidget {
                     ? FileImage(imagenPerfil!)
                     : const AssetImage('assets/imgs/no-person.png')
                         as ImageProvider<Object>?,
-                radius: Dimens.circleAvatarRadius100),
+                radius: Dimens.dimens100),
             Positioned(
                 top: SizeConfig.height * 0.15,
                 left: SizeConfig.width * 0.3,
                 child: CircleAvatar(
                     backgroundColor: ColorsApp.azulBusqueda,
-                    radius: Dimens.circleAvatarRadius30,
+                    radius: Dimens.dimens30,
                     child: IconButton(
                         onPressed: () => seleccionImagen(context, onChanged),
                         icon:
@@ -103,14 +103,13 @@ class ImagenDni extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DescriptionText(text: label, color: labelColor ?? Colors.white),
-        SizedBox(height: Dimens.padding10),
+        SizedBox(height: Dimens.dimens10),
         Center(
           child: Stack(
             clipBehavior: Clip.none,
             children: [
               ClipRRect(
-                  borderRadius:
-                      BorderRadius.circular(Dimens.roundedCornerRadius20),
+                  borderRadius: BorderRadius.circular(Dimens.dimens20),
                   child: Image(
                     image: (imagenDni != null)
                         ? FileImage(imagenDni!)
@@ -124,7 +123,7 @@ class ImagenDni extends StatelessWidget {
                   left: SizeConfig.height * 0.37,
                   child: CircleAvatar(
                       backgroundColor: ColorsApp.azulBusqueda,
-                      radius: Dimens.circleAvatarRadius30,
+                      radius: Dimens.dimens30,
                       child: IconButton(
                           onPressed: () => seleccionImagen(context, onChanged),
                           icon: const Icon(Icons.camera_alt,
@@ -175,7 +174,7 @@ class ImagenPerfilProfesional extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(Dimens.roundedCornerRadius10),
+        borderRadius: BorderRadius.circular(Dimens.dimens10),
         child: FadeInImage(
             placeholder: const AssetImage('assets/imgs/loading.gif'),
             placeholderFit: BoxFit.cover,

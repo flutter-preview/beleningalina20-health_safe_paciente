@@ -22,7 +22,7 @@ void showDialogCustom(BuildContext context, List<Widget> content,
         title: Row(
           children: [
             Padding(
-              padding: EdgeInsets.only(right: Dimens.padding20),
+              padding: EdgeInsets.only(right: Dimens.dimens20),
               child: Image(
                   image: const AssetImage('assets/imgs/logo_health_safe.png'),
                   height: SizeConfig.height * 0.05),
@@ -53,7 +53,7 @@ void showDialogCustom(BuildContext context, List<Widget> content,
           mainAxisSize: MainAxisSize.min,
           children: content,
         ),
-        contentPadding: EdgeInsets.all(Dimens.padding20),
+        contentPadding: EdgeInsets.all(Dimens.dimens20),
         // contentTextStyle: Definido con el content,
         // elevation: ,
         // icon: , Agregado con el title como un row el logo
@@ -64,10 +64,10 @@ void showDialogCustom(BuildContext context, List<Widget> content,
         scrollable: ,
         semanticLabel: ,*/
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimens.roundedCornerRadius10),
+          borderRadius: BorderRadius.circular(Dimens.dimens10),
           // side:
         ),
-        titlePadding: EdgeInsets.all(Dimens.padding20),
+        titlePadding: EdgeInsets.all(Dimens.dimens20),
         // titleTextStyle: Definido con el title
       );
     },

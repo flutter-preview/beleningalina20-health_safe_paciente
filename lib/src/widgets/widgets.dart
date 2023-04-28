@@ -1,3 +1,5 @@
+export 'package:health_safe_paciente/src/widgets/date_time_picker.dart';
+export 'package:health_safe_paciente/src/widgets/profesional_card.dart';
 export 'package:health_safe_paciente/src/widgets/header_page.dart';
 export 'package:health_safe_paciente/src/widgets/circular_progress_indicator.dart';
 export 'package:health_safe_paciente/src/widgets/drawer.dart';

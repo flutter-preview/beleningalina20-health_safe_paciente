@@ -1,37 +1,22 @@
 import 'package:health_safe_paciente/src/theme/size_config.dart';
 
 class Dimens {
-  static double roundedCornerRadius10 = SizeConfig.height * 0.010;
-  static double roundedCornerRadius20 = SizeConfig.height * 0.020;
-  static double roundedCornerRadius50 = SizeConfig.height * 0.050;
-
-  static double padding10 = SizeConfig.height * 0.010;
-  static double padding20 = SizeConfig.height * 0.020;
-  static double padding30 = SizeConfig.height * 0.030;
-  static double padding40 = SizeConfig.height * 0.040;
-
-  // Declaracion terminos y condiciones
-  static double fontSize18 = SizeConfig.height * 0.018;
-  // Text Button, TextField, DescriptionText
-  static double fontSize20 = SizeConfig.height * 0.020;
-  // Elevated Button, BodyText
-  static double fontSize25 = SizeConfig.height * 0.025;
-  // SubtitleText
-  static double fontSize30 = SizeConfig.height * 0.030;
-  // TitleText
-  static double fontSize35 = SizeConfig.height * 0.035;
+  static double dimens10 = SizeConfig.height * 0.010;
+  static double dimens18 = SizeConfig.height * 0.018;
+  static double dimens20 = SizeConfig.height * 0.020;
+  static double dimens22 = SizeConfig.height * 0.022;
+  static double dimens25 = SizeConfig.height * 0.025;
+  static double dimens30 = SizeConfig.height * 0.030;
+  static double dimens35 = SizeConfig.height * 0.035;
+  static double dimens40 = SizeConfig.height * 0.040;
+  static double dimens50 = SizeConfig.height * 0.050;
+  static double dimens60 = SizeConfig.height * 0.060;
+  static double dimens70 = SizeConfig.height * 0.070;
+  static double dimens80 = SizeConfig.height * 0.080;
+  static double dimens90 = SizeConfig.height * 0.090;
+  static double dimens100 = SizeConfig.height * 0.10;
+  static double dimens250 = SizeConfig.height * 0.24;
 
   static double elevation0 = 0;
   static double elevation2 = 2;
-
-  static double circleAvatarRadius100 = SizeConfig.height * 0.10;
-  static double circleAvatarRadius90 = SizeConfig.height * 0.090;
-  static double circleAvatarRadius80 = SizeConfig.height * 0.080;
-  static double circleAvatarRadius70 = SizeConfig.height * 0.070;
-  static double circleAvatarRadius30 = SizeConfig.height * 0.030;
-
-  static double iconSize30 = SizeConfig.height * 0.03;
-  static double iconSize50 = SizeConfig.height * 0.05;
-  static double iconSize60 = SizeConfig.height * 0.06;
-  static double iconSize70 = SizeConfig.height * 0.07;
 }

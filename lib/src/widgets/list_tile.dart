@@ -19,7 +19,7 @@ class ListTileDrawerOption extends StatelessWidget {
     return ListTile(
       /*autofocus: ,*/
       contentPadding: EdgeInsets.symmetric(
-          horizontal: Dimens.padding20, vertical: Dimens.padding10),
+          horizontal: Dimens.dimens20, vertical: Dimens.dimens10),
       /*dense: ,
       enableFeedback: ,
       enabled: ,
