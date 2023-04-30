@@ -68,8 +68,10 @@ class _ListadoProfesionales extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) => ProfesionalCard(
                   profesional: profesionales[index],
                   onPressed: () => Navigator.pushNamed(
-                      context, PerfilProfesionalPage.routeName,
-                      arguments: profesionales[index])),
+                          context, PerfilProfesionalPage.routeName, arguments: {
+                        "profesional": profesionales[index],
+                        "especialidad": especialidad
+                      })),
               separatorBuilder: (_, __) => SizedBox(height: Dimens.dimens10),
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,

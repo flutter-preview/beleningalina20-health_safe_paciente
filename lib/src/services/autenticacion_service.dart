@@ -29,7 +29,7 @@ class AutenticacionService extends ChangeNotifier {
 
     await loginService(correo, contrasena).then((value) {
       isLoading = false;
-      usuario = usuario;
+      usuario = value.usuario;
       LocalStorage.localStorage.setToken(value.token);
     }).onError((Exception error, stackTrace) {
       isLoading = false;

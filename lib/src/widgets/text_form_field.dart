@@ -7,6 +7,9 @@ import 'package:health_safe_paciente/src/theme/themes.dart';
 class _TextFormFieldCustom extends StatelessWidget {
   final String hintText;
   final TextInputType keyboardType;
+  final Color? borderColor;
+  final int? maxLines;
+  final bool withDescriptionHintText;
   final bool obscureText;
   final Widget? suffixIcon;
   final void Function(String)? onChanged;
@@ -21,6 +24,9 @@ class _TextFormFieldCustom extends StatelessWidget {
   const _TextFormFieldCustom(
       {this.hintText = '',
       this.keyboardType = TextInputType.text,
+      this.withDescriptionHintText = true,
+      this.borderColor,
+      this.maxLines,
       this.obscureText = false,
       this.suffixIcon,
       this.onChanged,
@@ -37,7 +43,8 @@ class _TextFormFieldCustom extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        DescriptionText(text: hintText, color: labelColor ?? Colors.white),
+        if (withDescriptionHintText)
+          DescriptionText(text: hintText, color: labelColor ?? Colors.white),
         SizedBox(height: Dimens.dimens10),
         TextFormField(
           controller: controller,
@@ -63,7 +70,7 @@ class _TextFormFieldCustom extends StatelessWidget {
           keyboardType: keyboardType,
           maxLength: maxLength,
           /*maxLengthEnforcement: ,*/
-          // maxLines: maxLines,
+          maxLines: (obscureText) ? 1 : maxLines,
           /*minLines: ,
           mouseCursor: ,*/
           obscureText: obscureText,
@@ -104,7 +111,9 @@ class _TextFormFieldCustom extends StatelessWidget {
             contentPadding: EdgeInsets.all(Dimens.dimens20),
             // alignLabelWithHint: ,
             border: OutlineInputBorder(
-                borderSide: BorderSide.none,
+                borderSide: (borderColor != null)
+                    ? BorderSide(color: borderColor!)
+                    : BorderSide.none,
                 borderRadius: BorderRadius.circular(Dimens.dimens10)),
             // constraints
             counter: null, // Cambiar cuando sea necesario
@@ -174,12 +183,20 @@ class DateTimeTextFormField extends StatelessWidget {
 
 class BasicTextFormField extends StatelessWidget {
   final String hintText;
+  final int? maxLines;
+  final int? maxLenght;
+  final bool withDescriptionHintText;
+  final Color? borderColor;
   final void Function(String)? onChanged;
   final Color? labelColor;
 
   const BasicTextFormField({
     super.key,
     required this.hintText,
+    this.maxLenght,
+    this.maxLines,
+    this.withDescriptionHintText = true,
+    this.borderColor,
     this.onChanged,
     this.labelColor,
   });
@@ -189,9 +206,13 @@ class BasicTextFormField extends StatelessWidget {
     return _TextFormFieldCustom(
         labelColor: labelColor,
         hintText: hintText,
+        maxLines: maxLines,
+        borderColor: borderColor,
+        withDescriptionHintText: withDescriptionHintText,
         keyboardType: TextInputType.text,
         onChanged: onChanged,
-        textCapitalization: TextCapitalization.words);
+        maxLength: maxLenght,
+        textCapitalization: TextCapitalization.sentences);
   }
 }
 

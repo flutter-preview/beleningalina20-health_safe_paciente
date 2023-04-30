@@ -14,8 +14,10 @@ class PerfilProfesionalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Profesional profesional =
-        ModalRoute.of(context)?.settings.arguments as Profesional;
+    Map<String, dynamic> arguments =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    Profesional profesional = arguments['profesional'];
+    Especialidad especialidad = arguments['especialidad'];
 
     return SafeArea(
         child: Scaffold(
@@ -38,7 +40,10 @@ class PerfilProfesionalPage extends StatelessWidget {
                   profesional.agendasTurnos = agendasTurnos;
                   return ChangeNotifierProvider(
                       create: (_) => PerfilProfesionalProvider(),
-                      child: _PagerView(profesional: profesional));
+                      child: _PagerView(
+                        profesional: profesional,
+                        especialidad: especialidad,
+                      ));
                 }
               }
               if (snapshot.hasError) {
@@ -54,7 +59,8 @@ class PerfilProfesionalPage extends StatelessWidget {
 
 class _PagerView extends StatelessWidget {
   final Profesional profesional;
-  const _PagerView({required this.profesional});
+  final Especialidad especialidad;
+  const _PagerView({required this.profesional, required this.especialidad});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +86,10 @@ class _PagerView extends StatelessWidget {
                 BottomNavigationBarItem(icon: Icon(null), label: 'Información')
               ]),
           (perfilProfesionalProvider.paginaActual == 0)
-              ? TurnosProfesionalPage(profesional: profesional)
+              ? TurnosProfesionalPage(
+                  profesional: profesional,
+                  especialidad: especialidad,
+                )
               : (perfilProfesionalProvider.paginaActual == 1)
                   ? const AtencionProfesionalPage()
                   : const InformacionProfesionalPage()

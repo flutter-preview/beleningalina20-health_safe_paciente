@@ -34,40 +34,40 @@ extension DateTimeExtensions on DateTime {
     String monthName = "";
     switch (month) {
       case 1:
-        monthName = "Enero";
+        monthName = "enero";
         break;
       case 2:
-        monthName = "Febrero";
+        monthName = "febrero";
         break;
       case 3:
-        monthName = "Marzo";
+        monthName = "marzo";
         break;
       case 4:
-        monthName = "Abril";
+        monthName = "abril";
         break;
       case 5:
-        monthName = "Mayo";
+        monthName = "mayo";
         break;
       case 6:
-        monthName = "Junio";
+        monthName = "junio";
         break;
       case 7:
-        monthName = "Julio";
+        monthName = "julio";
         break;
       case 8:
-        monthName = "Agosto";
+        monthName = "agosto";
         break;
       case 9:
-        monthName = "Septiembre";
+        monthName = "septiembre";
         break;
       case 10:
-        monthName = "Octubre";
+        monthName = "octubre";
         break;
       case 11:
-        monthName = "Noviembre";
+        monthName = "noviembre";
         break;
       case 12:
-        monthName = "Diciembre";
+        monthName = "diciembre";
         break;
       default:
         throw Exception("Month not founded");

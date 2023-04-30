@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/models/models.dart' as models;
+import 'package:health_safe_paciente/src/pages/models/turno.dart';
+import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/providers/perfil_profesional_provider.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
 
 class TurnosProfesionalPage extends StatelessWidget {
-  final Profesional profesional;
-  const TurnosProfesionalPage({super.key, required this.profesional});
+  final models.Profesional profesional;
+  final models.Especialidad especialidad;
+  const TurnosProfesionalPage(
+      {super.key, required this.profesional, required this.especialidad});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,8 @@ class TurnosProfesionalPage extends StatelessWidget {
                   SizedBox(height: Dimens.dimens20),
 
                   (perfilProfesionalProvider.consultaTurnosValido())
-                      ? _TurnosProfesionalDisponibles(profesional: profesional)
+                      ? _TurnosProfesionalDisponibles(
+                          profesional: profesional, especialidad: especialidad)
                       : Container() // TODO mensaje seleccionar fecha, modalidad y consultorio
                 ])),
           )
@@ -78,7 +83,7 @@ class TurnosProfesionalPage extends StatelessWidget {
     final perfilProfesionalProvider =
         Provider.of<PerfilProfesionalProvider>(context, listen: false);
 
-    return DropDownButtonCustom<ModalidadAtencion>(
+    return DropDownButtonCustom<models.ModalidadAtencion>(
       vertical: false,
       label: 'Modalidad',
       borderColor: Colors.grey,
@@ -106,7 +111,7 @@ class TurnosProfesionalPage extends StatelessWidget {
       return Column(
         children: [
           const Divider(),
-          DropDownButtonCustom<Consultorio>(
+          DropDownButtonCustom<models.Consultorio>(
             vertical: false,
             label: 'Consultorio',
             borderColor: Colors.grey,
@@ -133,17 +138,19 @@ class TurnosProfesionalPage extends StatelessWidget {
 }
 
 class _TurnosProfesionalDisponibles extends StatelessWidget {
-  final Profesional profesional;
-  const _TurnosProfesionalDisponibles({Key? key, required this.profesional});
+  final models.Profesional profesional;
+  final models.Especialidad especialidad;
+  const _TurnosProfesionalDisponibles(
+      {Key? key, required this.profesional, required this.especialidad});
 
   @override
   Widget build(BuildContext context) {
     final perfilProfesionalProvider =
         Provider.of<PerfilProfesionalProvider>(context);
 
-    List<TurnoProfesional> turnos = [];
+    List<Turno> turnos = [];
 
-    List<AgendaTurnos> agendasTurnos = profesional.agendasTurnos
+    List<models.AgendaTurnos> agendasTurnos = profesional.agendasTurnos
         .where((agendaTurnos) =>
             perfilProfesionalProvider.fechaPerteneceAgendaTurnos(
                 agendaTurnos.fechaDesde, agendaTurnos.fechaHasta) &&
@@ -160,13 +167,14 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
         TimeOfDay horaFinTurno =
             horaInicioTurnoAux.add(Duration(minutes: agendaTurnos.duracion));
 
-        TurnoProfesional turnoProfesional = TurnoProfesional(
+        Turno turnoProfesional = Turno(
             idAgendaTurnos: agendaTurnos.id,
             horaInicio: horaInicioTurnoAux,
             horaFin: horaFinTurno,
             fecha: perfilProfesionalProvider.fechaAgendaTurnosSeleccionada!,
             nombreProfesional:
                 "${(profesional.usuario.sexo == "Masculino") ? "Dr." : "Dra."} ${profesional.usuario.nombre} ${profesional.usuario.apellido}",
+            descripcionEspecialidadProfesional: especialidad.descripcion,
             descripcionModalidadAtencion:
                 agendaTurnos.modalidadAtencion.descripcion,
             idConsultorio: agendaTurnos.consultorio?.id,
@@ -186,16 +194,10 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
       }
     }
 
-    print("Turnos: $turnos");
-    print(turnos.length);
-
     List<TableRow> rows = [];
     int rowsCount = (turnos.length / 4).round();
 
-// 10 - 6 - 2
-
     for (int i = 0; i <= rowsCount - 1; i++) {
-      // 0
       if (turnos.length >= 4) {
         rows.add(TableRow(
             children: turnos
@@ -224,7 +226,7 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
 }
 
 class _TurnoContainer extends StatelessWidget {
-  final TurnoProfesional? turnoProfesional;
+  final Turno? turnoProfesional;
 
   const _TurnoContainer({
     this.turnoProfesional,
@@ -235,7 +237,9 @@ class _TurnoContainer extends StatelessWidget {
     if (turnoProfesional != null) {
       return InkWell(
         onTap: (turnoProfesional!.disponible)
-            ? () => {} // TODO Ir detalle del turno
+            ? () => Navigator.pushNamed(
+                context, DetalleSolicitudTurnoPage.routeName,
+                arguments: turnoProfesional)
             : null,
         child: Container(
             margin: EdgeInsets.all(Dimens.dimens10),
@@ -260,30 +264,4 @@ class _TurnoContainer extends StatelessWidget {
       return Container();
     }
   }
-}
-
-class TurnoProfesional {
-  TurnoProfesional(
-      {required this.idAgendaTurnos,
-      required this.horaInicio,
-      required this.horaFin,
-      required this.fecha,
-      required this.nombreProfesional,
-      required this.descripcionModalidadAtencion,
-      required this.precio,
-      this.idConsultorio,
-      this.disponible = true});
-
-  int idAgendaTurnos;
-  TimeOfDay horaInicio;
-  TimeOfDay horaFin;
-  DateTime fecha;
-  String nombreProfesional;
-  String descripcionModalidadAtencion;
-  int? idConsultorio; // nombre, direccion, localidad
-  double precio;
-  bool disponible;
-
-  @override
-  String toString() => "$fecha - $horaInicio $horaFin";
 }

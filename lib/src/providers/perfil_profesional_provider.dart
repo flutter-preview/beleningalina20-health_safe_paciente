@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/modalidad_atencion.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
 
 class PerfilProfesionalProvider with ChangeNotifier {
