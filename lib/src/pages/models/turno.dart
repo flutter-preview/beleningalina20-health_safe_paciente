@@ -11,7 +11,8 @@ class Turno {
       required this.descripcionModalidadAtencion,
       required this.precio,
       this.idConsultorio,
-      this.disponible = true});
+      this.disponible = true,
+      this.comentario = ""});
 
   int idAgendaTurnos;
   TimeOfDay horaInicio;
@@ -23,6 +24,8 @@ class Turno {
   int? idConsultorio; // nombre, direccion, localidad
   double precio;
   bool disponible;
+
+  String comentario;
 
   @override
   String toString() => "$fecha - $horaInicio $horaFin";

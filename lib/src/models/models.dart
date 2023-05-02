@@ -1,3 +1,4 @@
+export 'package:health_safe_paciente/src/models/responses/crear_turno_response.dart';
 export 'package:health_safe_paciente/src/models/responses/login_response.dart';
 export 'package:health_safe_paciente/src/models/responses/obtener_agendas_turnos_por_profesional_mock.dart';
 export 'package:health_safe_paciente/src/models/responses/obtener_especialidades_response.dart';

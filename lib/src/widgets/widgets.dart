@@ -5,6 +5,7 @@ export 'package:health_safe_paciente/src/widgets/circular_progress_indicator.dar
 export 'package:health_safe_paciente/src/widgets/drawer.dart';
 export 'package:health_safe_paciente/src/widgets/appbar.dart';
 export 'package:health_safe_paciente/src/widgets/alert_dialog.dart';
+export 'package:health_safe_paciente/src/widgets/snackbar.dart';
 export 'package:health_safe_paciente/src/widgets/drop_down_button.dart';
 export 'package:health_safe_paciente/src/widgets/imagenes.dart';
 export 'package:health_safe_paciente/src/widgets/logo_health_safe.dart';

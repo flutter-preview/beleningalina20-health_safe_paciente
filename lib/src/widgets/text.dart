@@ -91,6 +91,7 @@ class BodyText extends StatelessWidget {
   final TextAlign textAlign;
   final double? fontSize;
   final TextOverflow? overflow;
+  final TextDecoration? decoration;
 
   const BodyText(
       {super.key,
@@ -98,7 +99,8 @@ class BodyText extends StatelessWidget {
       this.color = Colors.black,
       this.textAlign = TextAlign.start,
       this.fontSize,
-      this.overflow});
+      this.overflow,
+      this.decoration});
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +108,7 @@ class BodyText extends StatelessWidget {
         style: TextStyle(
           fontSize: fontSize ?? Dimens.dimens25,
           color: color,
+          decoration: decoration,
         ),
         overflow: overflow,
         textAlign: textAlign);

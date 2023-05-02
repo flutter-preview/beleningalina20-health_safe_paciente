@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/providers/detalle_solicitud_turno_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
@@ -47,7 +48,10 @@ class _SolicitarTurnoButton extends StatelessWidget {
     return ElevatedButtonCustom(
       text: "Solicitar turno",
       margin: EdgeInsets.all(Dimens.dimens40),
-      onPressed: () => {}, // TODO Ir a mercado pago
+      onPressed: () {
+        turno.comentario = detalleSolicitudTurnoProvider.comentario;
+        Navigator.pushNamed(context, PagoTurnoPage.routeName, arguments: turno);
+      },
       backgroundColor: Colors.white,
       foregroundColor: Colors.blue,
     );

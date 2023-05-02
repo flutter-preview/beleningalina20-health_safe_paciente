@@ -141,7 +141,7 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
   final models.Profesional profesional;
   final models.Especialidad especialidad;
   const _TurnosProfesionalDisponibles(
-      {Key? key, required this.profesional, required this.especialidad});
+      {required this.profesional, required this.especialidad});
 
   @override
   Widget build(BuildContext context) {

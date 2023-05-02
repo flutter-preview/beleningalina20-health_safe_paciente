@@ -4,6 +4,7 @@ import 'package:health_safe_paciente/src/models/models.dart';
 class Turno {
   Turno({
     required this.id,
+    required this.idPago,
     required this.fecha,
     required this.horaInicio,
     required this.horaFin,
@@ -12,6 +13,7 @@ class Turno {
   });
 
   int id;
+  String idPago;
   DateTime fecha;
   TimeOfDay horaInicio;
   TimeOfDay horaFin;
@@ -20,6 +22,7 @@ class Turno {
 
   factory Turno.fromJson(Map<String, dynamic> json) => Turno(
       id: json["idturno"],
+      idPago: json["idpago"],
       fecha: DateTime.parse(json["fecha"]),
       horaInicio: json["horainicio"].toTimeOfDay(),
       horaFin: json["horafin"].toTimeOfDay(),
