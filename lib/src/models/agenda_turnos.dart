@@ -12,9 +12,10 @@ class AgendaTurnos {
     required this.precio,
     required this.modalidadAtencion,
     this.consultorio,
-    required this.turnosReservados,
-    this.createdAt,
-    this.updatedAt,
+    // Para el profesional
+    this.turnosReservados = const [],
+    // Para el paciente
+    this.profesional,
   });
 
   int id;
@@ -26,9 +27,10 @@ class AgendaTurnos {
   double precio;
   ModalidadAtencion modalidadAtencion;
   Consultorio? consultorio;
+
   List<Turno> turnosReservados;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+
+  Profesional? profesional;
 
   factory AgendaTurnos.fromJson(Map<String, dynamic> json) => AgendaTurnos(
         id: json["idagenda"],
@@ -38,11 +40,12 @@ class AgendaTurnos {
         horaFin: json["horafin"].toTimeOfDay(),
         duracion: json["duracion"],
         precio: json["precio"]?.toDouble(),
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
         modalidadAtencion: ModalidadAtencion.fromJson(json["modalidad"]),
         consultorio: Consultorio.fromJson(json["consultorio"]),
+        // Para el profesional
         turnosReservados:
             List<Turno>.from(json["turnos"].map((x) => Turno.fromJson(x))),
+        // Para el paciente
+        profesional: Profesional.fromJson(json["profesional"]),
       );
 }

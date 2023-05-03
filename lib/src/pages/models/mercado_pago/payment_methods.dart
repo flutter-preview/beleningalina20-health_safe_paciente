@@ -1,4 +1,4 @@
-import 'package:health_safe_paciente/src/pages/models/payments.dart';
+import 'package:health_safe_paciente/src/pages/models/mercado_pago/payments.dart';
 
 class PaymentMethods {
   PaymentMethods({

@@ -46,4 +46,8 @@ class Profesional {
       rangoPrecioTurno: json["rangoPrecioTurno"],
       calificacion: json["calificacion"],
       cantidadOpiniones: json["cantidadOpiniones"]);
+
+  @override
+  String toString() =>
+      "${(usuario.sexo == "Masculino") ? "Dr." : "Dra."} ${usuario.nombre} ${usuario.apellido}";
 }

@@ -171,9 +171,9 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
             idAgendaTurnos: agendaTurnos.id,
             horaInicio: horaInicioTurnoAux,
             horaFin: horaFinTurno,
+            idEspecialidad: especialidad.id,
             fecha: perfilProfesionalProvider.fechaAgendaTurnosSeleccionada!,
-            nombreProfesional:
-                "${(profesional.usuario.sexo == "Masculino") ? "Dr." : "Dra."} ${profesional.usuario.nombre} ${profesional.usuario.apellido}",
+            nombreProfesional: profesional.toString(),
             descripcionEspecialidadProfesional: especialidad.descripcion,
             descripcionModalidadAtencion:
                 agendaTurnos.modalidadAtencion.descripcion,

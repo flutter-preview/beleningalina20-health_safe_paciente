@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/pages/routes/routes.dart';
 
@@ -12,6 +13,8 @@ class MyApp extends StatelessWidget {
       title: 'Health Safe - Paciente',
       initialRoute: LoginPage.routeName,
       routes: getApplicationRoutes(),
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: const [Locale('es', 'ES')],
       // theme: ThemeApp.theme
     );
   }

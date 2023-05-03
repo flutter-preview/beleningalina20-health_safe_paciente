@@ -64,9 +64,7 @@ class InfoProfesionalCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BodyText(
-                text:
-                    "${(profesional.usuario.sexo == "Masculino") ? "Dr." : "Dra."} ${profesional.usuario.nombre} ${profesional.usuario.apellido}",
-                overflow: TextOverflow.ellipsis),
+                text: profesional.toString(), overflow: TextOverflow.ellipsis),
             DescriptionText(
               text: profesional.especialidades
                   .map((especialidadProfesional) =>

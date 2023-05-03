@@ -1,3 +1,4 @@
+export 'package:health_safe_paciente/src/models/responses/obtener_turnos_response.dart';
 export 'package:health_safe_paciente/src/models/responses/crear_turno_response.dart';
 export 'package:health_safe_paciente/src/models/responses/login_response.dart';
 export 'package:health_safe_paciente/src/models/responses/obtener_agendas_turnos_por_profesional_mock.dart';
@@ -18,6 +19,6 @@ export 'package:health_safe_paciente/src/models/paciente.dart';
 export 'package:health_safe_paciente/src/models/profesional.dart';
 export 'package:health_safe_paciente/src/models/rol.dart';
 export 'package:health_safe_paciente/src/models/tipo_matricula_profesional.dart';
-export 'package:health_safe_paciente/src/models/turno.dart';
 export 'package:health_safe_paciente/src/models/universidad.dart';
 export 'package:health_safe_paciente/src/models/usuario.dart';
+export 'package:health_safe_paciente/src/models/turno.dart';

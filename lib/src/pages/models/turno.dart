@@ -11,6 +11,7 @@ class Turno {
       required this.descripcionModalidadAtencion,
       required this.precio,
       this.idConsultorio,
+      required this.idEspecialidad,
       this.disponible = true,
       this.comentario = ""});
 
@@ -24,6 +25,7 @@ class Turno {
   int? idConsultorio; // nombre, direccion, localidad
   double precio;
   bool disponible;
+  int idEspecialidad;
 
   String comentario;
 

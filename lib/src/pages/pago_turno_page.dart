@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:mercadopago_sdk/mercadopago_sdk.dart';
 import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
 import 'package:health_safe_paciente/src/pages/pages.dart';
-import 'package:health_safe_paciente/src/pages/models/payments.dart';
+import 'package:health_safe_paciente/src/pages/models/mercado_pago/payments.dart';
 import 'package:health_safe_paciente/src/pages/models/turno.dart';
 import 'package:health_safe_paciente/src/services/services.dart';
 import 'package:health_safe_paciente/src/theme/colors_app.dart';
@@ -72,6 +72,7 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
                       "horainicio": turno.horaInicio.toTimeString(),
                       "horaFin": turno.horaFin.toTimeString(),
                       "fecha": turno.fecha.toString(),
+                      "idEspecialidad": turno.idEspecialidad.toString()
                     })
                     .then((value) => showDialogCustom(
                         context,

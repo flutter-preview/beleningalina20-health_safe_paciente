@@ -26,7 +26,6 @@ ObtenerAgendasTurnosResponse obtenerAgendasTurnosResponseMock =
       turnosReservados: [
         Turno(
             id: 2,
-            idPago: "id_pago_mercado_pago",
             fecha: DateTime(2023, 06, 10),
             horaInicio: const TimeOfDay(hour: 10, minute: 00),
             horaFin: const TimeOfDay(hour: 10, minute: 30),

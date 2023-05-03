@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/services/services.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
@@ -91,19 +92,19 @@ class _OpcionesDrawer extends StatelessWidget {
     switch (opcion.title) {
       case "Inicio":
         Navigator.popUntil(context, (Route<dynamic> route) => false);
-        // Navigator.pushNamed(context, HomePage.routeName);
+        Navigator.pushNamed(context, HomePage.routeName);
         break;
       case "Cerrar Sesión":
         // TODO Desconectar el socket
         var autenticacionService =
             Provider.of<AutenticacionService>(context, listen: false);
         autenticacionService.logout();
-        /*Navigator.of(context).pushNamedAndRemoveUntil(
-            LoginPage.routeName, (Route<dynamic> route) => false);*/
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            LoginPage.routeName, (Route<dynamic> route) => false);
         break;
       default:
         Navigator.popUntil(context, (Route<dynamic> route) => false);
-        // Navigator.pushNamed(context, HomePacientePage.routeName);
+        Navigator.pushNamed(context, HomePage.routeName);
         Navigator.pushNamed(context, opcion.routeName);
         break;
     }

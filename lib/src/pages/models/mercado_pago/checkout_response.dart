@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:health_safe_paciente/src/pages/models/payments.dart';
+import 'package:health_safe_paciente/src/pages/models/mercado_pago/payments.dart';
 
 CheckoutResponse preferenceResponseFromJson(String str) =>
     CheckoutResponse.fromJson(json.decode(str));
