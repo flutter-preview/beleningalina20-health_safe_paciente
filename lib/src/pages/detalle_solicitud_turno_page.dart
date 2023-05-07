@@ -9,6 +9,7 @@ import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
 
 class DetalleSolicitudTurnoPage extends StatelessWidget {
+  // TODO Solicitar permisos para acceder al gps
   static const String routeName = "DetalleSolicitudTurnoPage";
   const DetalleSolicitudTurnoPage({super.key});
 
@@ -85,22 +86,25 @@ class _DetalleTurno extends StatelessWidget {
               children: [
                 const BodyText(text: "Detalles"),
                 const Divider(),
-                _InformacionDetalleSolicitudTurno(
+                InformacionDetalle(
                     title: "Fecha: ",
                     information: turno.fecha.convertDateTimeToLongFormat()),
-                _InformacionDetalleSolicitudTurno(
+                InformacionDetalle(
                     title: "Hora Inicio: ",
                     information: turno.horaInicio.toTimeString()),
-                _InformacionDetalleSolicitudTurno(
+                InformacionDetalle(
                     title: "Modalidad: ",
                     information: turno.descripcionModalidadAtencion),
-                _InformacionDetalleSolicitudTurno(
+                InformacionDetalle(
                     title: "Profesional: ",
                     information: turno.nombreProfesional),
-                _InformacionDetalleSolicitudTurno(
+                InformacionDetalle(
                     title: "Especialidad: ",
                     information: turno.descripcionEspecialidadProfesional),
-                _InformacionDetalleSolicitudTurno(
+                InformacionDetalle(
+                    title: "Consultorio",
+                    information: turno.descripcionConsultorio),
+                InformacionDetalle(
                     title: "Paciente: ",
                     information: "${usuario?.apellido}, ${usuario?.nombre}"),
                 SizedBox(height: Dimens.dimens10),
@@ -120,25 +124,6 @@ class _DetalleTurno extends StatelessWidget {
               ],
             ),
           )),
-    );
-  }
-}
-
-class _InformacionDetalleSolicitudTurno extends StatelessWidget {
-  final String title;
-  final String information;
-  const _InformacionDetalleSolicitudTurno(
-      {required this.title, required this.information});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: Dimens.dimens10),
-      child: Row(children: [
-        DescriptionText(text: title, fontWeight: FontWeight.w500),
-        SizedBox(width: Dimens.dimens10),
-        DescriptionText(text: information),
-      ]),
     );
   }
 }

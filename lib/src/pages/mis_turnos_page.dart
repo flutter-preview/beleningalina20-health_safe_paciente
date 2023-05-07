@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
@@ -218,8 +219,8 @@ class _InfoTurnoPaciente extends StatelessWidget {
               ],
             )
           ]),
-          onTap: () => {} // TODO Ir detalle del turno
-          ),
+          onTap: () => Navigator.pushNamed(context, DetalleTurnoPage.routeName,
+              arguments: turno)),
     );
   }
 }

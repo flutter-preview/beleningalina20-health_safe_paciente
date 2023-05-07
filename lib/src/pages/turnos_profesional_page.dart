@@ -177,7 +177,8 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
             descripcionEspecialidadProfesional: especialidad.descripcion,
             descripcionModalidadAtencion:
                 agendaTurnos.modalidadAtencion.descripcion,
-            idConsultorio: agendaTurnos.consultorio?.id,
+            descripcionConsultorio:
+                agendaTurnos.consultorio?.direccion.toString(),
             precio: agendaTurnos.precio,
             disponible: agendaTurnos.turnosReservados
                 .where((turno) =>

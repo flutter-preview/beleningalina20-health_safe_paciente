@@ -5,7 +5,7 @@ ObtenerTurnosResponse obtenreTurnosResponseMock =
     ObtenerTurnosResponse(turnos: [
   Turno(
       id: 0,
-      fecha: DateTime(2023, 05, 20),
+      fecha: DateTime(2023, 04, 20),
       horaInicio: const TimeOfDay(hour: 10, minute: 00),
       horaFin: const TimeOfDay(hour: 10, minute: 30),
       idPago: "id_pago_0",
@@ -376,9 +376,18 @@ ObtenerTurnosResponse obtenreTurnosResponseMock =
           fechaHasta: DateTime(2023, 05, 25),
           horaInicio: const TimeOfDay(hour: 10, minute: 00),
           horaFin: const TimeOfDay(hour: 16, minute: 00),
+          consultorio: Consultorio(
+              id: 0,
+              direccion: Direccion(
+                  id: 0,
+                  calle: "Laprida",
+                  numero: 589,
+                  localidad: Localidad(
+                      codigoPostal: 4000,
+                      descripcion: "San Miguel de Tucuman"))),
           duracion: 30,
           modalidadAtencion:
-              ModalidadAtencion(id: 0, descripcion: "Videollamada"),
+              ModalidadAtencion(id: 0, descripcion: "Presencial"),
           precio: 100.50,
           profesional: Profesional(
               id: 1,

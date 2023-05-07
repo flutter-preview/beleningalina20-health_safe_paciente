@@ -10,7 +10,7 @@ class Turno {
       required this.descripcionEspecialidadProfesional,
       required this.descripcionModalidadAtencion,
       required this.precio,
-      this.idConsultorio,
+      this.descripcionConsultorio,
       required this.idEspecialidad,
       this.disponible = true,
       this.comentario = ""});
@@ -22,7 +22,7 @@ class Turno {
   String nombreProfesional;
   String descripcionEspecialidadProfesional;
   String descripcionModalidadAtencion;
-  int? idConsultorio; // nombre, direccion, localidad
+  String? descripcionConsultorio;
   double precio;
   bool disponible;
   int idEspecialidad;

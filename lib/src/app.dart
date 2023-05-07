@@ -11,6 +11,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Health Safe - Paciente',
+      // TODO Splash Screen
+      // TODO Icono de la app
+      // TODO Cambiar el nombre de la aplicacion
       initialRoute: LoginPage.routeName,
       routes: getApplicationRoutes(),
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

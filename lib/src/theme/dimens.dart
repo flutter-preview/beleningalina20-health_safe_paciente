@@ -15,7 +15,8 @@ class Dimens {
   static double dimens80 = SizeConfig.height * 0.080;
   static double dimens90 = SizeConfig.height * 0.090;
   static double dimens100 = SizeConfig.height * 0.10;
-  static double dimens250 = SizeConfig.height * 0.24;
+  static double dimens250 = SizeConfig.height * 0.25;
+  static double dimens300 = SizeConfig.height * 0.30;
 
   static double elevation0 = 0;
   static double elevation2 = 2;

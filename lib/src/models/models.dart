@@ -8,6 +8,7 @@ export 'package:health_safe_paciente/src/models/responses/obtener_modalidades_at
 export 'package:health_safe_paciente/src/models/responses/obtener_profesionales_response.dart';
 export 'package:health_safe_paciente/src/models/responses/registro_usuario_response.dart';
 
+export 'package:health_safe_paciente/src/models/direccion.dart';
 export 'package:health_safe_paciente/src/models/agenda_turnos.dart';
 export 'package:health_safe_paciente/src/models/consultorio.dart';
 export 'package:health_safe_paciente/src/models/especialidad_profesional.dart';

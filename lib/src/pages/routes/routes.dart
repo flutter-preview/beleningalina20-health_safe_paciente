@@ -14,4 +14,5 @@ Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
           const DetalleSolicitudTurnoPage(),
       PagoTurnoPage.routeName: (_) => const PagoTurnoPage(),
       MisTurnosPage.routeName: (_) => const MisTurnosPage(),
+      DetalleTurnoPage.routeName: (_) => const DetalleTurnoPage(),
     };

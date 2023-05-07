@@ -1,3 +1,6 @@
+export 'package:health_safe_paciente/src/widgets/informacion_detalle.dart';
+export 'package:health_safe_paciente/src/widgets/google_map.dart';
+export 'package:health_safe_paciente/src/widgets/icon.dart';
 export 'package:health_safe_paciente/src/widgets/date_time_picker.dart';
 export 'package:health_safe_paciente/src/widgets/profesional_card.dart';
 export 'package:health_safe_paciente/src/widgets/header_page.dart';
