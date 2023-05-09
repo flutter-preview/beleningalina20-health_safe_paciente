@@ -96,11 +96,13 @@ class _LoginForm extends StatelessWidget {
       String correo, String contrasena) async {
     await service.login(correo, contrasena).then(
       (_) {
-        //if (true) {
-        Navigator.of(context).pushReplacementNamed(HomePage.routeName);
-        /*} else {
+        if (true) {
+          // TODO Validar que esta registrado
+          Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+          // TODO Connect to socket service
+        } else {
           // TODO Navegar registro paciente
-        }*/
+        }
       },
     ).onError((Exception error, stackTrace) {
       // TODO Login mensaje de error

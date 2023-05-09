@@ -1,6 +1,7 @@
 import 'package:health_safe_paciente/src/theme/size_config.dart';
 
 class Dimens {
+  static double dimens5 = SizeConfig.height * 0.005;
   static double dimens10 = SizeConfig.height * 0.010;
   static double dimens18 = SizeConfig.height * 0.018;
   static double dimens20 = SizeConfig.height * 0.020;

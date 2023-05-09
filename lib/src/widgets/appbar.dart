@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/pages/home_chat_page.dart';
+import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
 
 class AppbarCustom extends StatelessWidget implements PreferredSizeWidget {
-  const AppbarCustom({super.key});
+  final bool habilitarNavegacionChat;
+  const AppbarCustom({super.key, this.habilitarNavegacionChat = true});
 
   @override
   Size get preferredSize => const Size.fromHeight(60.0);
@@ -45,7 +48,11 @@ class AppbarCustom extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
             icon: const Icon(Icons.mark_chat_unread_outlined),
             onPressed: () {
-              // TODO Navegar al home del chatpage
+              if (habilitarNavegacionChat) {
+                Navigator.popUntil(context, (Route<dynamic> route) => false);
+                Navigator.pushNamed(context, HomePage.routeName);
+                Navigator.pushNamed(context, HomeChatPage.routeName);
+              }
             })
       ],
     );

@@ -9,7 +9,22 @@ class ProfesionalLocalService {
         conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 
+<<<<<<< HEAD
   Future<List<Turno>> obtenerProfesionales() async {
     return [];
+=======
+  Future<List<Profesional>> obtenerProfesionales() async {
+    final db = await DBProvider.db.database;
+
+    List<Map<String, Object?>> response = await db.rawQuery('''
+        SELECT * 
+        FROM profesional 
+        INNER JOIN usuario ON profesional.idUsuario = usuario.id
+      ''');
+
+    List<Profesional> profesionales =
+        response.map((resp) => Profesional.fromJson(resp)).toList();
+    return profesionales;
+>>>>>>> 607c4b8 (Listado de profesionales en la mensajeria)
   }
 }
