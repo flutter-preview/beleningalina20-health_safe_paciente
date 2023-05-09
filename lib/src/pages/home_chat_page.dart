@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/database/local_service.dart';
 import 'package:health_safe_paciente/src/database/models/local.dart';
+import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/theme/dimens.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
 
@@ -63,7 +64,8 @@ class _ProfesionalMensaje extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.all(Dimens.dimens10),
-      onTap: () => {}, // TODO Ir al chat y obtener todos los mensajes
+      onTap: () => Navigator.pushNamed(context, ChatPage.routeName,
+          arguments: profesional.usuario),
       leading: ImagenPerfilProfesional(
           urlImagenPerfil: profesional.usuario.urlImagenPerfil),
       title: Row(

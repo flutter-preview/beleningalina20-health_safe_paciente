@@ -16,7 +16,7 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => PermissionHandler(), lazy: false),
     ChangeNotifierProvider(create: (_) => AutenticacionService()),
-    // Socket
+    ChangeNotifierProvider(create: (_) => SocketService()),
     ChangeNotifierProvider(create: (_) => NotificationService(), lazy: false),
   ], child: const MyApp()));
 }

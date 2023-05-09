@@ -17,3 +17,4 @@ export 'package:health_safe_paciente/src/widgets/text_form_field.dart';
 export 'package:health_safe_paciente/src/widgets/text.dart';
 export 'package:health_safe_paciente/src/widgets/list_tile.dart';
 export 'package:health_safe_paciente/src/widgets/rating_bar.dart';
+export 'package:health_safe_paciente/src/widgets/mensaje_chat.dart';

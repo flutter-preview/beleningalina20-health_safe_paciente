@@ -1,3 +1,5 @@
+export 'package:health_safe_paciente/src/pages/home_chat_page.dart';
+export 'package:health_safe_paciente/src/pages/chat_page.dart';
 export 'package:health_safe_paciente/src/pages/detalle_turno_page.dart';
 export 'package:health_safe_paciente/src/pages/mis_turnos_page.dart';
 export 'package:health_safe_paciente/src/pages/pago_turno_page.dart';

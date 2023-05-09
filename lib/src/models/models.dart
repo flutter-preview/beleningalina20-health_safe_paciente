@@ -1,3 +1,4 @@
+export 'package:health_safe_paciente/src/models/responses/obtener_mensajes_response.dart';
 export 'package:health_safe_paciente/src/models/responses/obtener_turnos_response.dart';
 export 'package:health_safe_paciente/src/models/responses/crear_turno_response.dart';
 export 'package:health_safe_paciente/src/models/responses/login_response.dart';
@@ -23,5 +24,5 @@ export 'package:health_safe_paciente/src/models/tipo_matricula_profesional.dart'
 export 'package:health_safe_paciente/src/models/universidad.dart';
 export 'package:health_safe_paciente/src/models/usuario.dart';
 export 'package:health_safe_paciente/src/models/turno.dart';
-
+export 'package:health_safe_paciente/src/models/mensaje.dart';
 export 'package:health_safe_paciente/src/models/push_message.dart';

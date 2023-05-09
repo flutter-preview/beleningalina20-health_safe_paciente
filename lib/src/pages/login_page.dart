@@ -97,9 +97,11 @@ class _LoginForm extends StatelessWidget {
     await service.login(correo, contrasena).then(
       (_) {
         if (true) {
-          // TODO Validar que esta registrado
+          // TODO validar usuario este registrado
+          final socketService =
+              Provider.of<SocketService>(context, listen: false);
+          socketService.connect();
           Navigator.of(context).pushReplacementNamed(HomePage.routeName);
-          // TODO Connect to socket service
         } else {
           // TODO Navegar registro paciente
         }

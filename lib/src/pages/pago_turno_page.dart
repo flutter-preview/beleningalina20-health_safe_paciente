@@ -74,6 +74,8 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
                       "fecha": turno.fecha.toString(),
                       "idEspecialidad": turno.idEspecialidad.toString()
                     })
+                    // TODO La notificacion al profesional que se creo el turno
+                    // Y el post de la mensajeria
                     .then((value) => showDialogCustom(
                         context,
                         [

@@ -96,11 +96,15 @@ class _OpcionesDrawer extends StatelessWidget {
         Navigator.pushNamed(context, HomePage.routeName);
         break;
       case "Cerrar Sesión":
-        // TODO Desconectar el socket
         var autenticacionService =
             Provider.of<AutenticacionService>(context, listen: false);
+<<<<<<< HEAD
         var permissionHandler =
             Provider.of<PermissionHandler>(context, listen: false);
+=======
+        var socketService = Provider.of<SocketService>(context, listen: false);
+        socketService.disconnect();
+>>>>>>> b92aba1 (Chat page)
         autenticacionService.logout();
         permissionHandler.close();
         Navigator.of(context).pushNamedAndRemoveUntil(

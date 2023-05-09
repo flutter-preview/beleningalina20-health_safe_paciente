@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/pages/home_chat_page.dart';
 import 'package:health_safe_paciente/src/pages/pages.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
@@ -17,4 +16,5 @@ Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
       MisTurnosPage.routeName: (_) => const MisTurnosPage(),
       DetalleTurnoPage.routeName: (_) => const DetalleTurnoPage(),
       HomeChatPage.routeName: (_) => const HomeChatPage(),
+      ChatPage.routeName: (_) => const ChatPage(),
     };
