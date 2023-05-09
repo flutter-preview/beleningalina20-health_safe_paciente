@@ -9,7 +9,7 @@ class ProfesionalLocalService {
         conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 
-  Future<List<Turno>> obtenerProfesionales() async {
+  Future<List<Profesional>> obtenerProfesionales() async {
     final db = await DBProvider.db.database;
 
     List<Map<String, Object?>> response = await db.rawQuery('''
@@ -17,6 +17,9 @@ class ProfesionalLocalService {
         FROM profesional 
         INNER JOIN usuario ON profesional.idUsuario = usuario.id
       ''');
-    return [];
+
+    List<Profesional> profesionales =
+        response.map((resp) => Profesional.fromJson(resp)).toList();
+    return profesionales;
   }
 }

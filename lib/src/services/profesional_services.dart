@@ -13,7 +13,7 @@ class ProfesionalService {
     ModalidadAtencion? modalidadAtencion,
     Localidad? localidad,
   ) async {
-    return await obtenerProfesionalesService(
+    return await _obtenerProfesionalesService(
             especialidad, modalidadAtencion, localidad)
         .then((value) {
       return value.profesionales;
@@ -22,12 +22,42 @@ class ProfesionalService {
     });
   }
 
-  Future<ObtenerProfesionalesResponse> obtenerProfesionalesService(
+  Future<List<Profesional>> obtenerProfesionalesTurnos(int idPaciente) async {
+    return await _obtenerProfesionalesTurnosService().then((value) {
+      return value.profesionales;
+    }).onError((Exception error, stackTrace) {
+      throw error;
+    });
+  }
+
+  Future<ObtenerProfesionalesResponse> _obtenerProfesionalesService(
     Especialidad? especialidad,
     ModalidadAtencion? modalidadAtencion,
     Localidad? localidad,
   ) async {
     // late Map<String, dynamic> response;
+    // Uri url = Uri.parse(
+    // '${Environments.apiUrl}/profesionales?especialidad=${especialidad?.id}&&modalidadAtencion=${modalidadAtencion?.id}&&localidad=${localidad?.codigoPostal}');
+
+    try {
+      return obtenerProfesionalesResponseMock;
+      /*final resp = await http.get(url).timeout(const Duration(seconds: 3));
+
+      debugPrint(resp.body.toString());
+
+      response = apiResponseMapper(resp);
+
+      return ObtenerProfesionalesResponse.fromJson(response);*/
+    } on SocketException {
+      throw ApiException(message: 'Falló la comunicación con el servidor');
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ObtenerProfesionalesResponse>
+      _obtenerProfesionalesTurnosService() async {
+// late Map<String, dynamic> response;
     // Uri url = Uri.parse(
     // '${Environments.apiUrl}/profesionales?especialidad=${especialidad?.id}&&modalidadAtencion=${modalidadAtencion?.id}&&localidad=${localidad?.codigoPostal}');
 
