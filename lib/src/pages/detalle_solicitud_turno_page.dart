@@ -101,9 +101,10 @@ class _DetalleTurno extends StatelessWidget {
                 InformacionDetalle(
                     title: "Especialidad: ",
                     information: turno.descripcionEspecialidadProfesional),
-                InformacionDetalle(
-                    title: "Consultorio",
-                    information: turno.descripcionConsultorio),
+                if (turno.descripcionConsultorio != null)
+                  InformacionDetalle(
+                      title: "Consultorio",
+                      information: turno.descripcionConsultorio),
                 InformacionDetalle(
                     title: "Paciente: ",
                     information: "${usuario?.apellido}, ${usuario?.nombre}"),

@@ -122,8 +122,7 @@ class _ConsultorioAgendaTurnos extends StatelessWidget {
 class _LinkVideollamadaButton extends StatelessWidget {
   final DateTime fechaTurno;
   final int? idProfesional;
-  const _LinkVideollamadaButton(
-      {super.key, required this.fechaTurno, this.idProfesional});
+  const _LinkVideollamadaButton({required this.fechaTurno, this.idProfesional});
 
   @override
   Widget build(BuildContext context) {
