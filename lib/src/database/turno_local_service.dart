@@ -17,8 +17,7 @@ class TurnoLocalService {
 
       await UsuarioLocalService().crearUsuario(turno.profesional.usuario);
       await ProfesionalLocalService().crearProfesional(turno.profesional);
-      var result = await db.insert("turno", turno.toJson());
-      print("Result: $result");
+      await db.insert("turno", turno.toJson());
     } catch (e) {
       rethrow;
     }

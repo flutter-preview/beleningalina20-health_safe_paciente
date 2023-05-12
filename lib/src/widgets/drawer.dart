@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:health_safe_paciente/src/helpers/utils/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/pages/pages.dart';
 import 'package:health_safe_paciente/src/services/services.dart';
@@ -98,7 +99,10 @@ class _OpcionesDrawer extends StatelessWidget {
         // TODO Desconectar el socket
         var autenticacionService =
             Provider.of<AutenticacionService>(context, listen: false);
+        var permissionHandler =
+            Provider.of<PermissionHandler>(context, listen: false);
         autenticacionService.logout();
+        permissionHandler.close();
         Navigator.of(context).pushNamedAndRemoveUntil(
             LoginPage.routeName, (Route<dynamic> route) => false);
         break;

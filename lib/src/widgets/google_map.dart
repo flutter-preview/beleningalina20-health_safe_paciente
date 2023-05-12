@@ -25,7 +25,6 @@ class GoogleMapCustom extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MapProvider()),
-        ChangeNotifierProvider(create: (_) => PermissionHandler())
       ],
       child: SizedBox(
         width: double.infinity,
@@ -52,7 +51,7 @@ class _GoogleMap extends StatelessWidget {
     final permissionHandler = Provider.of<PermissionHandler>(context);
 
     if (permissionHandler.isGpsEnabled &&
-        permissionHandler.isGpsPermissionGranted) {
+        permissionHandler.isLocationPermissionGranted) {
       Position? currentPosition = permissionHandler.currentPosition;
       if (currentPosition != null) {
         coordenadasActual =
@@ -138,10 +137,10 @@ class _GoogleMap extends StatelessWidget {
                                         text: "Aceptar permisos",
                                         fontWeight: FontWeight.bold),
                                     value: permissionHandler
-                                        .isGpsPermissionGranted,
+                                        .isLocationPermissionGranted,
                                     onChanged: (bool value) async {
                                       if (!permissionHandler
-                                              .isGpsPermissionGranted &&
+                                              .isLocationPermissionGranted &&
                                           value) {
                                         permissionHandler.askGpsAccess();
                                         Navigator.pop(context);

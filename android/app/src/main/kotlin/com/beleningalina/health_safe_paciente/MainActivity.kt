@@ -1,4 +1,4 @@
-package com.example.health_safe_paciente
+package com.beleningalina.health_safe_paciente
 
 import android.app.Activity
 import android.content.Intent

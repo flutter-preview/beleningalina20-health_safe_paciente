@@ -5,7 +5,9 @@ import 'package:permission_handler/permission_handler.dart';
 
 class PermissionHandler extends ChangeNotifier {
   bool _isGpsEnabled = false;
-  bool _isGpsPermissionGranted = false;
+  bool _isLocationPermissionGranted = false;
+  bool _isNotificacionPermissionGranted = false;
+
   Position? currentPosition;
 
   bool get isGpsEnabled => _isGpsEnabled;
@@ -14,9 +16,15 @@ class PermissionHandler extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool get isGpsPermissionGranted => _isGpsPermissionGranted;
-  set isGpsPermissionGranted(bool value) {
-    _isGpsPermissionGranted = value;
+  bool get isLocationPermissionGranted => _isLocationPermissionGranted;
+  set isLocationPermissionGranted(bool value) {
+    _isLocationPermissionGranted = value;
+    notifyListeners();
+  }
+
+  bool get isNotificacionPermissionGranted => _isNotificacionPermissionGranted;
+  set isNotificacionPermissionGranted(bool value) {
+    _isNotificacionPermissionGranted = value;
     notifyListeners();
   }
 
@@ -28,12 +36,24 @@ class PermissionHandler extends ChangeNotifier {
 
   Future<void> _init() async {
     isGpsEnabled = await _checkGpsStatus();
-    isGpsPermissionGranted = await _isPermissionGranted();
+    isLocationPermissionGranted =
+        await _isPermissionGranted(Permission.location);
+    isNotificacionPermissionGranted =
+        await _isPermissionGranted(Permission.notification);
 
-    if (isGpsEnabled && isGpsPermissionGranted) {
-      currentPosition = await _getCurrentPosition();
-      notifyListeners();
+    if (!isLocationPermissionGranted) {
+      _askPermissionAccess(Permission.location,
+          (bool value) => isLocationPermissionGranted = value);
+    } else {
+      if (isGpsEnabled) {
+        currentPosition = await Geolocator.getCurrentPosition();
+      }
     }
+
+    if (!isNotificacionPermissionGranted) {
+      _askPermissionAccess(Permission.notification,
+          (bool value) => isNotificacionPermissionGranted = value);
+    } else {}
   }
 
   Future<bool> _checkGpsStatus() async {
@@ -48,30 +68,32 @@ class PermissionHandler extends ChangeNotifier {
     return isEnabled;
   }
 
-  Future<bool> _isPermissionGranted() async {
-    return await Permission.location.isGranted.then((value) => value);
+  Future<bool> _isPermissionGranted(Permission permission) async {
+    return await permission.isGranted.then((value) => value);
   }
 
-  void askGpsAccess() async {
-    await Permission.location.request().then((value) {
+  void _askPermissionAccess(
+      Permission permission, void Function(bool) updateStatePermission) async {
+    await permission.request().then((value) {
       switch (value) {
         case PermissionStatus.denied:
         case PermissionStatus.limited:
         case PermissionStatus.permanentlyDenied:
         case PermissionStatus.restricted:
-          isGpsPermissionGranted = false;
+          updateStatePermission(false);
           openAppSettings();
           break;
 
         case PermissionStatus.granted:
-          isGpsPermissionGranted = true;
+          updateStatePermission(true);
           break;
       }
     });
   }
 
-  Future<Position> _getCurrentPosition() async {
-    return await Geolocator.getCurrentPosition();
+  void askGpsAccess() async {
+    _askPermissionAccess(Permission.location,
+        (bool value) => isLocationPermissionGranted = value);
   }
 
   Future<void> close() async {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/helpers/utils/permission_handler.dart';
 import 'package:health_safe_paciente/src/pages/busqueda_profesionales_page.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = "HomePage";
@@ -9,19 +11,27 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            appBar: const AppbarCustom(),
-            backgroundColor: Colors.white,
-            body: Padding(
-                padding: EdgeInsets.all(Dimens.dimens20),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const <Widget>[
-                      LogoHealthSafe(textColor: Colors.black),
-                      _BotonesNavegacionHome()
-                    ])),
-            drawer: const DrawerCustom()));
+    return WillPopScope(
+      onWillPop: () async {
+        var permissionHandler =
+            Provider.of<PermissionHandler>(context, listen: false);
+        permissionHandler.close();
+        return true;
+      },
+      child: SafeArea(
+          child: Scaffold(
+              appBar: const AppbarCustom(),
+              backgroundColor: Colors.white,
+              body: Padding(
+                  padding: EdgeInsets.all(Dimens.dimens20),
+                  child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        LogoHealthSafe(textColor: Colors.black),
+                        _BotonesNavegacionHome()
+                      ])),
+              drawer: const DrawerCustom())),
+    );
   }
 }
 

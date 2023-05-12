@@ -10,13 +10,6 @@ class ProfesionalLocalService {
   }
 
   Future<List<Turno>> obtenerProfesionales() async {
-    final db = await DBProvider.db.database;
-
-    List<Map<String, Object?>> response = await db.rawQuery('''
-        SELECT * 
-        FROM profesional 
-        INNER JOIN usuario ON profesional.idUsuario = usuario.id
-      ''');
     return [];
   }
 }
