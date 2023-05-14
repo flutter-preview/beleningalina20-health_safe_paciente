@@ -13,6 +13,14 @@ class RegistroUsuarioFormProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
   List<String> sexos = ['Femenino', 'Masculino'];
 
   String _correo = '';

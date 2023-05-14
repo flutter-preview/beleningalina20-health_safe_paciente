@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
+import 'package:health_safe_paciente/src/models/core/core_models.dart';
 
 class PerfilProfesionalProvider with ChangeNotifier {
   int _paginaActual = 0;
@@ -10,10 +10,10 @@ class PerfilProfesionalProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  ModalidadAtencion? _modalidadAtencionSeleccionada;
-  ModalidadAtencion? get modalidadAtencionSeleccionada =>
+  ModalidadAtencionDto? _modalidadAtencionSeleccionada;
+  ModalidadAtencionDto? get modalidadAtencionSeleccionada =>
       _modalidadAtencionSeleccionada;
-  set modalidadAtencionSeleccionada(ModalidadAtencion? value) {
+  set modalidadAtencionSeleccionada(ModalidadAtencionDto? value) {
     _modalidadAtencionSeleccionada = value;
     notifyListeners();
   }
@@ -25,14 +25,14 @@ class PerfilProfesionalProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Consultorio? _consultorioSeleccionado;
-  Consultorio? get consultorioSeleccionado => _consultorioSeleccionado;
-  set consultorioSeleccionado(Consultorio? value) {
+  ConsultorioDto? _consultorioSeleccionado;
+  ConsultorioDto? get consultorioSeleccionado => _consultorioSeleccionado;
+  set consultorioSeleccionado(ConsultorioDto? value) {
     _consultorioSeleccionado = value;
     notifyListeners();
   }
 
-  List<DateTime> fechasDisponibles(List<AgendaTurnos> agendasTurnos) {
+  List<DateTime> fechasDisponibles(List<AgendaTurnosDto> agendasTurnos) {
     List<DateTime> fechasAgendasTurnos = [];
 
     for (var agendaTurnos in agendasTurnos) {
@@ -57,9 +57,9 @@ class PerfilProfesionalProvider with ChangeNotifier {
     return fechasAgendasTurnos.toList();
   }
 
-  List<ModalidadAtencion> modalidadesAtencionDisponible(
-      List<AgendaTurnos> agendasTurnos) {
-    List<ModalidadAtencion> modalidadesAtencion = [];
+  List<ModalidadAtencionDto> modalidadesAtencionDisponible(
+      List<AgendaTurnosDto> agendasTurnos) {
+    List<ModalidadAtencionDto> modalidadesAtencion = [];
     List<int> idModalidadesAtencion = [];
     for (var agendaTurnos in agendasTurnos) {
       if (!idModalidadesAtencion.contains(agendaTurnos.modalidadAtencion.id)) {
@@ -70,8 +70,9 @@ class PerfilProfesionalProvider with ChangeNotifier {
     return modalidadesAtencion;
   }
 
-  List<Consultorio> consultoriosDisponibles(List<AgendaTurnos> agendasTurnos) {
-    List<Consultorio> consultorios = [];
+  List<ConsultorioDto> consultoriosDisponibles(
+      List<AgendaTurnosDto> agendasTurnos) {
+    List<ConsultorioDto> consultorios = [];
     List<int> idConsultorios = [];
 
     for (var agendaTurnos in agendasTurnos) {

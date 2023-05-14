@@ -1,0 +1,14 @@
+export 'package:health_safe_paciente/src/models/extra/convert_agenda_turnos.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_consultorio.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_direccion.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_especialidad_profesional.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_especialidad.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_localidad.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_matricula_profesional.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_modalidad_atencion.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_tipo_matricula_profesional.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_turno.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_universidad.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_usuario.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_profesional.dart';
+export 'package:health_safe_paciente/src/models/extra/convert_paciente.dart';

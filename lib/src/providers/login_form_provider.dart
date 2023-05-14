@@ -6,6 +6,8 @@ class LoginFormProvider extends ChangeNotifier {
   String _correo = '';
   String _contrasena = '';
 
+  bool _isLoading = false;
+
   String get correo => _correo;
   set correo(String value) {
     _correo = value;
@@ -15,6 +17,12 @@ class LoginFormProvider extends ChangeNotifier {
   String get contrasena => _contrasena;
   set contrasena(String value) {
     _contrasena = value;
+    notifyListeners();
+  }
+
+  bool get isLoading => _isLoading;
+  set isLoading(bool value) {
+    _isLoading = value;
     notifyListeners();
   }
 
