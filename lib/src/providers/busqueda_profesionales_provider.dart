@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
+import 'package:health_safe_paciente/src/models/core/core_models.dart';
 
 class BusquedaProfesionalesProvider with ChangeNotifier {
-  Especialidad? _especialidad;
-  Especialidad? get especialidad => _especialidad;
-  set especialidad(Especialidad? value) {
+  EspecialidadDto? _especialidad;
+  EspecialidadDto? get especialidad => _especialidad;
+  set especialidad(EspecialidadDto? value) {
     _especialidad = value;
     notifyListeners();
   }
 
-  ModalidadAtencion? _modalidadAtencion;
-  ModalidadAtencion? get modalidadAtencion => _modalidadAtencion;
-  set modalidadAtencion(ModalidadAtencion? value) {
+  ModalidadAtencionDto? _modalidadAtencion;
+  ModalidadAtencionDto? get modalidadAtencion => _modalidadAtencion;
+  set modalidadAtencion(ModalidadAtencionDto? value) {
     _modalidadAtencion = value;
     notifyListeners();
   }
 
-  Localidad? _localidad;
-  Localidad? get localidad => _localidad;
-  set localidad(Localidad? value) {
+  LocalidadDto? _localidad;
+  LocalidadDto? get localidad => _localidad;
+  set localidad(LocalidadDto? value) {
     _localidad = value;
     notifyListeners();
   }

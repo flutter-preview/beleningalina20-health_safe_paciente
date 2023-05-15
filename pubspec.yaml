@@ -51,6 +51,8 @@ dependencies:
   permission_handler: ^10.2.0
   firebase_messaging: ^14.5.0
   firebase_core: ^2.11.0
+  pull_to_refresh: ^2.0.0
+  socket_io_client: ^2.0.2
 
 dev_dependencies:
   mockito: ^5.3.2
