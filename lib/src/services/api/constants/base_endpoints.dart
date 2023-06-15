@@ -1,7 +1,6 @@
 import 'package:health_safe_paciente/src/services/api/utils/environments.dart';
 
 class BaseEndpoints {
-  static const String login = '${Environments.apiUrl}/auth/login';
   static const String renew = '${Environments.apiUrl}/auth/renovartoken';
 
   static const String registroUsuario = '${Environments.apiUrl}/usuarios';

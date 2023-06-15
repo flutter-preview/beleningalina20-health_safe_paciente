@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/models/core/mensaje_dto.dart';
 import 'package:health_safe_paciente/src/services/api/api_services.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class MensajeChat extends StatelessWidget {
-  final MensajeDto mensaje;
+  final Mensaje mensaje;
   final AnimationController animationController;
   const MensajeChat(
       {Key? key, required this.mensaje, required this.animationController})
@@ -15,15 +15,15 @@ class MensajeChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final autenticacionService =
-        Provider.of<AutenticacionApiService>(context, listen: false);
-    final paciente = autenticacionService.paciente;
+        Provider.of<AutenticacionService>(context, listen: false);
+    // final paciente = autenticacionService.paciente;
 
     return FadeTransition(
       opacity: animationController,
       child: SizeTransition(
           sizeFactor: CurvedAnimation(
               parent: animationController, curve: Curves.easeOut),
-          child: (mensaje.idEmisor == paciente!.id)
+          child: (mensaje.idEmisor == 00)
               ? MensajePaciente(mensaje: mensaje)
               : MensajeProfesional(mensaje: mensaje)),
     );
@@ -31,7 +31,7 @@ class MensajeChat extends StatelessWidget {
 }
 
 class MensajePaciente extends StatelessWidget {
-  final MensajeDto mensaje;
+  final Mensaje mensaje;
   const MensajePaciente({super.key, required this.mensaje});
 
   @override
@@ -60,7 +60,7 @@ class MensajePaciente extends StatelessWidget {
 }
 
 class MensajeProfesional extends StatelessWidget {
-  final MensajeDto mensaje;
+  final Mensaje mensaje;
   const MensajeProfesional({super.key, required this.mensaje});
 
   @override

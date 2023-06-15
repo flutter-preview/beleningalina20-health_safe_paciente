@@ -17,7 +17,9 @@ class SocketApiService with ChangeNotifier {
   Function get emit => _socket.emit;
 
   void connect() async {
-    final token = await LocalStorage.localStorage.getToken();
+    // TODO
+    print("CONNECT SOCKET API");
+    /*final token = await LocalStorage.localStorage.getToken();
     // Dart Client
     _socket = io.io(Environments.socketUrl, {
       'transports': ['websocket'],
@@ -34,7 +36,7 @@ class SocketApiService with ChangeNotifier {
     _socket.on('disconnect', (data) {
       _serverStatus = ServerStatus.offline;
       notifyListeners();
-    });
+    });*/
   }
 
   void disconnect() {

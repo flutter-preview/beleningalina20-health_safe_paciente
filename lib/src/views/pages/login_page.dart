@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/services/api/utils/api_exceptions.dart';
 import 'package:health_safe_paciente/src/services/api/api_services.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
@@ -65,13 +66,10 @@ class _LoginForm extends StatelessWidget {
               value: loginFormProvider.contrasena,
               onChanged: (String value) => loginFormProvider.contrasena = value,
             ),
+            SizedBox(height: Dimens.dimens30),
             (loginFormProvider.isLoading)
-                ? Padding(
-                    padding: EdgeInsets.all(Dimens.dimens40),
-                    child: const Center(child: CircularProgressIndicator()),
-                  )
+                ? const Loader()
                 : ElevatedButtonCustom(
-                    margin: EdgeInsets.only(top: Dimens.dimens40),
                     text: 'Iniciar sesión',
                     onPressed: (loginFormProvider.isValidForm())
                         ? () async {
@@ -95,17 +93,15 @@ class _LoginForm extends StatelessWidget {
   Future<void> login(
       BuildContext context, String correo, String contrasena) async {
     final autenticacionService =
-        Provider.of<AutenticacionApiService>(context, listen: false);
+        Provider.of<AutenticacionService>(context, listen: false);
 
     await autenticacionService.login(correo, contrasena).then(
       (_) {
-        final socketService =
-            Provider.of<SocketApiService>(context, listen: false);
-        socketService.connect();
+        // TODO Connect Socket Service
         Navigator.of(context).pushReplacementNamed(HomePage.routeName);
       },
-    ).onError((Exception error, stackTrace) {
-      // TODO Login mensaje de error
+    ).onError((ApiException error, stackTrace) {
+      showMessageAlertDialog(context, error.message);
     });
   }
 }

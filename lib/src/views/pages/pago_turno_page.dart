@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
-import 'package:health_safe_paciente/src/models/server/api_mercado_pago/api_mercado_pago_models.dart';
-import 'package:health_safe_paciente/src/services/api/api_services.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:provider/provider.dart';
 import 'package:mercadopago_sdk/mercadopago_sdk.dart';
+import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
+import 'package:health_safe_paciente/src/services/api/api_services.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/theme/colors_app.dart';
 import 'package:health_safe_paciente/src/theme/dimens.dart';
@@ -22,7 +21,7 @@ class PagoTurnoPage extends StatefulWidget {
 class _PagoTurnoPageState extends State<PagoTurnoPage> {
   bool cargandoRedireccionMercadoPago = false;
 
-  late TurnoDto turno;
+  late Turno turno;
 
   @override
   void initState() {
@@ -44,65 +43,44 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
           String statusDetail = call.arguments[2];
 
           switch (status) {
-            case "pending": // statusDetail: pending_contingency, pending_review_manual, pending_waiting_payment, pending_waiting_transfer, pending_waiting_released
+            case "pending":
             case "authorized":
-            case "in_process": // statusDetail: pending_review_manual, pending_contingency
+            case "in_process":
             case "in_meditiation":
-            case "rejected": // statusDetail: cc_rejected_insufficient_amount, cc_rejected_other_reason, cc_rejected_high_risk, cc_rejected_bad_filled_card_number, cc_rejected_bad_filled_date, cc_rejected_bad_filled_other, cc_rejected_bad_filled_security_code, cc_rejected_blacklist, cc_rejected_call_for_authorize, cc_rejected_card_disabled, cc_rejected_card_error, cc_rejected_duplicated_payment, cc_rejected_invalid_installments, cc_rejected_max_attempts
+            case "rejected":
             case "cancelled":
             case "refunded":
             case "charged_back":
-              // TODO Manejar cada tipo de error
-              return showSnackBar(
-                  context, "Error en el procesamiento del pago");
+              return showDialogCustom(context, Text("error")
+                  /*const FailureWidget(
+                      description: "Error al procesar el pago")*/
+                  );
 
             case "approved":
               if (statusDetail == "accredited") {
                 TurnoApiService turnoService = TurnoApiService();
 
                 final autenticacionService =
-                    Provider.of<AutenticacionApiService>(context,
-                        listen: false);
-                final paciente = autenticacionService.paciente!.usuario;
+                    Provider.of<AutenticacionService>(context, listen: false);
+                final paciente = autenticacionService.usuario;
 
                 turno.idPago = paymentId;
-                turno.idPaciente = paciente.id;
+                turno.idPaciente = paciente?.id;
 
                 await turnoService
                     .crearTurno(turno)
                     // TODO La notificacion al profesional que se creo el turno
                     // Y el post de la mensajeria
-                    .then((value) => showDialogCustom(
-                        context,
-                        [
-                          const DescriptionText(
-                              text: "Pago exitoso",
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold),
-                          SizedBox(
-                            height: Dimens.dimens10,
-                          ),
-                          const Icon(Icons.verified, color: Colors.green)
-                        ],
+                    .then((value) => showDialogCustom(context, Text("success"),
+                        /*const SuccessWidget(description: "Pago exitoso"),*/
                         barrierDismissible: false,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         onAccept: () => Navigator.pushNamedAndRemoveUntil(
                             context, HomePage.routeName, (route) => false)))
                     .onError((error, _) => showDialogCustom(
-                        context,
-                        [
-                          const DescriptionText(
-                              text: "No se pudo procesar el pago",
-                              fontWeight: FontWeight.bold),
-                          SizedBox(
-                            height: Dimens.dimens10,
-                          ),
-                          const Icon(Icons.error, color: Colors.orange)
-                        ],
+                        context, Text("error"),
+                        /*const FailureWidget(
+                            description: "No se pudo procesar el pago"),**/
                         barrierDismissible: false,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         onAccept: () => Navigator.pushNamedAndRemoveUntil(
                             context, HomePage.routeName, (route) => false)));
               } else {
@@ -118,24 +96,32 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
           break;
 
         case "mercadoPagoFailed":
-          showSnackBar(context, "Se canceló la operación con Mercado Pago");
-          break;
+          return showDialogCustom(context, Text("erro")
+              /*const FailureWidget(
+                  description: "Se canceló la operación con Mercado Pago")*/
+              );
 
         case "mercadoPagoCanceled":
-          showSnackBar(context, "Se canceló el pago mediante Mercado Pago");
-
-          break;
+          return showDialogCustom(context, Text("erro")
+              /*,
+              
+              const FailureWidget(
+                  description: "Se canceló el pago mediante Mercado Pago")*/
+              );
         default:
-          showSnackBar(context,
-              "Problemas con el servidor. Comuniquese con el administrador");
-          break;
+          return showDialogCustom(context, Text("erro")
+              /*,
+              const FailureWidget(
+                  description:
+                      "Problemas con el servidor. Comuniquese con el administrador")*/
+              );
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    turno = ModalRoute.of(context)?.settings.arguments as TurnoDto;
+    turno = ModalRoute.of(context)?.settings.arguments as Turno;
 
     return SafeArea(
         child: Scaffold(
@@ -177,7 +163,7 @@ class _GradienteContainer extends StatelessWidget {
 }
 
 class _DescriptionPago extends StatelessWidget {
-  final TurnoDto turno;
+  final Turno turno;
   const _DescriptionPago({Key? key, required this.turno}) : super(key: key);
 
   @override
@@ -211,7 +197,7 @@ class _DescriptionPago extends StatelessWidget {
 
 class _AccionesPagarTurno extends StatelessWidget {
   final void Function(bool) updateMercadoPagoState;
-  final TurnoDto turno;
+  final Turno turno;
 
   const _AccionesPagarTurno(
       {Key? key, required this.updateMercadoPagoState, required this.turno})
@@ -245,8 +231,8 @@ class _AccionesPagarTurno extends StatelessWidget {
     updateMercadoPagoState(true);
 
     final autenticacionService =
-        Provider.of<AutenticacionApiService>(context, listen: false);
-    final usuario = autenticacionService.paciente!.usuario;
+        Provider.of<AutenticacionService>(context, listen: false);
+    final usuario = autenticacionService.usuario;
 
     final mercadoPago = MP(MercadoPagoCredentials.mpClientIdPROD,
         MercadoPagoCredentials.mpClientSecretPROD);
@@ -261,9 +247,9 @@ class _AccionesPagarTurno extends StatelessWidget {
               currencyId: "ARS")
         ],
         payer: Payer(
-            name: usuario.nombre,
-            surname: usuario.apellido,
-            email: usuario.correo),
+            name: usuario?.nombre ?? '',
+            surname: usuario?.apellido ?? '',
+            email: usuario?.correo ?? ''),
         paymentMethods: PaymentMethods(excludedPaymentTypes: [
           ExcludedPayment(id: 'ticket')
         ], excludedPaymentMethods: [

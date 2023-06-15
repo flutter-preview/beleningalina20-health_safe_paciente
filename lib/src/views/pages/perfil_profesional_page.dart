@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/services/api/api_services.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
@@ -16,8 +16,8 @@ class PerfilProfesionalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, dynamic> arguments =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-    ProfesionalDto profesional = arguments['profesional'];
-    EspecialidadDto especialidad = arguments['especialidad'];
+    Profesional profesional = arguments['profesional'];
+    Especialidad especialidad = arguments['especialidad'];
 
     return SafeArea(
         child: Scaffold(
@@ -32,11 +32,13 @@ class PerfilProfesionalPage extends StatelessWidget {
             future:
                 AgendaTurnosApiService().obtenerAgendasTurnos(profesional.id),
             builder: (BuildContext context,
-                AsyncSnapshot<List<AgendaTurnosDto>> snapshot) {
+                AsyncSnapshot<List<AgendaTurnos>> snapshot) {
               if (snapshot.hasData) {
-                List<AgendaTurnosDto> agendasTurnos = snapshot.data ?? [];
+                List<AgendaTurnos> agendasTurnos = snapshot.data ?? [];
                 if (agendasTurnos.isEmpty) {
-                  // TODO Mensaje de que no hay agendas de turnos para el profesional
+                  /*const EmptyWidget(
+                      description:
+                          "El profesional no tiene agendas de turnos disponibles");*/
                 } else {
                   profesional.agendasTurnos = agendasTurnos;
                   return ChangeNotifierProvider(
@@ -48,7 +50,9 @@ class PerfilProfesionalPage extends StatelessWidget {
                 }
               }
               if (snapshot.hasError) {
-                // TODO Error al obtener las agendas de turnos
+                /*const FailureWidget(
+                    description:
+                        "Algo salió mal al cargar las agendas de turnos del profesional. Inténtalo más tarde.");*/
               }
               return const Center(child: CircularProgressIndicator());
             }),
@@ -59,8 +63,8 @@ class PerfilProfesionalPage extends StatelessWidget {
 }
 
 class _PagerView extends StatelessWidget {
-  final ProfesionalDto profesional;
-  final EspecialidadDto especialidad;
+  final Profesional profesional;
+  final Especialidad especialidad;
   const _PagerView({required this.profesional, required this.especialidad});
 
   @override

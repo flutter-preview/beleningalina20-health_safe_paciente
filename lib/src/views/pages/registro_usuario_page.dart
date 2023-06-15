@@ -134,24 +134,23 @@ class _RegistroUsuarioForm extends StatelessWidget {
                                     .isLoading = false);
                           } else {
                             showDialogCustom(
-                                context,
-                                [
-                                  const DescriptionText(
-                                    text:
-                                        "Para registrarse debe ser mayor de edad",
-                                    textAlign: TextAlign.center,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  Icon(Icons.warning,
-                                      color: Colors.orange,
-                                      size: SizeConfig.height * 0.1),
-                                ],
-                                onAccept: () => Navigator.of(context)
-                                    .pushNamedAndRemoveUntil(
-                                        LoginPage.routeName, (route) => false),
-                                barrierDismissible: false,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center);
+                              context,
+                              Column(children: [
+                                const DescriptionText(
+                                  text:
+                                      "Para registrarse debe ser mayor de edad",
+                                  textAlign: TextAlign.center,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                Icon(Icons.warning,
+                                    color: Colors.orange,
+                                    size: SizeConfig.height * 0.1),
+                              ]),
+                              onAccept: () => Navigator.of(context)
+                                  .pushNamedAndRemoveUntil(
+                                      LoginPage.routeName, (route) => false),
+                              barrierDismissible: false,
+                            );
                           }
                         }
                       : () {
@@ -184,22 +183,21 @@ class _RegistroUsuarioForm extends StatelessWidget {
             context, RegistroPacientePage.routeName))
         .onError((error, stackTrace) {
       showDialogCustom(
-          context,
-          [
-            DescriptionText(
-              text: error.toString(),
-              textAlign: TextAlign.center,
-              fontWeight: FontWeight.bold,
-            ),
-            SizedBox(height: Dimens.dimens10),
-            Icon(Icons.warning,
-                color: Colors.orange, size: SizeConfig.height * 0.1),
-          ],
-          onAccept: () => Navigator.of(context)
-              .pushNamedAndRemoveUntil(LoginPage.routeName, (route) => false),
-          barrierDismissible: false,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center);
+        context,
+        Column(children: [
+          DescriptionText(
+            text: error.toString(),
+            textAlign: TextAlign.center,
+            fontWeight: FontWeight.bold,
+          ),
+          SizedBox(height: Dimens.dimens10),
+          Icon(Icons.warning,
+              color: Colors.orange, size: SizeConfig.height * 0.1),
+        ]),
+        onAccept: () => Navigator.of(context)
+            .pushNamedAndRemoveUntil(LoginPage.routeName, (route) => false),
+        barrierDismissible: false,
+      );
       return null;
     });
   }

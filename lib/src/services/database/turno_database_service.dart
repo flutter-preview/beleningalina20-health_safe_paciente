@@ -1,5 +1,5 @@
 import 'package:health_safe_paciente/src/helpers/utils/database_provider.dart';
-import 'package:health_safe_paciente/src/models/server/database/database_models.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/database/database_services.dart';
 
 class TurnoDatabaseService {

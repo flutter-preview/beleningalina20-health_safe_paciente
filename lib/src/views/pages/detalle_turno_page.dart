@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/localization/localizacion_service.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
@@ -13,7 +13,7 @@ class DetalleTurnoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TurnoDto turno = ModalRoute.of(context)?.settings.arguments as TurnoDto;
+    Turno turno = ModalRoute.of(context)?.settings.arguments as Turno;
 
     return SafeArea(
       child: Scaffold(
@@ -50,7 +50,7 @@ class _InfoTurno extends StatelessWidget {
     required this.turno,
   }) : super(key: key);
 
-  final TurnoDto turno;
+  final Turno turno;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class _InfoTurno extends StatelessWidget {
 }
 
 class _ConsultorioAgendaTurnos extends StatelessWidget {
-  final ConsultorioDto consultorio;
+  final Consultorio consultorio;
   const _ConsultorioAgendaTurnos({Key? key, required this.consultorio})
       : super(key: key);
 

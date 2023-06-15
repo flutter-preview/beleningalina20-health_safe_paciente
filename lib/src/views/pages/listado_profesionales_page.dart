@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/api/api_services.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
@@ -13,9 +13,9 @@ class ListadoProfesionalesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, dynamic> arguments =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-    EspecialidadDto especialidad = arguments['especialidad'];
-    ModalidadAtencionDto modalidadAtencion = arguments['modalidadAtencion'];
-    LocalidadDto? localidad = arguments['localidad'];
+    Especialidad especialidad = arguments['especialidad'];
+    ModalidadAtencion modalidadAtencion = arguments['modalidadAtencion'];
+    Localidad? localidad = arguments['localidad'];
 
     return SafeArea(
         child: Scaffold(
@@ -39,9 +39,9 @@ class ListadoProfesionalesPage extends StatelessWidget {
 }
 
 class _ListadoProfesionales extends StatelessWidget {
-  final EspecialidadDto especialidad;
-  final ModalidadAtencionDto modalidadAtencion;
-  final LocalidadDto? localidad;
+  final Especialidad especialidad;
+  final ModalidadAtencion modalidadAtencion;
+  final Localidad? localidad;
 
   const _ListadoProfesionales(
       {Key? key,
@@ -55,12 +55,12 @@ class _ListadoProfesionales extends StatelessWidget {
     return FutureBuilder(
       future: ProfesionalApiService().obtenerProfesionales(
           especialidad.id, modalidadAtencion.id, localidad?.codigoPostal),
-      builder: (BuildContext context,
-          AsyncSnapshot<List<ProfesionalDto?>> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<List<Profesional?>> snapshot) {
         if (snapshot.hasData) {
-          List<ProfesionalDto?> profesionales = snapshot.data ?? [];
+          List<Profesional?> profesionales = snapshot.data ?? [];
           if (profesionales.isEmpty) {
-            // TODO Mensaje de listado sin resultado
+            // const EmptyWidget(description: "No se encontraron profesionales");
           } else {
             return ListView.separated(
               itemCount: profesionales.length,
@@ -78,9 +78,8 @@ class _ListadoProfesionales extends StatelessWidget {
             );
           }
         }
-        if (snapshot.hasError) {
-          // TODO Listado de profesionales - error
-        }
+        // if (snapshot.hasError) const FailureWidget();
+
         return const Center(child: CircularProgressIndicator());
       },
     );

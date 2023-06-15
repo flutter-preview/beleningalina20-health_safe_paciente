@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'package:health_safe_paciente/src/services/api/constants/base_endpoints.dart';
-import 'package:health_safe_paciente/src/models/server/api/api_models.dart';
 import 'package:health_safe_paciente/src/services/api/utils/api_response_mapper.dart';
 import 'package:health_safe_paciente/src/services/api/utils/api_exceptions.dart';
 import 'package:health_safe_paciente/src/helpers/utils/local_storage_manager.dart';

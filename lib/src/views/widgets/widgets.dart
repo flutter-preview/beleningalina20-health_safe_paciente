@@ -4,7 +4,7 @@ export 'package:health_safe_paciente/src/views/widgets/icon.dart';
 export 'package:health_safe_paciente/src/views/widgets/date_time_picker.dart';
 export 'package:health_safe_paciente/src/views/widgets/profesional_card.dart';
 export 'package:health_safe_paciente/src/views/widgets/header_page.dart';
-export 'package:health_safe_paciente/src/views/widgets/circular_progress_indicator.dart';
+export 'package:health_safe_paciente/src/views/widgets/loader.dart';
 export 'package:health_safe_paciente/src/views/widgets/drawer.dart';
 export 'package:health_safe_paciente/src/views/widgets/appbar.dart';
 export 'package:health_safe_paciente/src/views/widgets/alert_dialog.dart';

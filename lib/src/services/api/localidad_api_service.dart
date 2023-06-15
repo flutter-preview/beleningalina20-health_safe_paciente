@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
-import 'package:health_safe_paciente/src/models/extra/mappers.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:http/http.dart' as http;
-import 'package:health_safe_paciente/src/models/server/api/api_models.dart';
 import 'package:health_safe_paciente/src/services/api/constants/base_endpoints.dart';
 import 'package:health_safe_paciente/src/services/api/utils/api_utils.dart';
 
@@ -11,18 +9,16 @@ class LocalidadApiService {
   static final LocalidadApiService localidadService = LocalidadApiService._();
   LocalidadApiService._();
 
-  List<LocalidadDto>? _localidades;
+  List<Localidad>? _localidades;
 
-  Future<List<LocalidadDto>?> get localidades async {
+  Future<List<Localidad>?> get localidades async {
     _localidades ??= await obtenerLocalidades();
     return _localidades;
   }
 
-  Future<List<LocalidadDto>?> obtenerLocalidades() async {
+  Future<List<Localidad>?> obtenerLocalidades() async {
     return await obtenerLocalidadesService().then((value) {
-      return value.localidades
-          .map((localidad) => ConvertLocalidadToLocalidadDto.convert(localidad))
-          .toList();
+      return value.localidades;
     }).onError((Exception error, stackTrace) {
       throw error;
     });

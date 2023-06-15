@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
-      LoadingPage.routeName: (_) => const LoadingPage(),
       LoginPage.routeName: (_) => const LoginPage(),
       RegistroUsuarioPage.routeName: (_) => const RegistroUsuarioPage(),
       HomePage.routeName: (_) => const HomePage(),

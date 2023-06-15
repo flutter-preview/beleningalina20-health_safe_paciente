@@ -1,14 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/extra/mappers.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:http/http.dart' as http;
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
-import 'package:health_safe_paciente/src/models/server/api/api_models.dart';
 import 'package:health_safe_paciente/src/services/api/constants/base_endpoints.dart';
 import 'package:health_safe_paciente/src/services/api/utils/api_utils.dart';
 
 class ProfesionalApiService {
-  Future<List<ProfesionalDto?>> obtenerProfesionales(
+  Future<List<Profesional>> obtenerProfesionales(
     int idEspecialidad,
     int idModalidadAtencion,
     int? idLocalidad,
@@ -16,10 +14,7 @@ class ProfesionalApiService {
     return await _obtenerProfesionalesService(
             idEspecialidad, idModalidadAtencion, idLocalidad)
         .then((value) {
-      return value.profesionales
-          .map((profesional) =>
-              ConvertProfesionalToProfesionalDto.convert(profesional))
-          .toList();
+      return value.profesionales;
     }).onError((Exception error, stackTrace) {
       throw error;
     });

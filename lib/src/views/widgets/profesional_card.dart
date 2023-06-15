@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class ProfesionalCard extends StatelessWidget {
-  final ProfesionalDto profesional;
+  final Profesional profesional;
   final void Function()? onPressed;
   final bool expanded;
   const ProfesionalCard(
@@ -49,7 +49,7 @@ class ProfesionalCard extends StatelessWidget {
 }
 
 class InfoProfesionalCard extends StatelessWidget {
-  final ProfesionalDto profesional;
+  final Profesional profesional;
   const InfoProfesionalCard({super.key, required this.profesional});
 
   @override

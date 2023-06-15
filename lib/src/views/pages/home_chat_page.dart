@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/database/database_services.dart';
 import 'package:health_safe_paciente/src/views/pages/chat_page.dart';
 import 'package:health_safe_paciente/src/theme/dimens.dart';
@@ -47,17 +47,18 @@ class _ProfesionalesListado extends StatelessWidget {
                 itemCount: profesionales.length,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (BuildContext _, int i) {
-                  return _ProfesionalMensaje(profesional: profesionales[i]);
+                  Container();
+                  // return _ProfesionalMensaje(profesional: profesionales[i]);
                 });
           }
 
-          return const CircularProgressIndicatorCustom();
+          return const Loader();
         });
   }
 }
 
 class _ProfesionalMensaje extends StatelessWidget {
-  final ProfesionalDto profesional;
+  final Profesional profesional;
   const _ProfesionalMensaje({required this.profesional});
 
   @override

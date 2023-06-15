@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/api/api_services.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ class MisTurnosPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final autenticacionService = Provider.of<AutenticacionApiService>(context);
+    final autenticacionService = Provider.of<AutenticacionService>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -28,22 +28,22 @@ class MisTurnosPage extends StatelessWidget {
             Expanded(
               child: FutureBuilder(
                 future: TurnoApiService()
-                    .obtenerTurnos(autenticacionService.paciente!.id),
+                    .obtenerTurnos(autenticacionService.usuario!.id),
                 builder: (BuildContext context,
-                    AsyncSnapshot<List<TurnoDto>> snapshot) {
+                    AsyncSnapshot<List<Turno>> snapshot) {
                   if (snapshot.hasError) {
                     // TODO Mensaje de error
                   }
 
                   if (snapshot.hasData) {
-                    List<TurnoDto> turnos = snapshot.data!;
+                    List<Turno> turnos = snapshot.data!;
 
                     return ChangeNotifierProvider(
                         create: (_) => MisTurnosProvider(),
                         child: _CalendarioTurnos(turnos: turnos));
                   }
 
-                  return const CircularProgressIndicatorCustom();
+                  return const Loader();
                 },
               ),
             )
@@ -56,7 +56,7 @@ class MisTurnosPage extends StatelessWidget {
 }
 
 class _CalendarioTurnos extends StatelessWidget {
-  final List<TurnoDto> turnos;
+  final List<Turno> turnos;
   const _CalendarioTurnos({required this.turnos});
 
   @override
@@ -69,7 +69,7 @@ class _CalendarioTurnos extends StatelessWidget {
         _DetalleTurnosPorFecha(
             fecha: misTurnosProvider.selectedDay,
             turnos: turnos
-                .where((TurnoDto turno) => (turno.fecha.year ==
+                .where((Turno turno) => (turno.fecha.year ==
                         misTurnosProvider.selectedDay.year &&
                     turno.fecha.month == misTurnosProvider.selectedDay.month &&
                     turno.fecha.day == misTurnosProvider.selectedDay.day))
@@ -85,7 +85,7 @@ class _TurnosCalendar extends StatelessWidget {
     required this.turnos,
   }) : super(key: key);
 
-  final List<TurnoDto> turnos;
+  final List<Turno> turnos;
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class _TurnosCalendar extends StatelessWidget {
 
     return Container(
         color: Colors.white,
-        child: TableCalendar<TurnoDto>(
+        child: TableCalendar<Turno>(
             locale: 'es_ES',
             firstDay: DateTime.utc(2020, 04, 01),
             lastDay: DateTime.utc(2030, 03, 14),
@@ -108,7 +108,7 @@ class _TurnosCalendar extends StatelessWidget {
             selectedDayPredicate: (DateTime date) =>
                 isSameDay(misTurnosProvider.selectedDay, date),
             eventLoader: (fecha) => turnos
-                .where((TurnoDto turno) => (turno.fecha.year == fecha.year &&
+                .where((Turno turno) => (turno.fecha.year == fecha.year &&
                     turno.fecha.month == fecha.month &&
                     turno.fecha.day == fecha.day))
                 .toList(),
@@ -147,7 +147,7 @@ class _TurnosCalendar extends StatelessWidget {
 }
 
 class _DetalleTurnosPorFecha extends StatelessWidget {
-  final List<TurnoDto> turnos;
+  final List<Turno> turnos;
   final DateTime fecha;
   const _DetalleTurnosPorFecha({
     Key? key,
@@ -170,8 +170,7 @@ class _DetalleTurnosPorFecha extends StatelessWidget {
             child: Column(children: [
               Text(fecha.convertDateTimeToLongFormat()),
               const Divider(),
-              ...turnos
-                  .map((TurnoDto turno) => _InfoTurnoPaciente(turno: turno))
+              ...turnos.map((Turno turno) => _InfoTurnoPaciente(turno: turno))
             ]),
           )),
     );
@@ -179,7 +178,7 @@ class _DetalleTurnosPorFecha extends StatelessWidget {
 }
 
 class _InfoTurnoPaciente extends StatelessWidget {
-  final TurnoDto turno;
+  final Turno turno;
   const _InfoTurnoPaciente({required this.turno});
 
   @override

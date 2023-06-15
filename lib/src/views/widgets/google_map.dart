@@ -119,7 +119,7 @@ class _GoogleMap extends StatelessWidget {
                   icon: const Icon(Icons.info, color: Colors.white),
                   onPressed: () => showDialogCustom(
                         context,
-                        [
+                        Column(children: [
                           const DescriptionText(
                               text:
                                   "Si queres tambien ver tu ubicacion actual en el mapa, activa tu GPS desde tu dispositivo y acepta los permisos para acceder a tu ubicacion"),
@@ -149,7 +149,7 @@ class _GoogleMap extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ],
+                        ]),
                         barrierDismissible: false,
                         onAccept: () => Navigator.pop(context),
                       )),

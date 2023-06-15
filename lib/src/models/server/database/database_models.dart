@@ -1,9 +1,0 @@
-export 'package:health_safe_paciente/src/models/server/database/consultorio_entity.dart';
-export 'package:health_safe_paciente/src/models/server/database/direccion_entity.dart';
-export 'package:health_safe_paciente/src/models/server/database/especialidad_entity.dart';
-export 'package:health_safe_paciente/src/models/server/database/localidad_entity.dart';
-export 'package:health_safe_paciente/src/models/server/database/modalidad_atencion_entity.dart';
-export 'package:health_safe_paciente/src/models/server/database/profesional_entity.dart';
-export 'package:health_safe_paciente/src/models/server/database/turno_entity.dart';
-export 'package:health_safe_paciente/src/models/server/database/usuario_entity.dart';
-export 'package:health_safe_paciente/src/models/server/database/rol_entity.dart';

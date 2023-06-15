@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
@@ -8,8 +8,8 @@ import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class TurnosProfesionalPage extends StatelessWidget {
-  final ProfesionalDto profesional;
-  final EspecialidadDto especialidad;
+  final Profesional profesional;
+  final Especialidad especialidad;
   const TurnosProfesionalPage(
       {super.key, required this.profesional, required this.especialidad});
 
@@ -19,10 +19,13 @@ class TurnosProfesionalPage extends StatelessWidget {
         Provider.of<PerfilProfesionalProvider>(context);
 
     if (profesional.agendasTurnos.isEmpty) {
-      // TODO return No hay agendas de turnos del profesional
+      return Text("El profesional no tiene agendas de turnos");
+      // const EmptyWidget(
+      //  description: "El profesional no tiene agendas de turnos disponibles");
     }
 
-    return Flexible(
+    return Container();
+    /*return Flexible(
       child: Column(
         children: [
           Container(
@@ -47,21 +50,21 @@ class TurnosProfesionalPage extends StatelessWidget {
                   const Divider(),
                   modalidadesAtencionDisponiblesPorFecha(context),
                   consultoriosDisponiblesPorFecha(context),
-
                   SizedBox(height: Dimens.dimens20),
-
                   (perfilProfesionalProvider.consultaTurnosValido())
                       ? _TurnosProfesionalDisponibles(
                           profesional: profesional, especialidad: especialidad)
-                      : Container() // TODO mensaje seleccionar fecha, modalidad y consultorio
+                      : const DescriptionText(
+                          text:
+                              "Seleccione la fecha, la modalidad y el consultorio donde desea ser atendido")
                 ])),
           )
         ],
       ),
-    );
+    );*/
   }
 
-  Widget fechasDisponibles(BuildContext context) {
+  /*Widget fechasDisponibles(BuildContext context) {
     final perfilProfesionalProvider =
         Provider.of<PerfilProfesionalProvider>(context, listen: false);
 
@@ -82,7 +85,7 @@ class TurnosProfesionalPage extends StatelessWidget {
     final perfilProfesionalProvider =
         Provider.of<PerfilProfesionalProvider>(context, listen: false);
 
-    return DropDownButtonCustom<ModalidadAtencionDto>(
+    return DropDownButtonCustom<ModalidadAtencion>(
       vertical: false,
       label: 'Modalidad',
       borderColor: Colors.grey,
@@ -110,7 +113,7 @@ class TurnosProfesionalPage extends StatelessWidget {
       return Column(
         children: [
           const Divider(),
-          DropDownButtonCustom<ConsultorioDto>(
+          DropDownButtonCustom<Consultorio>(
             vertical: false,
             label: 'Consultorio',
             borderColor: Colors.grey,
@@ -133,12 +136,12 @@ class TurnosProfesionalPage extends StatelessWidget {
     } else {
       return Container();
     }
-  }
+  }*/
 }
 
-class _TurnosProfesionalDisponibles extends StatelessWidget {
-  final ProfesionalDto profesional;
-  final EspecialidadDto especialidad;
+/*class _TurnosProfesionalDisponibles extends StatelessWidget {
+  final Profesional profesional;
+  final Especialidad especialidad;
   const _TurnosProfesionalDisponibles(
       {required this.profesional, required this.especialidad});
 
@@ -147,9 +150,9 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
     final perfilProfesionalProvider =
         Provider.of<PerfilProfesionalProvider>(context);
 
-    List<TurnoDto> turnos = [];
+    List<Turno> turnos = [];
 
-    List<AgendaTurnosDto> agendasTurnos = profesional.agendasTurnos
+    List<AgendaTurnos> agendasTurnos = profesional.agendasTurnos
         .where((agendaTurnos) =>
             perfilProfesionalProvider.fechaPerteneceAgendaTurnos(
                 agendaTurnos.fechaDesde, agendaTurnos.fechaHasta) &&
@@ -166,7 +169,7 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
         TimeOfDay horaFinTurno =
             horaInicioTurnoAux.add(Duration(minutes: agendaTurnos.duracion));
 
-        TurnoDto turnoProfesional = TurnoDto(
+        Turno turnoProfesional = Turno(
             fecha: perfilProfesionalProvider.fechaAgendaTurnosSeleccionada!,
             horaInicio: horaInicioTurnoAux,
             horaFin: horaFinTurno,
@@ -218,8 +221,8 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
 }
 
 class _TurnoContainer extends StatelessWidget {
-  final TurnoDto? turno;
-  final ProfesionalDto? profesional;
+  final Turno? turno;
+  final Profesional? profesional;
 
   const _TurnoContainer({this.turno, this.profesional});
 
@@ -259,3 +262,4 @@ class _TurnoContainer extends StatelessWidget {
     }
   }
 }
+*/

@@ -15,7 +15,7 @@ void main() async {
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => PermissionHandler(), lazy: false),
-    ChangeNotifierProvider(create: (_) => AutenticacionApiService()),
+    ChangeNotifierProvider(create: (_) => AutenticacionService()),
     // ChangeNotifierProvider(create: (_) => SocketApiService()),
     ChangeNotifierProvider(
         create: (_) => PushNotificationService(), lazy: false),

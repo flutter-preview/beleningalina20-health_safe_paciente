@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
 import 'package:health_safe_paciente/src/services/api/api_services.dart';
 import 'package:health_safe_paciente/src/services/api/chat_api_service.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
@@ -12,8 +12,8 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProfesionalDto profesional =
-        ModalRoute.of(context)?.settings.arguments as ProfesionalDto;
+    Profesional profesional =
+        ModalRoute.of(context)?.settings.arguments as Profesional;
 
     return SafeArea(
       child: Scaffold(
@@ -30,7 +30,7 @@ class ChatPage extends StatelessWidget {
 }
 
 class _Chat extends StatefulWidget {
-  final ProfesionalDto profesional;
+  final Profesional profesional;
   const _Chat({required this.profesional});
 
   @override
@@ -53,7 +53,7 @@ class _ChatState extends State<_Chat> with TickerProviderStateMixin {
   }
 
   void _cargarHistorial() async {
-    List<MensajeDto> chat = await ChatApiService()
+    List<Mensaje> chat = await ChatApiService()
         .obtenerMensajes(widget.profesional.id, 0, mensajes.length);
     final history = chat.map((mensaje) => MensajeChat(
           mensaje: mensaje,
@@ -67,10 +67,10 @@ class _ChatState extends State<_Chat> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final autenticacionService = Provider.of<AutenticacionApiService>(context);
+    final autenticacionService = Provider.of<AutenticacionService>(context);
 
     return Text(
-        "Chat - profesional: ${widget.profesional.id} - ${autenticacionService.paciente!.id}");
+        "Chat - profesional: ${widget.profesional.id} - ${autenticacionService.usuario!.id}");
   }
 }
 

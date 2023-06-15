@@ -137,25 +137,27 @@ class ImagenDni extends StatelessWidget {
 }
 
 void seleccionImagen(BuildContext context, void Function(File) onChanged) {
-  showDialogCustom(context, [
-    const DescriptionText(text: "Seleccione su foto de perfil"),
-    const Divider(),
-    TextButton.icon(
-        onPressed: () async {
-          Navigator.pop(context);
-          await _pickImage(context, ImageSource.camera, onChanged);
-        },
-        icon: const Icon(Icons.camera_alt),
-        label: const Text("Abrir cámara")),
-    const Divider(),
-    TextButton.icon(
-        onPressed: () async {
-          Navigator.pop(context);
-          await _pickImage(context, ImageSource.gallery, onChanged);
-        },
-        icon: const Icon(Icons.image),
-        label: const Text("Abrir galería de fotos"))
-  ]);
+  showDialogCustom(
+      context,
+      Column(children: [
+        const DescriptionText(text: "Seleccione su foto de perfil"),
+        const Divider(),
+        TextButton.icon(
+            onPressed: () async {
+              Navigator.pop(context);
+              await _pickImage(context, ImageSource.camera, onChanged);
+            },
+            icon: const Icon(Icons.camera_alt),
+            label: const Text("Abrir cámara")),
+        const Divider(),
+        TextButton.icon(
+            onPressed: () async {
+              Navigator.pop(context);
+              await _pickImage(context, ImageSource.gallery, onChanged);
+            },
+            icon: const Icon(Icons.image),
+            label: const Text("Abrir galería de fotos"))
+      ]));
 }
 
 Future<void> _pickImage(BuildContext context, ImageSource source,

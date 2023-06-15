@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:health_safe_paciente/src/services/localization/localizacion_service.dart';
 import 'package:provider/provider.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
+import 'package:health_safe_paciente/src/services/localization/localizacion_service.dart';
 import 'package:health_safe_paciente/src/services/api/api_services.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
@@ -15,7 +15,7 @@ class DetalleSolicitudTurnoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TurnoDto turno = ModalRoute.of(context)?.settings.arguments as TurnoDto;
+    Turno turno = ModalRoute.of(context)?.settings.arguments as Turno;
 
     return SafeArea(
         child: Scaffold(
@@ -33,7 +33,7 @@ class DetalleSolicitudTurnoPage extends StatelessWidget {
 }
 
 class _SolicitarTurnoButton extends StatelessWidget {
-  final TurnoDto turno;
+  final Turno turno;
 
   const _SolicitarTurnoButton({Key? key, required this.turno})
       : super(key: key);
@@ -52,14 +52,14 @@ class _SolicitarTurnoButton extends StatelessWidget {
 }
 
 class _DetalleTurno extends StatelessWidget {
-  final TurnoDto turno;
+  final Turno turno;
   const _DetalleTurno({required this.turno});
 
   @override
   Widget build(BuildContext context) {
     final autenticacionService =
-        Provider.of<AutenticacionApiService>(context, listen: false);
-    final usuario = autenticacionService.paciente!.usuario;
+        Provider.of<AutenticacionService>(context, listen: false);
+    final usuario = autenticacionService.usuario;
 
     return Expanded(
       child: Container(
@@ -95,7 +95,7 @@ class _DetalleTurno extends StatelessWidget {
                   _Consultorio(consultorio: turno.agendaTurnos!.consultorio!),
                 InformacionDetalle(
                     title: "Paciente: ",
-                    information: "${usuario.apellido}, ${usuario.nombre}"),
+                    information: "${usuario?.apellido}, ${usuario?.nombre}"),
               ],
             ),
           )),
@@ -104,7 +104,7 @@ class _DetalleTurno extends StatelessWidget {
 }
 
 class _Consultorio extends StatelessWidget {
-  final ConsultorioDto consultorio;
+  final Consultorio consultorio;
   const _Consultorio({required this.consultorio});
 
   @override
@@ -119,7 +119,9 @@ class _Consultorio extends StatelessWidget {
                 .obtenerLatitudLongitud(consultorio.direccion),
             builder: (BuildContext context, AsyncSnapshot<LatLng?> snapshot) {
               if (snapshot.hasError) {
-                // TODO Mensaje de error no se pudo encontrar la ubicacion
+                /*const FailureWidget(
+                    description:
+                        "Algo salió mal al cargar el mapa y la ubicacion del consultorio. Inténtalo más tarde.");*/
               }
 
               if (snapshot.hasData) {
@@ -128,7 +130,9 @@ class _Consultorio extends StatelessWidget {
                       coordenadasDestino: snapshot.data!,
                       destino: consultorio.direccion.toString());
                 } else {
-                  // TODO Mensaje de error no hay lat y lng
+                  /*const FailureWidget(
+                      description:
+                          "Algo salió mal al cargar el mapa y la ubicacion del consultorio. Inténtalo más tarde.");*/
                 }
               }
               return const CircularProgressIndicator();

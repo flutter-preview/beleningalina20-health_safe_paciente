@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/models/core/core_models.dart';
 import 'package:health_safe_paciente/src/services/api/api_services.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/providers/providers.dart';
@@ -126,9 +126,9 @@ class MenuEspecialidades extends StatelessWidget {
         Provider.of<BusquedaProfesionalesProvider>(context);
     return FutureBuilder(
       future: EspecialidadApiService.especialidadService.especialidades,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<EspecialidadDto>?> snapshot) {
-        return DropDownButtonCustom<EspecialidadDto>(
+      builder:
+          (BuildContext context, AsyncSnapshot<List<Especialidad>?> snapshot) {
+        return DropDownButtonCustom<Especialidad>(
           label: 'Especialidad',
           labelColor: Colors.white,
           items: snapshot.data ?? [],
@@ -153,8 +153,8 @@ class MenuModalidadesAtencion extends StatelessWidget {
       future: ModalidadAtencionApiService
           .modalidadAtencionService.modalidadesAtencion,
       builder: (BuildContext context,
-          AsyncSnapshot<List<ModalidadAtencionDto>?> snapshot) {
-        return DropDownButtonCustom<ModalidadAtencionDto>(
+          AsyncSnapshot<List<ModalidadAtencion>?> snapshot) {
+        return DropDownButtonCustom<ModalidadAtencion>(
           label: 'Modalidad Atención',
           labelColor: Colors.white,
           items: snapshot.data ?? [],
@@ -178,8 +178,8 @@ class MenuLocalidades extends StatelessWidget {
     return FutureBuilder(
       future: LocalidadApiService.localidadService.localidades,
       builder:
-          (BuildContext context, AsyncSnapshot<List<LocalidadDto>?> snapshot) {
-        return DropDownButtonCustom<LocalidadDto>(
+          (BuildContext context, AsyncSnapshot<List<Localidad>?> snapshot) {
+        return DropDownButtonCustom<Localidad>(
           label: 'Localidad',
           labelColor: Colors.white,
           items: snapshot.data ?? [],
