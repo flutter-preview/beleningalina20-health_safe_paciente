@@ -4,7 +4,7 @@ import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class ProfesionalCard extends StatelessWidget {
-  final Profesional profesional;
+  final ProfesionalDto profesional;
   final void Function()? onPressed;
   final bool expanded;
   const ProfesionalCard(
@@ -49,7 +49,7 @@ class ProfesionalCard extends StatelessWidget {
 }
 
 class InfoProfesionalCard extends StatelessWidget {
-  final Profesional profesional;
+  final ProfesionalDto profesional;
   const InfoProfesionalCard({super.key, required this.profesional});
 
   @override
@@ -58,7 +58,7 @@ class InfoProfesionalCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ImagenPerfilProfesional(
-            urlImagenPerfil: profesional.usuario.imagenPerfil),
+            urlImagenPerfil: profesional.usuario.urlImagenPerfil),
         SizedBox(width: Dimens.dimens10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,8 +67,7 @@ class InfoProfesionalCard extends StatelessWidget {
                 text: profesional.toString(), overflow: TextOverflow.ellipsis),
             DescriptionText(
               text: profesional.especialidades
-                  .map((especialidadProfesional) =>
-                      especialidadProfesional.especialidad.descripcion)
+                  .map((especialidad) => especialidad.descripcion)
                   .join(", "),
               overflow: TextOverflow.ellipsis,
               color: Colors.grey[700] ?? Colors.grey,

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/services/api/api_services.dart';
-import 'package:health_safe_paciente/src/services/api/chat_api_service.dart';
+import 'package:health_safe_paciente/src/services/api/models/profesional.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
@@ -17,11 +14,11 @@ class ChatPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: const AppbarCustom(habilitarNavegacionChat: false),
+        appBar: const AppbarCustom(chatHabilitado: false),
         backgroundColor: ColorsApp.azulLogin,
         body: Column(children: [
           HeaderPage(title: "Mensajería - ${profesional.toString()}"),
-          Expanded(child: _Chat(profesional: profesional))
+          Expanded(child: Container()) // _Chat(profesional: profesional))
         ]),
         drawer: const DrawerCustom(),
       ),
@@ -29,7 +26,7 @@ class ChatPage extends StatelessWidget {
   }
 }
 
-class _Chat extends StatefulWidget {
+/*class _Chat extends StatefulWidget {
   final Profesional profesional;
   const _Chat({required this.profesional});
 
@@ -73,7 +70,7 @@ class _ChatState extends State<_Chat> with TickerProviderStateMixin {
         "Chat - profesional: ${widget.profesional.id} - ${autenticacionService.usuario!.id}");
   }
 }
-
+*/
 /*
 class _ChatPageState extends State<ChatPage>  {
 

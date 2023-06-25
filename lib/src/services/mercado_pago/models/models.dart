@@ -1,0 +1,13 @@
+export 'package:health_safe_paciente/src/services/mercado_pago/models/address.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/back_urls.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/checkout.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/differential_pricing.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/excluded_payment.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/identification.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/item.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/payer.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/payment_methods.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/phone.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/preference.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/response/checkout_response.dart';
+export 'package:health_safe_paciente/src/services/mercado_pago/models/shipments.dart';

@@ -1,13 +1,13 @@
 class ApiException implements Exception {
-  final String message;
+  final String? message;
 
-  ApiException({required this.message});
+  ApiException({this.message});
 
   factory ApiException.fromJson(Map<String, dynamic> json) =>
       ApiException(message: json["msg"]);
 
   @override
   String toString() {
-    return message;
+    return message ?? 'No message';
   }
 }

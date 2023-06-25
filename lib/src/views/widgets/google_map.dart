@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/helpers/extra/widget_to_markers.dart';
-import 'package:health_safe_paciente/src/helpers/utils/permission_handler.dart';
-import 'package:health_safe_paciente/src/views/widgets/alert_dialog.dart';
-import 'package:health_safe_paciente/src/views/widgets/text.dart';
+import 'package:health_safe_paciente/src/views/utils/widget_to_markers.dart';
+import 'package:health_safe_paciente/src/helpers/permission_handler.dart';
+import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -66,22 +65,15 @@ class _GoogleMap extends StatelessWidget {
       },
       child: Stack(
         children: [
-          FutureBuilder(
+          FutureStatesBuilder<List<BitmapDescriptor>>(
               future: getMapMarkers(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<BitmapDescriptor>> snapshot) {
+              someAction: (value) {
                 BitmapDescriptor? startMarker;
                 BitmapDescriptor? endMarker;
-
-                if (snapshot.hasData) {
-                  var markers = snapshot.data;
-
-                  if (markers != null && markers.isNotEmpty) {
-                    startMarker = markers.first;
-                    endMarker = markers[1];
-                  }
+                if (value != null && value.isNotEmpty) {
+                  startMarker = value.first;
+                  endMarker = value[1];
                 }
-
                 return GoogleMap(
                   mapType: MapType.normal,
                   zoomControlsEnabled: false,
@@ -117,42 +109,41 @@ class _GoogleMap extends StatelessWidget {
               radius: 20,
               child: IconButton(
                   icon: const Icon(Icons.info, color: Colors.white),
-                  onPressed: () => showDialogCustom(
-                        context,
-                        Column(children: [
-                          const DescriptionText(
-                              text:
-                                  "Si queres tambien ver tu ubicacion actual en el mapa, activa tu GPS desde tu dispositivo y acepta los permisos para acceder a tu ubicacion"),
-                          StatefulBuilder(
-                            builder: (context, setState) => Column(
-                              children: [
-                                SwitchListTile(
-                                    title: const SubdescriptionText(
-                                        text: "Activar GPS",
-                                        fontWeight: FontWeight.bold),
-                                    value: permissionHandler.isGpsEnabled,
-                                    onChanged: (bool value) {}),
-                                SwitchListTile(
-                                    title: const SubdescriptionText(
-                                        text: "Aceptar permisos",
-                                        fontWeight: FontWeight.bold),
-                                    value: permissionHandler
-                                        .isLocationPermissionGranted,
-                                    onChanged: (bool value) async {
-                                      if (!permissionHandler
-                                              .isLocationPermissionGranted &&
-                                          value) {
-                                        permissionHandler.askGpsAccess();
-                                        Navigator.pop(context);
-                                      }
-                                    }),
-                              ],
-                            ),
-                          ),
-                        ]),
-                        barrierDismissible: false,
-                        onAccept: () => Navigator.pop(context),
-                      )),
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => AlertDialogBackground(
+                              onAccept: () => Navigator.pop(context),
+                              content: [
+                                const DescriptionText(
+                                    text:
+                                        "Si queres tambien ver tu ubicacion actual en el mapa, activa tu GPS desde tu dispositivo y acepta los permisos para acceder a tu ubicacion"),
+                                StatefulBuilder(
+                                  builder: (context, setState) => Column(
+                                    children: [
+                                      SwitchListTile(
+                                          title: const SubdescriptionText(
+                                              text: "Activar GPS",
+                                              fontWeight: FontWeight.bold),
+                                          value: permissionHandler.isGpsEnabled,
+                                          onChanged: (bool value) {}),
+                                      SwitchListTile(
+                                          title: const SubdescriptionText(
+                                              text: "Aceptar permisos",
+                                              fontWeight: FontWeight.bold),
+                                          value: permissionHandler
+                                              .isLocationPermissionGranted,
+                                          onChanged: (bool value) async {
+                                            if (!permissionHandler
+                                                    .isLocationPermissionGranted &&
+                                                value) {
+                                              permissionHandler.askGpsAccess();
+                                              Navigator.pop(context);
+                                            }
+                                          }),
+                                    ],
+                                  ),
+                                ),
+                              ]))),
             ),
           ),
           Container(

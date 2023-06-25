@@ -1,13 +1,13 @@
-import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/services/api/api_services.dart';
+import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/services/api/api.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
-import 'package:health_safe_paciente/src/providers/providers.dart';
+import 'package:health_safe_paciente/src/views/providers/providers.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
-import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
+import 'package:health_safe_paciente/src/extensions/extensions.dart';
 
 class RegistroUsuarioPage extends StatelessWidget {
   static const String routeName = "RegistoUsuarioPage";
@@ -23,7 +23,6 @@ class RegistroUsuarioPage extends StatelessWidget {
               ),
           backgroundColor: ColorsApp.azulLogin,
           body: MultiProvider(providers: [
-            ChangeNotifierProvider(create: (_) => UsuarioApiService()),
             ChangeNotifierProvider(
                 create: (_) => RegistroUsuarioFormProvider()),
           ], child: const _RegistroUsuarioForm())),
@@ -123,34 +122,10 @@ class _RegistroUsuarioForm extends StatelessWidget {
                           if (registroUsuarioFormProvider.esMayorEdad()) {
                             registroUsuarioFormProvider.isLoading = true;
 
-                            await registro(
-                                    context,
-                                    registroUsuarioFormProvider.data(),
-                                    registroUsuarioFormProvider.imagenPerfil!,
-                                    registroUsuarioFormProvider
-                                        .imagenDniFrente!,
-                                    registroUsuarioFormProvider.imagenDniDorso!)
-                                .whenComplete(() => registroUsuarioFormProvider
-                                    .isLoading = false);
+                            await registro(context).whenComplete(() =>
+                                registroUsuarioFormProvider.isLoading = false);
                           } else {
-                            showDialogCustom(
-                              context,
-                              Column(children: [
-                                const DescriptionText(
-                                  text:
-                                      "Para registrarse debe ser mayor de edad",
-                                  textAlign: TextAlign.center,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                Icon(Icons.warning,
-                                    color: Colors.orange,
-                                    size: SizeConfig.height * 0.1),
-                              ]),
-                              onAccept: () => Navigator.of(context)
-                                  .pushNamedAndRemoveUntil(
-                                      LoginPage.routeName, (route) => false),
-                              barrierDismissible: false,
-                            );
+                            // TODO Error debe ser mayor de edad
                           }
                         }
                       : () {
@@ -172,32 +147,28 @@ class _RegistroUsuarioForm extends StatelessWidget {
     );
   }
 
-  Future<void> registro(BuildContext context, Map<String, String> data,
-      File imagenPerfil, File imagenDniFrente, File imagenDniDorso) async {
-    final usuarioService =
-        Provider.of<UsuarioApiService>(context, listen: false);
+  Future<void> registro(BuildContext context) async {
+    final registroUsuarioFormProvider =
+        Provider.of<RegistroUsuarioFormProvider>(context, listen: false);
 
-    await usuarioService
-        .registro(data, imagenPerfil, imagenDniFrente, imagenDniDorso)
+    RegistroUsuarioRequest request = RegistroUsuarioRequest(
+        correo: registroUsuarioFormProvider.correo,
+        contrasena: registroUsuarioFormProvider.contrasena,
+        dni: registroUsuarioFormProvider.dni,
+        nombre: registroUsuarioFormProvider.nombre,
+        apellido: registroUsuarioFormProvider.apellido,
+        fechaNacimiento: registroUsuarioFormProvider.fechaNacimiento!,
+        sexo: registroUsuarioFormProvider.sexo,
+        imagenPerfil: registroUsuarioFormProvider.imagenPerfil!,
+        imagenDniFrente: registroUsuarioFormProvider.imagenDniFrente!,
+        imagenDniDorso: registroUsuarioFormProvider.imagenDniDorso!);
+
+    await UsuarioService()
+        .registro(request)
         .then((value) => Navigator.pushReplacementNamed(
             context, RegistroPacientePage.routeName))
         .onError((error, stackTrace) {
-      showDialogCustom(
-        context,
-        Column(children: [
-          DescriptionText(
-            text: error.toString(),
-            textAlign: TextAlign.center,
-            fontWeight: FontWeight.bold,
-          ),
-          SizedBox(height: Dimens.dimens10),
-          Icon(Icons.warning,
-              color: Colors.orange, size: SizeConfig.height * 0.1),
-        ]),
-        onAccept: () => Navigator.of(context)
-            .pushNamedAndRemoveUntil(LoginPage.routeName, (route) => false),
-        barrierDismissible: false,
-      );
+      // TODO Error en el registro del usuario
       return null;
     });
   }
@@ -277,7 +248,7 @@ class _DatosPersonales extends StatelessWidget {
         DateTimeTextFormField(
           controller: TextEditingController(
               text: registroUsuarioFormProvider.fechaNacimiento
-                  ?.convertDateTimeToString()),
+                  ?.convertToString()),
           onChanged: (DateTime? value) {
             registroUsuarioFormProvider.fechaNacimiento = value;
           },

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/services/api/api_services.dart';
+import 'package:health_safe_paciente/src/services/api/models/mensaje.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
@@ -14,8 +12,8 @@ class MensajeChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final autenticacionService =
-        Provider.of<AutenticacionService>(context, listen: false);
+    // final autenticacionService =
+    // Provider.of<AutenticacionService>(context, listen: false);
     // final paciente = autenticacionService.paciente;
 
     return FadeTransition(

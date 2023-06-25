@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/helpers/utils/permission_handler.dart';
+import 'package:health_safe_paciente/src/helpers/permission_handler.dart';
 import 'package:health_safe_paciente/src/views/pages/busqueda_profesionales_page.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';

@@ -24,3 +24,32 @@ class IconButtonText extends StatelessWidget {
     );
   }
 }
+
+class SuccessIcon extends StatelessWidget {
+  const SuccessIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Icon(Icons.sentiment_satisfied_alt_rounded,
+        color: Colors.green);
+  }
+}
+
+class FailureIcon extends StatelessWidget {
+  const FailureIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Icon(Icons.sentiment_dissatisfied_rounded,
+        color: Colors.orange);
+  }
+}
+
+class EmptyIcon extends StatelessWidget {
+  const EmptyIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Icon(Icons.sentiment_neutral_rounded, color: Colors.grey);
+  }
+}

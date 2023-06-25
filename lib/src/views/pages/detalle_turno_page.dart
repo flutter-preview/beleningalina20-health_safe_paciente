@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
-import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
+import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/localization/localizacion_service.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
@@ -13,7 +13,8 @@ class DetalleTurnoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Turno turno = ModalRoute.of(context)?.settings.arguments as Turno;
+    TurnoPacienteDto turno =
+        ModalRoute.of(context)?.settings.arguments as TurnoPacienteDto;
 
     return SafeArea(
       child: Scaffold(
@@ -22,7 +23,7 @@ class DetalleTurnoPage extends StatelessWidget {
           children: [
             HeaderPage(
                 title:
-                    "Mis turnos - ${turno.fecha.convertDateTimeToLongFormat()}"),
+                    "Mis turnos - ${turno.fecha.convertToString(longFormat: true)}"),
             Container(
                 decoration: BoxDecoration(
                     color: Colors.white,
@@ -31,7 +32,7 @@ class DetalleTurnoPage extends StatelessWidget {
                 margin: EdgeInsets.symmetric(
                     vertical: Dimens.dimens20, horizontal: Dimens.dimens10),
                 padding: EdgeInsets.all(Dimens.dimens20),
-                child: (turno.agendaTurnos?.profesional != null)
+                child: (turno.agendaTurnos.profesional != null)
                     ? _InfoTurno(turno: turno)
                     : Container() // TODO Mensaje de error. No hay profesional,
                 )
@@ -50,29 +51,29 @@ class _InfoTurno extends StatelessWidget {
     required this.turno,
   }) : super(key: key);
 
-  final Turno turno;
+  final TurnoPacienteDto turno;
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      InfoProfesionalCard(profesional: turno.agendaTurnos!.profesional!),
+      InfoProfesionalCard(profesional: turno.agendaTurnos.profesional!),
       InformacionDetalle(
-          title: "Hora: ", information: turno.horaInicio.toTimeString()),
+          title: "Hora: ", information: turno.horaInicio.convertToString()),
       InformacionDetalle(
           title: "Modalidad: ",
-          information: turno.agendaTurnos?.modalidadAtencion.descripcion),
+          information: turno.agendaTurnos.modalidadAtencion.descripcion),
       InformacionDetalle(
           title: "Especialidad: ", information: turno.especialidad.descripcion),
       InformacionDetalle(
           title: "Precio: ",
-          information: "\$${turno.agendaTurnos?.precio.toString()}"),
-      if (turno.agendaTurnos?.modalidadAtencion.descripcion == "Presencial" ||
-          turno.agendaTurnos?.consultorio != null)
-        _ConsultorioAgendaTurnos(consultorio: turno.agendaTurnos!.consultorio!)
+          information: "\$${turno.agendaTurnos.precio.toString()}"),
+      if (turno.agendaTurnos.modalidadAtencion.descripcion == "Presencial" ||
+          turno.agendaTurnos.consultorio != null)
+        _ConsultorioAgendaTurnos(consultorio: turno.agendaTurnos.consultorio!)
       else
         _LinkVideollamadaButton(
             fechaTurno: turno.fecha,
-            idProfesional: turno.agendaTurnos?.profesional?.id),
+            idProfesional: turno.agendaTurnos.profesional?.id),
       SizedBox(height: Dimens.dimens10),
       if (turno.fecha.isAfter(DateTime.now()))
         const _AccionesTurnoReservado()
@@ -83,7 +84,7 @@ class _InfoTurno extends StatelessWidget {
 }
 
 class _ConsultorioAgendaTurnos extends StatelessWidget {
-  final Consultorio consultorio;
+  final ConsultorioDto consultorio;
   const _ConsultorioAgendaTurnos({Key? key, required this.consultorio})
       : super(key: key);
 
@@ -93,26 +94,22 @@ class _ConsultorioAgendaTurnos extends StatelessWidget {
       children: [
         InformacionDetalle(
             title: "Consultorio: ",
-            information: consultorio.direccion.toLongString()),
-        FutureBuilder(
-            future: LocalizacionService()
-                .obtenerLatitudLongitud(consultorio.direccion),
-            builder: (BuildContext context, AsyncSnapshot<LatLng?> snapshot) {
-              if (snapshot.hasError) {
-                // TODO Mensaje de error no se pudo encontrar la ubicacion
-              }
-
-              if (snapshot.hasData) {
-                if (snapshot.data != null) {
-                  return GoogleMapCustom(
-                      coordenadasDestino: snapshot.data!,
-                      destino: consultorio.direccion.toString());
-                } else {
-                  // TODO Mensaje de error no hay lat y lng
-                }
-              }
-              return const CircularProgressIndicator();
-            }),
+            information: consultorio.direccion.toString()),
+        FutureStatesBuilder<LatLng>(
+          future: LocalizacionService()
+              .obtenerLatitudLongitud(consultorio.direccion),
+          onError: () => const MessageState(
+              text:
+                  "Algo salió mal al cargar el mapa y la ubicacion del consultorio. Inténtalo más tarde.",
+              iconState: FailureIcon()),
+          onSuccess: (value) => GoogleMapCustom(
+              coordenadasDestino: value,
+              destino: consultorio.direccion.toString()),
+          onNull: () => const MessageState(
+              text:
+                  "Algo salió mal al cargar el mapa y la ubicacion del consultorio. Inténtalo más tarde.",
+              iconState: FailureIcon()),
+        ),
       ],
     );
   }

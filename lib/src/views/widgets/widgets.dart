@@ -1,3 +1,5 @@
+export 'package:health_safe_paciente/src/views/widgets/future_state_builder.dart';
+
 export 'package:health_safe_paciente/src/views/widgets/informacion_detalle.dart';
 export 'package:health_safe_paciente/src/views/widgets/google_map.dart';
 export 'package:health_safe_paciente/src/views/widgets/icon.dart';

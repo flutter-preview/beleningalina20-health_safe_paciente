@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/theme/size_config.dart';
 
 class Loader extends StatelessWidget {
   const Loader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator());
+    return Container(
+        height: SizeConfig.height * 0.05,
+        width: SizeConfig.height * 0.05,
+        margin: EdgeInsets.symmetric(vertical: SizeConfig.height * 0.02),
+        child: const CircularProgressIndicator());
   }
 }

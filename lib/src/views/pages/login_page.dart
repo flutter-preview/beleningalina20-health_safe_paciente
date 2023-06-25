@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/services/api/utils/api_exceptions.dart';
-import 'package:health_safe_paciente/src/services/api/api_services.dart';
+import 'package:health_safe_paciente/src/services/api/api.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
-import 'package:health_safe_paciente/src/providers/providers.dart';
+import 'package:health_safe_paciente/src/views/providers/providers.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
@@ -95,13 +96,15 @@ class _LoginForm extends StatelessWidget {
     final autenticacionService =
         Provider.of<AutenticacionService>(context, listen: false);
 
-    await autenticacionService.login(correo, contrasena).then(
+    LoginRequest request = LoginRequest(correo: correo, contrasena: contrasena);
+
+    await autenticacionService.login(request).then(
       (_) {
         // TODO Connect Socket Service
         Navigator.of(context).pushReplacementNamed(HomePage.routeName);
       },
     ).onError((ApiException error, stackTrace) {
-      showMessageAlertDialog(context, error.message);
+      // TODO Error en login
     });
   }
 }

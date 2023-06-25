@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/views/pages/pages.dart';
-import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
-import 'package:health_safe_paciente/src/providers/perfil_profesional_provider.dart';
-import 'package:health_safe_paciente/src/theme/themes.dart';
-import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class TurnosProfesionalPage extends StatelessWidget {
-  final Profesional profesional;
-  final Especialidad especialidad;
+  final ProfesionalDto profesional;
+  final EspecialidadDto especialidad;
   const TurnosProfesionalPage(
       {super.key, required this.profesional, required this.especialidad});
 
   @override
   Widget build(BuildContext context) {
-    final perfilProfesionalProvider =
-        Provider.of<PerfilProfesionalProvider>(context);
+    // final perfilProfesionalProvider =
+    // Provider.of<PerfilProfesionalProvider>(context);
 
     if (profesional.agendasTurnos.isEmpty) {
-      return Text("El profesional no tiene agendas de turnos");
+      return const Text("El profesional no tiene agendas de turnos");
       // const EmptyWidget(
       //  description: "El profesional no tiene agendas de turnos disponibles");
     }

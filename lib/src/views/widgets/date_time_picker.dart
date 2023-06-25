@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
+import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
-class DateTimePicker extends StatelessWidget {
+class DateTimeHorizontalPicker extends StatelessWidget {
   final DateTime fechaSeleccionada;
   final List<DateTime> fechas;
   final void Function(DateTime)? onChanged;
 
-  const DateTimePicker(
+  const DateTimeHorizontalPicker(
       {super.key,
       required this.fechas,
       required this.fechaSeleccionada,
@@ -28,7 +28,7 @@ class DateTimePicker extends StatelessWidget {
             }
           }),
       DescriptionText(
-        text: fechaSeleccionada.convertDateTimeToLongFormat(),
+        text: fechaSeleccionada.convertToString(longFormat: true),
         textAlign: TextAlign.center,
       ),
       IconButton(

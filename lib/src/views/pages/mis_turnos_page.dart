@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:health_safe_paciente/src/services/api/api_services.dart';
-import 'package:health_safe_paciente/src/views/pages/pages.dart';
+import 'package:health_safe_paciente/src/services/api/models/turno.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:health_safe_paciente/src/providers/providers.dart';
-import 'package:health_safe_paciente/src/helpers/functions/extensions.dart';
+import 'package:health_safe_paciente/src/services/api/api.dart';
+import 'package:health_safe_paciente/src/views/pages/pages.dart';
+import 'package:health_safe_paciente/src/views/providers/providers.dart';
+import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/theme/colors_app.dart';
 import 'package:health_safe_paciente/src/theme/dimens.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
@@ -26,25 +26,17 @@ class MisTurnosPage extends StatelessWidget {
           children: [
             const HeaderPage(title: "Mis turnos"),
             Expanded(
-              child: FutureBuilder(
-                future: TurnoApiService()
+              child: FutureStatesBuilder<List<Turno>>(
+                future: TurnoService()
                     .obtenerTurnos(autenticacionService.usuario!.id),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<Turno>> snapshot) {
-                  if (snapshot.hasError) {
-                    // TODO Mensaje de error
-                  }
-
-                  if (snapshot.hasData) {
-                    List<Turno> turnos = snapshot.data!;
-
-                    return ChangeNotifierProvider(
-                        create: (_) => MisTurnosProvider(),
-                        child: _CalendarioTurnos(turnos: turnos));
-                  }
-
-                  return const Loader();
-                },
+                onEmpty: () => const MessageState(
+                    text: "No hay turnos guardados", iconState: EmptyIcon()),
+                onError: () => const MessageState(
+                    text: "Algo salió mal al cargar la informacion",
+                    iconState: FailureIcon()),
+                onSuccess: (value) => ChangeNotifierProvider(
+                    create: (_) => MisTurnosProvider(),
+                    child: _CalendarioTurnos(turnos: value)),
               ),
             )
           ],
@@ -168,7 +160,7 @@ class _DetalleTurnosPorFecha extends StatelessWidget {
           padding: EdgeInsets.all(Dimens.dimens20),
           child: SingleChildScrollView(
             child: Column(children: [
-              Text(fecha.convertDateTimeToLongFormat()),
+              Text(fecha.convertToString()),
               const Divider(),
               ...turnos.map((Turno turno) => _InfoTurnoPaciente(turno: turno))
             ]),
@@ -195,7 +187,7 @@ class _InfoTurnoPaciente extends StatelessWidget {
       child: InkWell(
           child: Row(children: [
             DescriptionText(
-                text: turno.horaInicio.toTimeString(),
+                text: turno.horaInicio.convertToString(),
                 fontWeight: FontWeight.bold),
             SizedBox(width: Dimens.dimens20),
             Column(

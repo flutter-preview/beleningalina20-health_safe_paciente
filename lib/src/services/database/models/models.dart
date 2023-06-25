@@ -1,0 +1,10 @@
+export 'package:health_safe_paciente/src/services/database/models/consultorio_entity.dart';
+export 'package:health_safe_paciente/src/services/database/models/direccion_entity.dart';
+export 'package:health_safe_paciente/src/services/database/models/especialidad_entity.dart';
+export 'package:health_safe_paciente/src/services/database/models/localidad_entity.dart';
+export 'package:health_safe_paciente/src/services/database/models/mensaje_entity.dart';
+export 'package:health_safe_paciente/src/services/database/models/modalidad_atencion_entity.dart';
+export 'package:health_safe_paciente/src/services/database/models/profesional_entity.dart';
+export 'package:health_safe_paciente/src/services/database/models/rol_entity.dart';
+export 'package:health_safe_paciente/src/services/database/models/turno_entity.dart';
+export 'package:health_safe_paciente/src/services/database/models/usuario_entity.dart';

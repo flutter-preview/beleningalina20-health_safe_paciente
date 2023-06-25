@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:health_safe_paciente/src/models/entity/push_notifications/push_notification_message.dart';
+import 'package:health_safe_paciente/src/services/push_notifications/models/push_notification_message.dart';
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();

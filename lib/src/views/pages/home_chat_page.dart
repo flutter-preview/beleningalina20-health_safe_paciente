@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:health_safe_paciente/src/services/database/database_services.dart';
-import 'package:health_safe_paciente/src/views/pages/chat_page.dart';
-import 'package:health_safe_paciente/src/theme/dimens.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class HomeChatPage extends StatelessWidget {
@@ -13,7 +9,7 @@ class HomeChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: const AppbarCustom(habilitarNavegacionChat: false),
+      appBar: const AppbarCustom(chatHabilitado: false),
       body: Column(
         children: [
           const HeaderPage(title: "Mensajería"),
@@ -30,34 +26,29 @@ class HomeChatPage extends StatelessWidget {
 class _ProfesionalesListado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: ProfesionalDatabaseService().obtenerProfesionales(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            // TODO Mensaje de error para obtener los profesionales
-          }
-
-          if (snapshot.hasData) {
-            var profesionales = snapshot.data ?? [];
-
-            return ListView.separated(
+    return Container();
+    /*
+    return FutureStatesBuilder<List<_OpcionDrawer>>(
+      future:ProfesionalDatabaseService().obtenerProfesionales(),
+      onEmpty: () => const MessageState(
+          text: "No hay profesionales disponibles", iconState: EmptyIcon()),
+      onError: () => const MessageState(
+          text: "Algo salió mal al cargar los profesionales.",
+          iconState: FailureIcon()),
+      onSuccess: (value) => ListView.separated(
                 separatorBuilder: (BuildContext _, int i) => const Divider(),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: profesionales.length,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (BuildContext _, int i) {
-                  Container();
-                  // return _ProfesionalMensaje(profesional: profesionales[i]);
-                });
-          }
-
-          return const Loader();
-        });
+                  return _ProfesionalMensaje(profesional: profesionales[i]);
+                })
+    );*/
   }
 }
 
-class _ProfesionalMensaje extends StatelessWidget {
+/*class _ProfesionalMensaje extends StatelessWidget {
   final Profesional profesional;
   const _ProfesionalMensaje({required this.profesional});
 
@@ -75,4 +66,4 @@ class _ProfesionalMensaje extends StatelessWidget {
       ),
     );
   }
-}
+}*/

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/services/api/api_services.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
+import 'package:health_safe_paciente/src/services/api/api.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
-import 'package:health_safe_paciente/src/providers/providers.dart';
+import 'package:health_safe_paciente/src/views/providers/providers.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
@@ -124,20 +124,19 @@ class MenuEspecialidades extends StatelessWidget {
   Widget build(BuildContext context) {
     final busquedaProfesionalesProvider =
         Provider.of<BusquedaProfesionalesProvider>(context);
-    return FutureBuilder(
-      future: EspecialidadApiService.especialidadService.especialidades,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<Especialidad>?> snapshot) {
-        return DropDownButtonCustom<Especialidad>(
-          label: 'Especialidad',
-          labelColor: Colors.white,
-          items: snapshot.data ?? [],
-          value: busquedaProfesionalesProvider.especialidad,
-          onChanged: (value) =>
-              busquedaProfesionalesProvider.especialidad = value,
-        );
-      },
-    );
+
+    return FutureStatesBuilder<List<EspecialidadDto>?>(
+        future: EspecialidadService.especialidadService.especialidades,
+        someAction: (value) {
+          return DropDownButtonCustom<EspecialidadDto>(
+            label: 'Especialidad',
+            labelColor: Colors.white,
+            items: value ?? [],
+            value: busquedaProfesionalesProvider.especialidad,
+            onChanged: (value) =>
+                busquedaProfesionalesProvider.especialidad = value,
+          );
+        });
   }
 }
 
@@ -149,21 +148,19 @@ class MenuModalidadesAtencion extends StatelessWidget {
     final busquedaProfesionalesProvider =
         Provider.of<BusquedaProfesionalesProvider>(context);
 
-    return FutureBuilder(
-      future: ModalidadAtencionApiService
-          .modalidadAtencionService.modalidadesAtencion,
-      builder: (BuildContext context,
-          AsyncSnapshot<List<ModalidadAtencion>?> snapshot) {
-        return DropDownButtonCustom<ModalidadAtencion>(
-          label: 'Modalidad Atención',
-          labelColor: Colors.white,
-          items: snapshot.data ?? [],
-          value: busquedaProfesionalesProvider.modalidadAtencion,
-          onChanged: (value) =>
-              busquedaProfesionalesProvider.modalidadAtencion = value,
-        );
-      },
-    );
+    return FutureStatesBuilder<List<ModalidadAtencionDto>?>(
+        future: ModalidadAtencionService
+            .modalidadAtencionService.modalidadesAtencion,
+        someAction: (value) {
+          return DropDownButtonCustom<ModalidadAtencionDto>(
+            label: 'Modalidad Atención',
+            labelColor: Colors.white,
+            items: value ?? [],
+            value: busquedaProfesionalesProvider.modalidadAtencion,
+            onChanged: (value) =>
+                busquedaProfesionalesProvider.modalidadAtencion = value,
+          );
+        });
   }
 }
 
@@ -175,18 +172,17 @@ class MenuLocalidades extends StatelessWidget {
     final busquedaProfesionalesProvider =
         Provider.of<BusquedaProfesionalesProvider>(context);
 
-    return FutureBuilder(
-      future: LocalidadApiService.localidadService.localidades,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<Localidad>?> snapshot) {
-        return DropDownButtonCustom<Localidad>(
-          label: 'Localidad',
-          labelColor: Colors.white,
-          items: snapshot.data ?? [],
-          value: busquedaProfesionalesProvider.localidad,
-          onChanged: (value) => busquedaProfesionalesProvider.localidad = value,
-        );
-      },
-    );
+    return FutureStatesBuilder<List<LocalidadDto>?>(
+        future: LocalidadService.localidadService.localidades,
+        someAction: (value) {
+          return DropDownButtonCustom<LocalidadDto>(
+            label: 'Localidad',
+            labelColor: Colors.white,
+            items: value ?? [],
+            value: busquedaProfesionalesProvider.localidad,
+            onChanged: (value) =>
+                busquedaProfesionalesProvider.localidad = value,
+          );
+        });
   }
 }

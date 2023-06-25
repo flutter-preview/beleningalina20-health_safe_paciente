@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/helpers/utils/permission_handler.dart';
-import 'package:health_safe_paciente/src/services/api/api_services.dart';
+import 'package:health_safe_paciente/src/helpers/permission_handler.dart';
+import 'package:health_safe_paciente/src/services/api/api.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
@@ -13,8 +13,7 @@ class DrawerCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final autenticacionService =
-        Provider.of<AutenticacionService>(context, listen: false);
+    final autenticacionService = Provider.of<AutenticacionService>(context);
     final usuario = autenticacionService.usuario;
 
     return Drawer(
@@ -23,7 +22,7 @@ class DrawerCustom extends StatelessWidget {
       child:
           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         _HeaderDrawer(
-            imagenPerfil: usuario?.imagenPerfil ?? '',
+            imagenPerfil: usuario?.urlImagenPerfil ?? '',
             nombre: usuario?.nombre ?? '',
             apellido: usuario?.apellido ?? ''),
         const _OpcionesDrawer()
@@ -65,27 +64,27 @@ class _OpcionesDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureStatesBuilder<List<_OpcionDrawer>>(
       future: _DrawerProvider.drawerProvider.opcionesDrawer,
-      builder: (_, AsyncSnapshot<List<_OpcionDrawer>?> snapshot) {
-        if (snapshot.hasData) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: snapshot.data!
-                .map((opcion) => Column(
-                      children: [
-                        const Divider(color: ColorsApp.celesteFondo),
-                        ListTileDrawerOption(
-                            title: opcion.title,
-                            textColor: Colors.white,
-                            onTap: () => onTap(context, opcion)),
-                      ],
-                    ))
-                .toList(),
-          );
-        }
-        return const Center(child: CircularProgressIndicator());
-      },
+      onEmpty: () => const MessageState(
+          text: "No hay opciones disponibles", iconState: EmptyIcon()),
+      onError: () => const MessageState(
+          text: "Algo salió mal al cargar las opciones.",
+          iconState: FailureIcon()),
+      onSuccess: (value) => Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: value
+            .map((opcion) => Column(
+                  children: [
+                    const Divider(color: ColorsApp.celesteFondo),
+                    ListTileDrawerOption(
+                        title: opcion.title,
+                        textColor: Colors.white,
+                        onTap: () => onTap(context, opcion)),
+                  ],
+                ))
+            .toList(),
+      ),
     );
   }
 

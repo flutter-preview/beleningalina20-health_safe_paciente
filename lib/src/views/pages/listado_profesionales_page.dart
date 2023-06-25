@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:health_safe_paciente/src/services/api/api_services.dart';
+import 'package:health_safe_paciente/src/services/api/api.dart';
+import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
@@ -52,36 +53,31 @@ class _ListadoProfesionales extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: ProfesionalApiService().obtenerProfesionales(
-          especialidad.id, modalidadAtencion.id, localidad?.codigoPostal),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<Profesional?>> snapshot) {
-        if (snapshot.hasData) {
-          List<Profesional?> profesionales = snapshot.data ?? [];
-          if (profesionales.isEmpty) {
-            // const EmptyWidget(description: "No se encontraron profesionales");
-          } else {
-            return ListView.separated(
-              itemCount: profesionales.length,
-              itemBuilder: (BuildContext context, int index) => ProfesionalCard(
-                  profesional: profesionales[index]!,
-                  onPressed: () => Navigator.pushNamed(
-                          context, PerfilProfesionalPage.routeName, arguments: {
-                        "profesional": profesionales[index],
-                        "especialidad": especialidad
-                      })),
-              separatorBuilder: (_, __) => SizedBox(height: Dimens.dimens10),
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              padding: EdgeInsets.all(Dimens.dimens10),
-            );
-          }
-        }
-        // if (snapshot.hasError) const FailureWidget();
-
-        return const Center(child: CircularProgressIndicator());
-      },
+    return FutureStatesBuilder<List<ProfesionalDto?>>(
+      future: ProfesionalService().obtenerProfesionales(
+          ObtenerProfesionalesRequest(
+              idEspecialidad: especialidad.id,
+              idModalidadAtencion: modalidadAtencion.id,
+              idLocalidad: localidad?.codigoPostal)),
+      onEmpty: () => const MessageState(
+          text: "No se encontraron profesionales", iconState: EmptyIcon()),
+      onError: () => const MessageState(
+          text: "Algo salió mal al cargar la informacion",
+          iconState: FailureIcon()),
+      onSuccess: (value) => ListView.separated(
+        itemCount: value.length,
+        itemBuilder: (BuildContext context, int index) => ProfesionalCard(
+            profesional: value[index]!,
+            onPressed: () => Navigator.pushNamed(
+                    context, PerfilProfesionalPage.routeName, arguments: {
+                  "profesional": value[index],
+                  "especialidad": especialidad
+                })),
+        separatorBuilder: (_, __) => SizedBox(height: Dimens.dimens10),
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        padding: EdgeInsets.all(Dimens.dimens10),
+      ),
     );
   }
 }

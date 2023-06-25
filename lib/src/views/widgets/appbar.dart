@@ -4,8 +4,8 @@ import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class AppbarCustom extends StatelessWidget implements PreferredSizeWidget {
-  final bool habilitarNavegacionChat;
-  const AppbarCustom({super.key, this.habilitarNavegacionChat = true});
+  final bool chatHabilitado;
+  const AppbarCustom({super.key, this.chatHabilitado = true});
 
   @override
   Size get preferredSize => const Size.fromHeight(60.0);
@@ -47,7 +47,7 @@ class AppbarCustom extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
             icon: const Icon(Icons.mark_chat_unread_outlined),
             onPressed: () {
-              if (habilitarNavegacionChat) {
+              if (chatHabilitado) {
                 Navigator.popUntil(context, (Route<dynamic> route) => false);
                 Navigator.pushNamed(context, HomePage.routeName);
                 Navigator.pushNamed(context, HomeChatPage.routeName);
