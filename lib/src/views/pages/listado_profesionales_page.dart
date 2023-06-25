@@ -14,9 +14,9 @@ class ListadoProfesionalesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, dynamic> arguments =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-    Especialidad especialidad = arguments['especialidad'];
-    ModalidadAtencion modalidadAtencion = arguments['modalidadAtencion'];
-    Localidad? localidad = arguments['localidad'];
+    EspecialidadDto especialidad = arguments['especialidad'];
+    ModalidadAtencionDto modalidadAtencion = arguments['modalidadAtencion'];
+    LocalidadDto? localidad = arguments['localidad'];
 
     return SafeArea(
         child: Scaffold(
@@ -40,9 +40,9 @@ class ListadoProfesionalesPage extends StatelessWidget {
 }
 
 class _ListadoProfesionales extends StatelessWidget {
-  final Especialidad especialidad;
-  final ModalidadAtencion modalidadAtencion;
-  final Localidad? localidad;
+  final EspecialidadDto especialidad;
+  final ModalidadAtencionDto modalidadAtencion;
+  final LocalidadDto? localidad;
 
   const _ListadoProfesionales(
       {Key? key,

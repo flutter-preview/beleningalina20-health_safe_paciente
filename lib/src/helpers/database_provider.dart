@@ -19,7 +19,7 @@ class DBProvider {
     final String path = join(documentsDirectory.path, "health_safe.db");
 
     return await openDatabase(path,
-        version: 5,
+        version: 6,
         onCreate: (Database db, int version) async => await createTables(db));
   }
 
@@ -81,7 +81,7 @@ class DBProvider {
 
     await db.execute('''
       CREATE TABLE localidad(
-        codigoPostal INTEGER PRIMARY KEY,
+        codigoPostal STRING PRIMARY KEY,
         descripcion TEXT
       )
     ''');

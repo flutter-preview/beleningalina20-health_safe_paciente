@@ -26,7 +26,7 @@ class FutureStatesBuilder<T> extends StatelessWidget {
         future: future,
         builder: ((context, snapshot) {
           if (someAction != null) {
-            someAction!(snapshot.data);
+            return someAction!(snapshot.data);
           }
 
           if (snapshot.hasError) {

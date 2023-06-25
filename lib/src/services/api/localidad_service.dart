@@ -20,9 +20,8 @@ class LocalidadService {
 
   Future<List<LocalidadDto>?> obtenerLocalidades() async {
     try {
-      final resp = await http
-          .get(Uri.parse("${Environments.apiUrl}/localidades"))
-          .timeout(const Duration(seconds: 3));
+      final resp =
+          await http.get(Uri.parse("${Environments.apiUrl}/localidades"));
 
       debugPrint(resp.body.toString());
 

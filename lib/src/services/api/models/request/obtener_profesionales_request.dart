@@ -1,7 +1,7 @@
 class ObtenerProfesionalesRequest {
   int idEspecialidad;
   int idModalidadAtencion;
-  int? idLocalidad;
+  String? idLocalidad;
 
   ObtenerProfesionalesRequest(
       {required this.idEspecialidad,

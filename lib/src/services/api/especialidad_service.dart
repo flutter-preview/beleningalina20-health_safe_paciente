@@ -21,9 +21,8 @@ class EspecialidadService {
 
   Future<List<EspecialidadDto>?> obtenerEspecialidades() async {
     try {
-      final resp = await http
-          .get(Uri.parse("${Environments.apiUrl}/especialidades"))
-          .timeout(const Duration(seconds: 3));
+      final resp =
+          await http.get(Uri.parse("${Environments.apiUrl}/especialidades"));
 
       debugPrint(resp.body.toString());
 

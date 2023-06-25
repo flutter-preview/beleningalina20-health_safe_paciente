@@ -2,7 +2,7 @@ import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:health_safe_paciente/src/services/database/models/models.dart';
 
 class LocalidadDto {
-  int codigoPostal;
+  String codigoPostal;
   String descripcion;
 
   LocalidadDto({required this.codigoPostal, required this.descripcion});
@@ -17,4 +17,7 @@ class LocalidadDto {
         codigoPostal: codigoPostal,
         descripcion: descripcion,
       );
+
+  @override
+  String toString() => descripcion;
 }

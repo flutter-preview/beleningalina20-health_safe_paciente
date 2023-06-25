@@ -4,7 +4,7 @@ class LocalidadEntity {
     required this.descripcion,
   });
 
-  int codigoPostal;
+  String codigoPostal;
   String descripcion;
 
   Map<String, String> toJson() => {

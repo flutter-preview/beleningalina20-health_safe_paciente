@@ -20,4 +20,7 @@ class ModalidadAtencionDto {
         id: id,
         descripcion: descripcion,
       );
+
+  @override
+  String toString() => descripcion;
 }

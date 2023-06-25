@@ -12,8 +12,7 @@ class ProfesionalService {
       ObtenerProfesionalesRequest params) async {
     try {
       final resp = await http
-          .get(Uri.parse('${Environments.apiUrl}/profesionales?$params'))
-          .timeout(const Duration(seconds: 3));
+          .get(Uri.parse('${Environments.apiUrl}/profesionales?$params'));
 
       debugPrint(resp.body.toString());
 

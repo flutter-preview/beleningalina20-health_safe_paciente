@@ -21,9 +21,8 @@ class ModalidadAtencionService {
 
   Future<List<ModalidadAtencionDto>?> obtenerModalidadesAtencion() async {
     try {
-      final resp = await http
-          .get(Uri.parse("${Environments.apiUrl}/modalidadesAtencion"))
-          .timeout(const Duration(seconds: 3));
+      final resp =
+          await http.get(Uri.parse("${Environments.apiUrl}/modalidades"));
 
       debugPrint(resp.body.toString());
 

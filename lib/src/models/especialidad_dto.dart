@@ -18,4 +18,7 @@ class EspecialidadDto {
         id: id,
         descripcion: descripcion,
       );
+
+  @override
+  String toString() => descripcion;
 }
