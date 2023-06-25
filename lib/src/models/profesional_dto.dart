@@ -43,5 +43,5 @@ class ProfesionalDto {
 
   @override
   String toString() =>
-      "${(usuario.sexo == "Masculino") ? "Dr." : "Dra."} ${usuario.nombre} ${usuario.apellido}";
+      "${(usuario.sexo == "M") ? "Dr." : "Dra."} ${usuario.nombre} ${usuario.apellido}";
 }

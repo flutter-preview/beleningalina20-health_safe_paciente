@@ -190,6 +190,7 @@ class ImagenPerfilProfesional extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
             height: 80,
+            width: 80,
             fit: BoxFit.cover,
             image: NetworkImage(urlImagenPerfil)));
   }

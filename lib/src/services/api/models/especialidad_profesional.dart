@@ -11,7 +11,10 @@ class EspecialidadProfesional {
 
   factory EspecialidadProfesional.fromJson(Map<String, dynamic> json) =>
       EspecialidadProfesional(
-        especialidad: Especialidad.fromJson(json["especialidad"]),
-        anoOtorgamiento: json["aniootorgamiento"],
+        // TODO Cambiar que devuelva el json con "especialidad"
+        especialidad: Especialidad(
+            id: json['idespecialidad'], descripcion: json['descripcion']),
+        anoOtorgamiento: json["Profesionales_Especialidades"]
+            ["aniootorgamiento"],
       );
 }

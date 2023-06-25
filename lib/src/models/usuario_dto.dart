@@ -11,9 +11,7 @@ class UsuarioDto {
   int? dni;
   DateTime? fechaNacimiento;
   String sexo;
-  String? urlImagenPerfil;
-  String? urlImagenDniFrente;
-  String? urlImagenDniDorso;
+  String urlImagenPerfil;
   RolDto rol;
 
   UsuarioDto(
@@ -26,8 +24,6 @@ class UsuarioDto {
       this.fechaNacimiento,
       required this.sexo,
       required this.urlImagenPerfil,
-      this.urlImagenDniFrente,
-      this.urlImagenDniDorso,
       required this.rol});
 
   factory UsuarioDto.fromApi(Usuario usuario) => UsuarioDto(
@@ -40,8 +36,6 @@ class UsuarioDto {
       fechaNacimiento: usuario.fechaNacimiento,
       sexo: usuario.sexo,
       urlImagenPerfil: usuario.imagenPerfil,
-      urlImagenDniFrente: usuario.imagenDniFrente,
-      urlImagenDniDorso: usuario.imagenDniDorso,
       rol: RolDto.fromApi(usuario.rol));
 
   factory UsuarioDto.fromDatabase(UsuarioEntity usuario) => UsuarioDto(
@@ -58,7 +52,7 @@ class UsuarioDto {
       correo: correo,
       nombre: nombre,
       apellido: apellido,
-      urlImagenPerfil: urlImagenPerfil ?? '',
+      urlImagenPerfil: urlImagenPerfil,
       sexo: sexo,
       rol: rol.toEntity());
 }

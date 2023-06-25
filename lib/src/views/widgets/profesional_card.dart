@@ -27,16 +27,17 @@ class ProfesionalCard extends StatelessWidget {
         children: [
           InfoProfesionalCard(profesional: profesional),
           SizedBox(height: Dimens.dimens10),
-          const DescriptionText(
+          // TODO Rango de precio y un consultorio
+          /*const DescriptionText(
             text: '~ POR DEFINIRSE ~',
             textAlign: TextAlign.start,
-          ).withPrefixIcon(Icons.location_on, Colors.grey[700]!),
-          SizedBox(height: Dimens.dimens10),
+          ).withPrefixIcon(Icons.location_on, Colors.grey[700]!),*/
+          /*SizedBox(height: Dimens.dimens10),
           const DescriptionText(
             text: "Precio: ~ POR DEFINIRSE ~",
             textAlign: TextAlign.start,
           ).withPrefixIcon(Icons.monetization_on, Colors.grey[700]!),
-          SizedBox(height: Dimens.dimens10),
+          SizedBox(height: Dimens.dimens10),*/
           Align(
             alignment: Alignment.centerRight,
             child: ElevatedButtonCustom(
@@ -58,7 +59,7 @@ class InfoProfesionalCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ImagenPerfilProfesional(
-            urlImagenPerfil: profesional.usuario.urlImagenPerfil ?? ''),
+            urlImagenPerfil: profesional.usuario.urlImagenPerfil),
         SizedBox(width: Dimens.dimens10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -41,8 +41,8 @@ class FutureStatesBuilder<T> extends StatelessWidget {
           if (snapshot.hasData) {
             final data = snapshot.data;
             if (data != null) {
-              if (data.runtimeType == List<T>) {
-                if ((data as List<T>).isEmpty) {
+              if (T.toString().contains("List", 0)) {
+                if ((data as List).isEmpty) {
                   if (onEmpty != null) {
                     return onEmpty!();
                   } else {
@@ -80,12 +80,12 @@ class MessageState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      DescriptionText(text: text),
-      SizedBox(
-        height: Dimens.dimens20,
-      ),
-      iconState ?? Container()
-    ]);
+    return Center(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        DescriptionText(text: text),
+        SizedBox(height: Dimens.dimens20),
+        iconState ?? Container()
+      ]),
+    );
   }
 }

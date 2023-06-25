@@ -23,11 +23,11 @@ class MatriculaProfesional {
       MatriculaProfesional(
         id: json["idmatriculaprofesional"],
         numeroMatricula: json["numero"],
-        tipoMatriculaProfesional: TipoMatriculaProfesional.fromJson(
-            json["tipo_matricula_profesional"]),
+        tipoMatriculaProfesional:
+            TipoMatriculaProfesional.fromJson(json["tipomatricula"]),
         universidad: Universidad.fromJson(json["universidad"]),
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
-        anoOtorgamiento: json["aniootorgamiento"],
+        anoOtorgamiento: json["Profesionales_MatriculasProfesional"],
       );
 }

@@ -8,6 +8,12 @@ class ObtenerProfesionalesRequest {
       required this.idModalidadAtencion,
       this.idLocalidad});
 
-  String request() =>
-      "idespecialidad=$idEspecialidad&idmodalidad=$idModalidadAtencion&codpostal=$idLocalidad";
+  @override
+  String toString() {
+    if (idLocalidad != null) {
+      return "idespecialidad=$idEspecialidad&idmodalidad=$idModalidadAtencion&codpostal=$idLocalidad";
+    } else {
+      return "idespecialidad=$idEspecialidad&idmodalidad=$idModalidadAtencion";
+    }
+  }
 }

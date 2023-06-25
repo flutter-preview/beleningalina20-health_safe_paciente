@@ -234,6 +234,7 @@ class _RegistroUsuarioForm extends StatelessWidget {
                                 text: "Registro de usuario completado",
                                 iconState: SuccessIcon())
                           ])))
+              // TODO Revisar por que el loader no se para
               .whenComplete(() => registroUsuarioFormProvider.isLoading = false)
               .onError((error, stackTrace) => showDialog(
                   context: context,
