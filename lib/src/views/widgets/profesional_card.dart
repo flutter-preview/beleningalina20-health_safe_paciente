@@ -58,7 +58,7 @@ class InfoProfesionalCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ImagenPerfilProfesional(
-            urlImagenPerfil: profesional.usuario.urlImagenPerfil),
+            urlImagenPerfil: profesional.usuario.urlImagenPerfil ?? ''),
         SizedBox(width: Dimens.dimens10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

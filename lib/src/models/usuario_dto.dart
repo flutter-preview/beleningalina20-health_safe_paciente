@@ -11,7 +11,7 @@ class UsuarioDto {
   int? dni;
   DateTime? fechaNacimiento;
   String sexo;
-  String urlImagenPerfil;
+  String? urlImagenPerfil;
   String? urlImagenDniFrente;
   String? urlImagenDniDorso;
   RolDto rol;
@@ -58,7 +58,7 @@ class UsuarioDto {
       correo: correo,
       nombre: nombre,
       apellido: apellido,
-      urlImagenPerfil: urlImagenPerfil,
+      urlImagenPerfil: urlImagenPerfil ?? '',
       sexo: sexo,
       rol: rol.toEntity());
 }

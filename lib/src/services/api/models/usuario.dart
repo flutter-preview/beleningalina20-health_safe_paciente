@@ -10,9 +10,9 @@ class Usuario {
     required this.apellido,
     required this.fechaNacimiento,
     required this.sexo,
-    required this.imagenPerfil,
-    required this.imagenDniFrente,
-    required this.imagenDniDorso,
+    this.imagenPerfil,
+    this.imagenDniFrente,
+    this.imagenDniDorso,
     this.createdAt,
     this.updatedAt,
     required this.rol,
@@ -26,9 +26,9 @@ class Usuario {
   String apellido;
   DateTime fechaNacimiento;
   String sexo;
-  String imagenPerfil;
-  String imagenDniFrente;
-  String imagenDniDorso;
+  String? imagenPerfil;
+  String? imagenDniFrente;
+  String? imagenDniDorso;
   DateTime? createdAt;
   DateTime? updatedAt;
   Rol rol;

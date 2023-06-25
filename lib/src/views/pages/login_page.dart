@@ -78,8 +78,9 @@ class _LoginForm extends StatelessWidget {
                             FocusScope.of(context).unfocus();
                             await login(
                               context,
-                              loginFormProvider.correo,
-                              loginFormProvider.contrasena,
+                              LoginRequest(
+                                  correo: loginFormProvider.correo,
+                                  contrasena: loginFormProvider.contrasena),
                             ).whenComplete(
                                 () => loginFormProvider.isLoading = false);
                           }
@@ -91,12 +92,9 @@ class _LoginForm extends StatelessWidget {
         ));
   }
 
-  Future<void> login(
-      BuildContext context, String correo, String contrasena) async {
+  Future<void> login(BuildContext context, LoginRequest request) async {
     final autenticacionService =
         Provider.of<AutenticacionService>(context, listen: false);
-
-    LoginRequest request = LoginRequest(correo: correo, contrasena: contrasena);
 
     await autenticacionService.login(request).then(
       (_) {
@@ -104,7 +102,15 @@ class _LoginForm extends StatelessWidget {
         Navigator.of(context).pushReplacementNamed(HomePage.routeName);
       },
     ).onError((ApiException error, stackTrace) {
-      // TODO Error en login
+      if (true) {
+        showDialog(
+            context: context,
+            builder: (context) => const AlertDialogBackground(content: [
+                  DescriptionText(text: "Correo y/o contraseña incorrectos")
+                ]));
+      } else {
+        // TODO Cuando el registro como paciente no esta completo
+      }
     });
   }
 }
