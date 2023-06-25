@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:health_safe_paciente/src/services/api/api.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/views/providers/providers.dart';
@@ -19,8 +19,37 @@ class RegistroUsuarioPage extends StatelessWidget {
       child: Scaffold(
           appBar: RegistroAppbar(
               title: "Registro de usuario",
-              onPressed: () {} // TODO Mostrar ayuda
-              ),
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => AlertDialogBackground(
+                        alignment: Alignment.centerLeft,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        content: [
+                          const DescriptionText(
+                              text: "Registro de paciente",
+                              fontWeight: FontWeight.bold),
+                          SizedBox(height: Dimens.dimens20),
+                          const SubdescriptionText(
+                              text:
+                                  "• Ingresar un correo electronico, una contrasena para realizar su inicio de sesión."),
+                          SizedBox(height: Dimens.dimens20),
+                          const SubdescriptionText(
+                              text: "• Elegir una imagen como foto de perfil."),
+                          SizedBox(height: Dimens.dimens20),
+                          const SubdescriptionText(
+                              text:
+                                  "• Ingresar sus datos personales: nombre, apellido, sexo, fecha de nacimiento y dni."),
+                          SizedBox(height: Dimens.dimens20),
+                          const SubdescriptionText(
+                              text:
+                                  "• Subir una imagen del frente y del dorso de su dni"),
+                          SizedBox(height: Dimens.dimens20),
+                          const SubdescriptionText(
+                              text:
+                                  "• Finalmente, ingresar su ocupacion actual"),
+                        ],
+                      ))),
           backgroundColor: ColorsApp.azulLogin,
           body: MultiProvider(providers: [
             ChangeNotifierProvider(
@@ -58,7 +87,7 @@ class _RegistroUsuarioForm extends StatelessWidget {
                   }
                 },
                 onStepContinue: () {
-                  if (registroUsuarioFormProvider.pasoActual < 2) {
+                  if (registroUsuarioFormProvider.pasoActual < 3) {
                     registroUsuarioFormProvider.pasoActual++;
                   }
                 },
@@ -81,7 +110,7 @@ class _RegistroUsuarioForm extends StatelessWidget {
                           ? StepState.complete
                           : StepState.indexed,
                       isActive: registroUsuarioFormProvider.pasoActual >= 0,
-                      content: const _DatosUsuario()),
+                      content: const _DatosUsuarioStep()),
                   Step(
                       title: Text(
                           (registroUsuarioFormProvider.pasoActual == 1)
@@ -92,7 +121,7 @@ class _RegistroUsuarioForm extends StatelessWidget {
                           ? StepState.complete
                           : StepState.indexed,
                       isActive: registroUsuarioFormProvider.pasoActual >= 1,
-                      content: const _DatosPersonales()),
+                      content: const _DatosPersonalesStep()),
                   Step(
                       title: Text(
                           (registroUsuarioFormProvider.pasoActual == 2)
@@ -103,7 +132,18 @@ class _RegistroUsuarioForm extends StatelessWidget {
                           ? StepState.complete
                           : StepState.indexed,
                       isActive: registroUsuarioFormProvider.pasoActual >= 2,
-                      content: const _ImagenesDni()),
+                      content: const _ImagenesDniStep()),
+                  Step(
+                      title: Text(
+                          (registroUsuarioFormProvider.pasoActual == 3)
+                              ? "Ocupación"
+                              : "",
+                          style: const TextStyle(color: Colors.white)),
+                      state: (registroUsuarioFormProvider.pasoActual > 3)
+                          ? StepState.complete
+                          : StepState.indexed,
+                      isActive: registroUsuarioFormProvider.pasoActual >= 3,
+                      content: const _OcupacionStep()),
                 ],
               ),
             ),
@@ -125,12 +165,25 @@ class _RegistroUsuarioForm extends StatelessWidget {
                             await registro(context).whenComplete(() =>
                                 registroUsuarioFormProvider.isLoading = false);
                           } else {
-                            // TODO Error debe ser mayor de edad
+                            showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) => AlertDialogBackground(
+                                        onAccept: () => Navigator.popUntil(
+                                            context,
+                                            ModalRoute.withName(
+                                                LoginPage.routeName)),
+                                        content: const [
+                                          MessageState(
+                                              text:
+                                                  "Debe ser mayor de edad para registrarse",
+                                              iconState: FailureIcon())
+                                        ]));
                           }
                         }
                       : () {
                           FocusScope.of(context).unfocus();
-                          if (registroUsuarioFormProvider.pasoActual == 2) {
+                          if (registroUsuarioFormProvider.pasoActual == 3) {
                             registroUsuarioFormProvider.pasoActual = 0;
                           } else {
                             registroUsuarioFormProvider.pasoActual++;
@@ -152,30 +205,73 @@ class _RegistroUsuarioForm extends StatelessWidget {
         Provider.of<RegistroUsuarioFormProvider>(context, listen: false);
 
     RegistroUsuarioRequest request = RegistroUsuarioRequest(
-        correo: registroUsuarioFormProvider.correo,
-        contrasena: registroUsuarioFormProvider.contrasena,
-        dni: registroUsuarioFormProvider.dni,
-        nombre: registroUsuarioFormProvider.nombre,
-        apellido: registroUsuarioFormProvider.apellido,
+        correo: registroUsuarioFormProvider.correo.trim(),
+        contrasena: registroUsuarioFormProvider.contrasena.trim(),
+        dni: registroUsuarioFormProvider.dni.trim(),
+        nombre: registroUsuarioFormProvider.nombre.trim(),
+        apellido: registroUsuarioFormProvider.apellido.trim(),
         fechaNacimiento: registroUsuarioFormProvider.fechaNacimiento!,
-        sexo: registroUsuarioFormProvider.sexo,
+        sexo: registroUsuarioFormProvider.sexo.trim(),
         imagenPerfil: registroUsuarioFormProvider.imagenPerfil!,
         imagenDniFrente: registroUsuarioFormProvider.imagenDniFrente!,
-        imagenDniDorso: registroUsuarioFormProvider.imagenDniDorso!);
+        imagenDniDorso: registroUsuarioFormProvider.imagenDniDorso!,
+        ocupacion: registroUsuarioFormProvider.ocupacion!.trim());
 
     await UsuarioService()
         .registro(request)
-        .then((value) => Navigator.pushReplacementNamed(
-            context, RegistroPacientePage.routeName))
-        .onError((error, stackTrace) {
-      // TODO Error en el registro del usuario
-      return null;
-    });
+        .then((value) async {
+          await PacienteService()
+              .registro(RegistroPacienteRequest(
+                  idUsuario: value.id, ocupacion: request.ocupacion))
+              .then((value) => showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => AlertDialogBackground(
+                          onAccept: () => Navigator.popUntil(context,
+                              ModalRoute.withName(LoginPage.routeName)),
+                          content: const [
+                            MessageState(
+                                text: "Registro de usuario completado",
+                                iconState: SuccessIcon())
+                          ])))
+              .whenComplete(() => registroUsuarioFormProvider.isLoading = false)
+              .onError((error, stackTrace) => showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => AlertDialogBackground(
+                          onAccept: () => Navigator.popUntil(context,
+                              ModalRoute.withName(LoginPage.routeName)),
+                          content: [
+                            MessageState(
+                                text: (error.toString().contains(
+                                        // TODO Revisar una mejor forma
+                                        // Desde el backend devuelvan los mensajes para mostrar de errores
+                                        "El usuario con el correo ya existe"))
+                                    ? "EL correo ya esta registrado. Inicia Sesión"
+                                    : "Algo salio durante el registro. Inténtalo más tarde",
+                                iconState: (error.toString().contains(
+                                        "El usuario con el correo ya existe"))
+                                    ? const FailureIcon()
+                                    : null)
+                          ])));
+        })
+        .whenComplete(() => registroUsuarioFormProvider.isLoading = false)
+        .onError((error, stackTrace) => showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialogBackground(
+                    onAccept: () => Navigator.popUntil(
+                        context, ModalRoute.withName(LoginPage.routeName)),
+                    content: const [
+                      MessageState(
+                          text: "Algo salió mal al registrar el usuario",
+                          iconState: FailureIcon())
+                    ])));
   }
 }
 
-class _DatosUsuario extends StatelessWidget {
-  const _DatosUsuario();
+class _DatosUsuarioStep extends StatelessWidget {
+  const _DatosUsuarioStep();
 
   @override
   Widget build(BuildContext context) {
@@ -207,8 +303,8 @@ class _DatosUsuario extends StatelessWidget {
   }
 }
 
-class _DatosPersonales extends StatelessWidget {
-  const _DatosPersonales();
+class _DatosPersonalesStep extends StatelessWidget {
+  const _DatosPersonalesStep();
 
   @override
   Widget build(BuildContext context) {
@@ -259,8 +355,8 @@ class _DatosPersonales extends StatelessWidget {
   }
 }
 
-class _ImagenesDni extends StatelessWidget {
-  const _ImagenesDni();
+class _ImagenesDniStep extends StatelessWidget {
+  const _ImagenesDniStep();
 
   @override
   Widget build(BuildContext context) {
@@ -282,6 +378,25 @@ class _ImagenesDni extends StatelessWidget {
             imagenPlaceholder: const AssetImage('assets/imgs/dni_dorso.png'),
             onChanged: (value) =>
                 registroUsuarioFormProvider.imagenDniDorso = value)
+      ],
+    );
+  }
+}
+
+class _OcupacionStep extends StatelessWidget {
+  const _OcupacionStep({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final registroUsuarioFormProvider =
+        Provider.of<RegistroUsuarioFormProvider>(context, listen: true);
+
+    return Column(
+      children: [
+        BasicTextFormField(
+          hintText: 'Ocupación',
+          onChanged: (value) => registroUsuarioFormProvider.ocupacion = value,
+        )
       ],
     );
   }

@@ -6,8 +6,17 @@ class AlertDialogBackground extends StatelessWidget {
   final List<Widget> content;
   final void Function()? onAccept;
   final void Function()? onCancel;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
+  final Alignment alignment;
   const AlertDialogBackground(
-      {super.key, required this.content, this.onAccept, this.onCancel});
+      {super.key,
+      required this.content,
+      this.onAccept,
+      this.onCancel,
+      this.mainAxisAlignment = MainAxisAlignment.center,
+      this.crossAxisAlignment = CrossAxisAlignment.center,
+      this.alignment = Alignment.center});
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +32,13 @@ class AlertDialogBackground extends StatelessWidget {
       // actionsOverflowButtonSpacing: ,
       // actionsOverflowDirection: ,
       // actionsPadding: ,
-      alignment: Alignment.center,
+      alignment: alignment,
       backgroundColor: Colors.white,
       // buttonPadding: ,
       // clipBehavior: ,
       content: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: mainAxisAlignment,
+          crossAxisAlignment: crossAxisAlignment,
           mainAxisSize: MainAxisSize.min,
           children: content),
       contentPadding: EdgeInsets.all(Dimens.dimens20),
@@ -38,9 +47,6 @@ class AlertDialogBackground extends StatelessWidget {
         color: Colors.black,
       ),
       elevation: Dimens.dimens10,
-      icon: Image(
-          image: const AssetImage('assets/imgs/logo_health_safe.png'),
-          height: Dimens.dimens50),
       // iconColor: ,
       iconPadding: EdgeInsets.all(Dimens.dimens20),
       // insetPadding: ,
@@ -51,12 +57,24 @@ class AlertDialogBackground extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Dimens.dimens10)),
       // surfaceTintColor: ,
-      title: const BodyText(text: "Health Safe"),
-      titlePadding: EdgeInsets.all(Dimens.dimens20),
-      titleTextStyle: TextStyle(
-        fontSize: Dimens.dimens25,
-        color: Colors.black,
-      ),
+      title: const _TitleAlertDialog(),
+    );
+  }
+}
+
+class _TitleAlertDialog extends StatelessWidget {
+  const _TitleAlertDialog();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Image(
+            image: const AssetImage('assets/imgs/logo_health_safe.png'),
+            height: Dimens.dimens60),
+        SizedBox(width: Dimens.dimens20),
+        const Text("Health Safe"),
+      ],
     );
   }
 }

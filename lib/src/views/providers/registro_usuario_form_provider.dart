@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 class RegistroUsuarioFormProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  int cantidadPasos = 4;
-
   int _pasoActual = 0;
   int get pasoActual => _pasoActual;
   set pasoActual(int value) {
@@ -33,6 +31,7 @@ class RegistroUsuarioFormProvider extends ChangeNotifier {
   String _dni = '';
   File? _imagenDniFrente;
   File? _imagenDniDorso;
+  String? _ocupacion;
 
   String get correo => _correo;
   set correo(String value) {
@@ -95,6 +94,12 @@ class RegistroUsuarioFormProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? get ocupacion => _ocupacion;
+  set ocupacion(String? value) {
+    _ocupacion = value;
+    notifyListeners();
+  }
+
   bool isValidForm() {
     if (formKey.currentState == null) return false;
     return formKey.currentState!.validate() &&
@@ -107,20 +112,8 @@ class RegistroUsuarioFormProvider extends ChangeNotifier {
         imagenPerfil != null &&
         imagenDniFrente != null &&
         imagenDniDorso != null &&
-        sexo != '';
-  }
-
-  Map<String, String> data() {
-    return {
-      'correo': correo,
-      'contrasena': contrasena,
-      'nombre': nombre,
-      'apellido': apellido,
-      'dni': dni,
-      'sexo': sexo,
-      'fechaNacimiento': fechaNacimiento.toString(),
-      'idRol': '1'
-    };
+        sexo != '' &&
+        ocupacion != null;
   }
 
   // Validators

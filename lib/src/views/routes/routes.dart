@@ -17,5 +17,4 @@ Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
       DetalleTurnoPage.routeName: (_) => const DetalleTurnoPage(),
       HomeChatPage.routeName: (_) => const HomeChatPage(),
       ChatPage.routeName: (_) => const ChatPage(),
-      RegistroPacientePage.routeName: (_) => const RegistroPacientePage(),
     };

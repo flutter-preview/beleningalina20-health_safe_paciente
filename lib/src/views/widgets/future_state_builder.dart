@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class FutureStatesBuilder<T> extends StatelessWidget {
@@ -74,11 +75,17 @@ class FutureStatesBuilder<T> extends StatelessWidget {
 
 class MessageState extends StatelessWidget {
   final String text;
-  final Widget iconState;
+  final Widget? iconState;
   const MessageState({super.key, required this.text, required this.iconState});
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [DescriptionText(text: text), iconState]);
+    return Column(children: [
+      DescriptionText(text: text),
+      SizedBox(
+        height: Dimens.dimens20,
+      ),
+      iconState ?? Container()
+    ]);
   }
 }

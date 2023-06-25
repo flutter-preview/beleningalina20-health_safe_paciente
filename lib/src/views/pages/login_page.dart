@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:health_safe_paciente/src/services/api/utils/api_exceptions.dart';
 import 'package:health_safe_paciente/src/services/api/api.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
@@ -79,8 +79,9 @@ class _LoginForm extends StatelessWidget {
                             await login(
                               context,
                               LoginRequest(
-                                  correo: loginFormProvider.correo,
-                                  contrasena: loginFormProvider.contrasena),
+                                  correo: loginFormProvider.correo.trim(),
+                                  contrasena:
+                                      loginFormProvider.contrasena.trim()),
                             ).whenComplete(
                                 () => loginFormProvider.isLoading = false);
                           }
@@ -102,15 +103,13 @@ class _LoginForm extends StatelessWidget {
         Navigator.of(context).pushReplacementNamed(HomePage.routeName);
       },
     ).onError((ApiException error, stackTrace) {
-      if (true) {
-        showDialog(
-            context: context,
-            builder: (context) => const AlertDialogBackground(content: [
-                  DescriptionText(text: "Correo y/o contraseña incorrectos")
-                ]));
-      } else {
-        // TODO Cuando el registro como paciente no esta completo
-      }
+      showDialog(
+          context: context,
+          builder: (context) => const AlertDialogBackground(content: [
+                DescriptionText(text: "Correo y/o contraseña incorrectos")
+              ]));
+
+      // TODO Cuando el registro como paciente no esta completo
     });
   }
 }

@@ -1,4 +1,3 @@
-export 'package:health_safe_paciente/src/views/pages/registro_paciente_page.dart';
 export 'package:health_safe_paciente/src/views/pages/home_chat_page.dart';
 export 'package:health_safe_paciente/src/views/pages/chat_page.dart';
 export 'package:health_safe_paciente/src/views/pages/detalle_turno_page.dart';

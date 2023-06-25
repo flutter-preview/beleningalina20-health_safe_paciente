@@ -12,6 +12,7 @@ class RegistroUsuarioRequest {
   File imagenDniFrente;
   File imagenDniDorso;
   int idRol = 2;
+  String ocupacion = '';
 
   RegistroUsuarioRequest({
     required this.correo,
@@ -24,6 +25,7 @@ class RegistroUsuarioRequest {
     required this.imagenPerfil,
     required this.imagenDniFrente,
     required this.imagenDniDorso,
+    required this.ocupacion,
   });
 
   Map<String, String> toJson() => {
