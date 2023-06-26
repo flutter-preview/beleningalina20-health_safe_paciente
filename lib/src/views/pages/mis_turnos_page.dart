@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/api/models/turno.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -26,7 +27,7 @@ class MisTurnosPage extends StatelessWidget {
           children: [
             const HeaderPage(title: "Mis turnos"),
             Expanded(
-              child: FutureStatesBuilder<List<Turno>>(
+              child: FutureStatesBuilder<List<TurnoPacienteDto>>(
                 future: TurnoService()
                     .obtenerTurnos(autenticacionService.usuario!.id),
                 onEmpty: () => const MessageState(
@@ -48,7 +49,7 @@ class MisTurnosPage extends StatelessWidget {
 }
 
 class _CalendarioTurnos extends StatelessWidget {
-  final List<Turno> turnos;
+  final List<TurnoPacienteDto> turnos;
   const _CalendarioTurnos({required this.turnos});
 
   @override
@@ -61,7 +62,7 @@ class _CalendarioTurnos extends StatelessWidget {
         _DetalleTurnosPorFecha(
             fecha: misTurnosProvider.selectedDay,
             turnos: turnos
-                .where((Turno turno) => (turno.fecha.year ==
+                .where((TurnoPacienteDto turno) => (turno.fecha.year ==
                         misTurnosProvider.selectedDay.year &&
                     turno.fecha.month == misTurnosProvider.selectedDay.month &&
                     turno.fecha.day == misTurnosProvider.selectedDay.day))
@@ -77,7 +78,7 @@ class _TurnosCalendar extends StatelessWidget {
     required this.turnos,
   }) : super(key: key);
 
-  final List<Turno> turnos;
+  final List<TurnoPacienteDto> turnos;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,7 @@ class _TurnosCalendar extends StatelessWidget {
 
     return Container(
         color: Colors.white,
-        child: TableCalendar<Turno>(
+        child: TableCalendar<TurnoPacienteDto>(
             locale: 'es_ES',
             firstDay: DateTime.utc(2020, 04, 01),
             lastDay: DateTime.utc(2030, 03, 14),
@@ -100,9 +101,10 @@ class _TurnosCalendar extends StatelessWidget {
             selectedDayPredicate: (DateTime date) =>
                 isSameDay(misTurnosProvider.selectedDay, date),
             eventLoader: (fecha) => turnos
-                .where((Turno turno) => (turno.fecha.year == fecha.year &&
-                    turno.fecha.month == fecha.month &&
-                    turno.fecha.day == fecha.day))
+                .where((TurnoPacienteDto turno) =>
+                    (turno.fecha.year == fecha.year &&
+                        turno.fecha.month == fecha.month &&
+                        turno.fecha.day == fecha.day))
                 .toList(),
             calendarStyle: CalendarStyle(
               isTodayHighlighted: true,
@@ -139,7 +141,7 @@ class _TurnosCalendar extends StatelessWidget {
 }
 
 class _DetalleTurnosPorFecha extends StatelessWidget {
-  final List<Turno> turnos;
+  final List<TurnoPacienteDto> turnos;
   final DateTime fecha;
   const _DetalleTurnosPorFecha({
     Key? key,
@@ -162,7 +164,8 @@ class _DetalleTurnosPorFecha extends StatelessWidget {
             child: Column(children: [
               Text(fecha.convertToString()),
               const Divider(),
-              ...turnos.map((Turno turno) => _InfoTurnoPaciente(turno: turno))
+              ...turnos.map(
+                  (TurnoPacienteDto turno) => _InfoTurnoPaciente(turno: turno))
             ]),
           )),
     );
@@ -170,7 +173,7 @@ class _DetalleTurnosPorFecha extends StatelessWidget {
 }
 
 class _InfoTurnoPaciente extends StatelessWidget {
-  final Turno turno;
+  final TurnoPacienteDto turno;
   const _InfoTurnoPaciente({required this.turno});
 
   @override
@@ -194,19 +197,17 @@ class _InfoTurnoPaciente extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DescriptionText(
-                    text:
-                        "Profesional: ${turno.agendaTurnos?.profesional?.toString()}",
+                    text: "Profesional: ${turno.profesional}",
                     overflow: TextOverflow.ellipsis),
                 DescriptionText(
                     text: "Especialidad: ${turno.especialidad.descripcion}",
                     overflow: TextOverflow.ellipsis),
                 DescriptionText(
-                    text:
-                        "Modalidad: ${turno.agendaTurnos?.modalidadAtencion.descripcion}",
+                    text: "Modalidad: ${turno.modalidadAtencion.descripcion}",
                     overflow: TextOverflow.ellipsis),
-                if (turno.agendaTurnos?.consultorio != null)
+                if (turno.consultorio != null)
                   DescriptionText(
-                      text: "Consultorio: ${turno.agendaTurnos?.consultorio}",
+                      text: "Consultorio: ${turno.consultorio}",
                       overflow: TextOverflow.ellipsis),
               ],
             )

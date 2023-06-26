@@ -15,8 +15,6 @@ class AgendaTurnosDto {
 
   List<TurnoReservadoDto> turnosReservados;
 
-  ProfesionalDto? profesional;
-
   AgendaTurnosDto(
       {required this.id,
       required this.fechaDesde,
@@ -27,8 +25,7 @@ class AgendaTurnosDto {
       required this.precio,
       required this.modalidadAtencion,
       this.consultorio,
-      this.turnosReservados = const [],
-      this.profesional});
+      this.turnosReservados = const []});
 
   factory AgendaTurnosDto.fromApi(AgendaTurnos agendaTurnos) => AgendaTurnosDto(
       id: agendaTurnos.id,
@@ -41,9 +38,10 @@ class AgendaTurnosDto {
       turnosReservados: List<TurnoReservadoDto>.from(agendaTurnos
           .turnosReservados
           .map((turno) => TurnoReservadoDto.fromApi(turno))),
-      profesional: (agendaTurnos.profesional != null)
-          ? ProfesionalDto.fromApi(agendaTurnos.profesional!)
-          : null,
       modalidadAtencion:
           ModalidadAtencionDto.fromApi(agendaTurnos.modalidadAtencion));
+
+  @override
+  String toString() =>
+      "$fechaDesde - $fechaHasta // $horaInicio - $horaFin // $modalidadAtencion // $consultorio";
 }

@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
+import 'package:health_safe_paciente/src/theme/themes.dart';
+import 'package:health_safe_paciente/src/views/pages/pages.dart';
+import 'package:health_safe_paciente/src/views/providers/providers.dart';
+import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class TurnosProfesionalPage extends StatelessWidget {
   final ProfesionalDto profesional;
@@ -9,29 +15,44 @@ class TurnosProfesionalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final perfilProfesionalProvider =
-    // Provider.of<PerfilProfesionalProvider>(context);
-
     if (profesional.agendasTurnos.isEmpty) {
-      return const Text("El profesional no tiene agendas de turnos");
-      // const EmptyWidget(
-      //  description: "El profesional no tiene agendas de turnos disponibles");
+      return const MessageState(
+          text: "El profesional no tiene agendas de turnos creadas",
+          iconState: EmptyIcon());
     }
 
-    return Container();
-    /*return Flexible(
+    return Flexible(
       child: Column(
         children: [
           Container(
-              padding: EdgeInsets.all(Dimens.dimens20),
-              color: ColorsApp.azulBusqueda,
-              child: const SubdescriptionText(
-                text:
-                    "A continuación seleccione la modalidad de atencion y fecha en la  que desea solicitar un turno con el profesional. Recuerde que los turnos disponibles se encuentran en color azul, mientras que los turnos ocupados en color amarillo.",
-                textAlign: TextAlign.center,
-                color: Colors.white,
-                fontWeight: FontWeight.w300,
-              )),
+            padding: EdgeInsets.all(Dimens.dimens20),
+            color: ColorsApp.azulBusqueda,
+            width: double.infinity,
+            child: Text.rich(
+              TextSpan(
+                  text:
+                      "A continuacion, seleccione la modalidad de atencion del turno que desea solicitar para consultar los turnos del profesional. Recuerde que los turnos disponibles se encuentran en color ",
+                  style:
+                      TextStyle(fontSize: Dimens.dimens18, color: Colors.white),
+                  children: [
+                    TextSpan(
+                        text: "azul, ",
+                        style: TextStyle(
+                            fontSize: Dimens.dimens18,
+                            color: Colors.blue[800])),
+                    TextSpan(
+                        text: " mientras que los reservados en color ",
+                        style: TextStyle(
+                            fontSize: Dimens.dimens18, color: Colors.white)),
+                    TextSpan(
+                        text: "amarillo.",
+                        style: TextStyle(
+                            fontSize: Dimens.dimens18,
+                            color: ColorsApp.amarilloLibre)),
+                  ]),
+              textAlign: TextAlign.center,
+            ),
+          ),
           Expanded(
             child: Container(
                 margin: EdgeInsets.all(Dimens.dimens10),
@@ -44,25 +65,20 @@ class TurnosProfesionalPage extends StatelessWidget {
                   const Divider(),
                   modalidadesAtencionDisponiblesPorFecha(context),
                   consultoriosDisponiblesPorFecha(context),
-                  SizedBox(height: Dimens.dimens20),
-                  (perfilProfesionalProvider.consultaTurnosValido())
-                      ? _TurnosProfesionalDisponibles(
-                          profesional: profesional, especialidad: especialidad)
-                      : const DescriptionText(
-                          text:
-                              "Seleccione la fecha, la modalidad y el consultorio donde desea ser atendido")
+                  _TurnosProfesionalDisponibles(
+                      profesional: profesional, especialidad: especialidad)
                 ])),
           )
         ],
       ),
-    );*/
+    );
   }
 
-  /*Widget fechasDisponibles(BuildContext context) {
+  Widget fechasDisponibles(BuildContext context) {
     final perfilProfesionalProvider =
         Provider.of<PerfilProfesionalProvider>(context, listen: false);
 
-    return DateTimePicker(
+    return DateTimeHorizontalPicker(
         fechas: perfilProfesionalProvider
             .fechasDisponibles(profesional.agendasTurnos),
         fechaSeleccionada:
@@ -79,7 +95,7 @@ class TurnosProfesionalPage extends StatelessWidget {
     final perfilProfesionalProvider =
         Provider.of<PerfilProfesionalProvider>(context, listen: false);
 
-    return DropDownButtonCustom<ModalidadAtencion>(
+    return DropDownButtonCustom<ModalidadAtencionDto>(
       vertical: false,
       label: 'Modalidad',
       borderColor: Colors.grey,
@@ -107,7 +123,7 @@ class TurnosProfesionalPage extends StatelessWidget {
       return Column(
         children: [
           const Divider(),
-          DropDownButtonCustom<Consultorio>(
+          DropDownButtonCustom<ConsultorioDto>(
             vertical: false,
             label: 'Consultorio',
             borderColor: Colors.grey,
@@ -130,12 +146,12 @@ class TurnosProfesionalPage extends StatelessWidget {
     } else {
       return Container();
     }
-  }*/
+  }
 }
 
-/*class _TurnosProfesionalDisponibles extends StatelessWidget {
-  final Profesional profesional;
-  final Especialidad especialidad;
+class _TurnosProfesionalDisponibles extends StatelessWidget {
+  final ProfesionalDto profesional;
+  final EspecialidadDto especialidad;
   const _TurnosProfesionalDisponibles(
       {required this.profesional, required this.especialidad});
 
@@ -144,9 +160,9 @@ class TurnosProfesionalPage extends StatelessWidget {
     final perfilProfesionalProvider =
         Provider.of<PerfilProfesionalProvider>(context);
 
-    List<Turno> turnos = [];
+    List<TurnoModel> turnos = [];
 
-    List<AgendaTurnos> agendasTurnos = profesional.agendasTurnos
+    List<AgendaTurnosDto> agendasTurnos = profesional.agendasTurnos
         .where((agendaTurnos) =>
             perfilProfesionalProvider.fechaPerteneceAgendaTurnos(
                 agendaTurnos.fechaDesde, agendaTurnos.fechaHasta) &&
@@ -163,12 +179,14 @@ class TurnosProfesionalPage extends StatelessWidget {
         TimeOfDay horaFinTurno =
             horaInicioTurnoAux.add(Duration(minutes: agendaTurnos.duracion));
 
-        Turno turnoProfesional = Turno(
+        TurnoModel turno = TurnoModel(
+            profesional: profesional,
+            especialidad: especialidad,
+            idAgendaTurnos: agendaTurnos.id,
+            precio: agendaTurnos.precio,
             fecha: perfilProfesionalProvider.fechaAgendaTurnosSeleccionada!,
             horaInicio: horaInicioTurnoAux,
             horaFin: horaFinTurno,
-            especialidad: especialidad,
-            agendaTurnos: agendaTurnos,
             disponible: agendaTurnos.turnosReservados
                 .where((turno) =>
                     turno.fecha ==
@@ -178,7 +196,7 @@ class TurnosProfesionalPage extends StatelessWidget {
                     turno.horaFin.isEquals(horaFinTurno))
                 .toList()
                 .isEmpty);
-        turnos.add(turnoProfesional);
+        turnos.add(turno);
 
         horaInicioTurnoAux = horaFinTurno;
       }
@@ -214,11 +232,31 @@ class TurnosProfesionalPage extends StatelessWidget {
   }
 }
 
-class _TurnoContainer extends StatelessWidget {
-  final Turno? turno;
-  final Profesional? profesional;
+class TurnoModel {
+  ProfesionalDto profesional;
+  EspecialidadDto especialidad;
+  int idAgendaTurnos;
+  bool disponible;
+  DateTime fecha;
+  TimeOfDay horaInicio;
+  TimeOfDay horaFin;
+  double precio;
 
-  const _TurnoContainer({this.turno, this.profesional});
+  TurnoModel(
+      {required this.profesional,
+      required this.disponible,
+      required this.idAgendaTurnos,
+      required this.especialidad,
+      required this.fecha,
+      required this.horaInicio,
+      required this.horaFin,
+      required this.precio});
+}
+
+class _TurnoContainer extends StatelessWidget {
+  final TurnoModel? turno;
+
+  const _TurnoContainer({this.turno});
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +264,6 @@ class _TurnoContainer extends StatelessWidget {
       return InkWell(
         onTap: (turno!.disponible)
             ? () {
-                turno?.agendaTurnos?.profesional = profesional;
                 Navigator.pushNamed(
                     context, DetalleSolicitudTurnoPage.routeName,
                     arguments: turno);
@@ -240,14 +277,17 @@ class _TurnoContainer extends StatelessWidget {
                 color: (turno!.disponible)
                     ? ColorsApp.azulBusqueda
                     : ColorsApp.amarilloLibre),
-            padding: EdgeInsets.all(Dimens.dimens10),
+            padding: EdgeInsets.symmetric(
+                horizontal: Dimens.dimens5, vertical: Dimens.dimens10),
             child: Column(
               children: [
-                Text(turno!.horaInicio.toTimeString(),
-                    style: const TextStyle(color: Colors.white)),
-                Text("\$${turno!.agendaTurnos!.precio}",
-                    style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold))
+                SubdescriptionText(
+                    text: turno!.horaInicio.convertToString(),
+                    color: Colors.white),
+                SubdescriptionText(
+                    text: "\$${turno!.precio}",
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold)
               ],
             )),
       );
@@ -256,4 +296,3 @@ class _TurnoContainer extends StatelessWidget {
     }
   }
 }
-*/

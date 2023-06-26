@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/services/api/api.dart';
@@ -22,7 +23,7 @@ class PagoTurnoPage extends StatefulWidget {
 class _PagoTurnoPageState extends State<PagoTurnoPage> {
   bool cargandoRedireccionMercadoPago = false;
 
-  late Turno turno;
+  late TurnoPacienteDto turno;
 
   @override
   void initState() {
@@ -65,13 +66,7 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
               if (statusDetail == "accredited") {
                 TurnoService turnoService = TurnoService();
 
-                final autenticacionService =
-                    Provider.of<AutenticacionService>(context, listen: false);
-                // obtener el id del paciente
-                final usuario = autenticacionService.usuario;
-
                 turno.idPago = paymentId;
-                turno.idPaciente = usuario?.id;
 
                 await turnoService
                     .crearTurno(CrearTurnoRequest())
@@ -142,7 +137,7 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
 
   @override
   Widget build(BuildContext context) {
-    turno = ModalRoute.of(context)?.settings.arguments as Turno;
+    turno = ModalRoute.of(context)?.settings.arguments as TurnoPacienteDto;
 
     return SafeArea(
         child: Scaffold(
@@ -184,7 +179,7 @@ class _GradienteContainer extends StatelessWidget {
 }
 
 class _DescriptionPago extends StatelessWidget {
-  final Turno turno;
+  final TurnoPacienteDto turno;
   const _DescriptionPago({Key? key, required this.turno}) : super(key: key);
 
   @override
@@ -194,8 +189,7 @@ class _DescriptionPago extends StatelessWidget {
         const BodyText(text: "Detalle", decoration: TextDecoration.underline),
         SizedBox(height: Dimens.dimens10),
         DescriptionText(
-            text:
-                "${turno.agendaTurnos?.profesional.toString()} - ${turno.especialidad.descripcion}",
+            text: "${turno.profesional} - ${turno.especialidad.descripcion}",
             textAlign: TextAlign.center),
         SizedBox(height: Dimens.dimens10),
         DescriptionText(
@@ -204,8 +198,7 @@ class _DescriptionPago extends StatelessWidget {
             textAlign: TextAlign.center),
         SizedBox(height: Dimens.dimens10),
         DescriptionText(
-            text: "Precio: \$ ${turno.agendaTurnos?.precio}",
-            fontWeight: FontWeight.bold),
+            text: "Precio: \$ ${turno.precio}", fontWeight: FontWeight.bold),
         SizedBox(height: Dimens.dimens10),
         Image(
             image: const AssetImage("assets/imgs/mercado_pago.jpg"),
@@ -218,7 +211,7 @@ class _DescriptionPago extends StatelessWidget {
 
 class _AccionesPagarTurno extends StatelessWidget {
   final void Function(bool) updateMercadoPagoState;
-  final Turno turno;
+  final TurnoPacienteDto turno;
 
   const _AccionesPagarTurno(
       {Key? key, required this.updateMercadoPagoState, required this.turno})
@@ -259,9 +252,9 @@ class _AccionesPagarTurno extends StatelessWidget {
         items: [
           Item(
               title:
-                  " ${turno.agendaTurnos?.profesional.toString()} (${turno.especialidad.descripcion}) ${turno.fecha.convertToString()} - ${turno.horaInicio.convertToString()}",
+                  " ${turno.profesional} (${turno.especialidad.descripcion}) ${turno.fecha.convertToString()} - ${turno.horaInicio.convertToString()}",
               quantity: 1,
-              unitPrice: turno.agendaTurnos?.precio ?? 0.0,
+              unitPrice: turno.precio,
               currencyId: "ARS")
         ],
         payer: Payer(

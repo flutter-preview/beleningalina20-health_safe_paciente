@@ -16,10 +16,12 @@ abstract class TurnoDto {
 }
 
 class TurnoReservadoDto extends TurnoDto {
+  bool disponible;
   TurnoReservadoDto(
       {required super.fecha,
       required super.horaInicio,
-      required super.horaFin});
+      required super.horaFin,
+      this.disponible = false});
 
   factory TurnoReservadoDto.fromApi(Turno turno) => TurnoReservadoDto(
       fecha: turno.fecha, horaInicio: turno.horaInicio, horaFin: turno.horaFin);
@@ -27,7 +29,9 @@ class TurnoReservadoDto extends TurnoDto {
 
 class TurnoPacienteDto extends TurnoDto {
   int id;
-  AgendaTurnosDto agendaTurnos;
+  ProfesionalDto profesional;
+  ModalidadAtencionDto modalidadAtencion;
+  ConsultorioDto? consultorio;
   DateTime fechaSolicita;
   String idPago;
   double precio;
@@ -38,22 +42,25 @@ class TurnoPacienteDto extends TurnoDto {
       required super.horaInicio,
       required super.horaFin,
       required this.id,
-      required this.agendaTurnos,
+      required this.profesional,
+      required this.modalidadAtencion,
+      this.consultorio,
       required this.fechaSolicita,
       required this.idPago,
       required this.precio,
       required this.especialidad});
 
-  factory TurnoPacienteDto.fromApi(Turno turno) => TurnoPacienteDto(
+  factory TurnoPacienteDto.fromApi(TurnoPaciente turno) => TurnoPacienteDto(
       fecha: turno.fecha,
       horaInicio: turno.horaInicio,
       horaFin: turno.horaFin,
       fechaSolicita: turno.fechaSolicita,
+      modalidadAtencion: ModalidadAtencionDto.fromApi(turno.modalidadAtencion),
+      profesional: ProfesionalDto.fromApi(turno.profesional),
       id: turno.id,
-      idPago: turno.idPago!,
+      idPago: turno.idPago,
       precio: turno.precio,
-      especialidad: EspecialidadDto.fromApi(turno.especialidad),
-      agendaTurnos: AgendaTurnosDto.fromApi(turno.agendaTurnos!));
+      especialidad: EspecialidadDto.fromApi(turno.especialidad));
 
   TurnoEntity toEntity() => TurnoEntity(
       id: id,
@@ -63,9 +70,8 @@ class TurnoPacienteDto extends TurnoDto {
       horaFin: horaFin,
       horaInicio: horaInicio,
       idPago: idPago,
-      modalidadAtencion: agendaTurnos.modalidadAtencion.toEntity(),
-      idAgendaTurnos: agendaTurnos.id,
+      modalidadAtencion: modalidadAtencion.toEntity(),
       precio: precio,
-      profesional: agendaTurnos.profesional!.toEntity(),
-      consultorio: agendaTurnos.consultorio?.toEntity());
+      profesional: profesional.toEntity(),
+      consultorio: consultorio?.toEntity());
 }

@@ -84,16 +84,15 @@ class _DetalleTurno extends StatelessWidget {
                     information: turno.horaInicio.convertToString()),
                 InformacionDetalle(
                     title: "Modalidad: ",
-                    information:
-                        turno.agendaTurnos.modalidadAtencion.descripcion),
+                    information: turno.modalidadAtencion.descripcion),
                 InformacionDetalle(
                     title: "Profesional: ",
-                    information: turno.agendaTurnos.profesional.toString()),
+                    information: turno.profesional.toString()),
                 InformacionDetalle(
                     title: "Especialidad: ",
                     information: turno.especialidad.descripcion),
-                if (turno.agendaTurnos.consultorio != null)
-                  _Consultorio(consultorio: turno.agendaTurnos.consultorio!),
+                if (turno.consultorio != null)
+                  _Consultorio(consultorio: turno.consultorio!),
                 InformacionDetalle(
                     title: "Paciente: ",
                     information: "${usuario?.apellido}, ${usuario?.nombre}"),

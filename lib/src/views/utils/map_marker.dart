@@ -62,11 +62,8 @@ class EndMarkerPainter extends CustomPainter {
     const double circleBlackRadius = 15;
     const double circleWhiteRadius = 10;
 
-    // print("[width: 400 - height: 150]");
-
     canvas.drawCircle(
         Offset(size.width - circleBlackRadius, size.height - circleBlackRadius),
-        // (20, 135)
         circleBlackRadius,
         blackPaint);
 

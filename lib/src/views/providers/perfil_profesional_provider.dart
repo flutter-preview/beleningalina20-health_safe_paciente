@@ -10,6 +10,12 @@ class PerfilProfesionalProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  List<AgendaTurnosDto> agendasTurnosProfesional = [];
+
+  PerfilProfesionalProvider({required this.agendasTurnosProfesional}) {
+    _fechaAgendaTurnosSeleccionada = agendasTurnosProfesional.first.fechaDesde;
+  }
+
   ModalidadAtencionDto? _modalidadAtencionSeleccionada;
   ModalidadAtencionDto? get modalidadAtencionSeleccionada =>
       _modalidadAtencionSeleccionada;

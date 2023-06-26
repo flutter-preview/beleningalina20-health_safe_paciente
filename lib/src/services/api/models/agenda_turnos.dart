@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/services/api/models/models.dart';
 
 class AgendaTurnos {
-  AgendaTurnos(
-      {required this.id,
-      required this.fechaDesde,
-      this.fechaHasta,
-      required this.horaInicio,
-      required this.horaFin,
-      required this.duracion,
-      required this.precio,
-      required this.modalidadAtencion,
-      this.consultorio,
-      this.turnosReservados = const [],
-      this.profesional});
+  AgendaTurnos({
+    required this.id,
+    required this.fechaDesde,
+    this.fechaHasta,
+    required this.horaInicio,
+    required this.horaFin,
+    required this.duracion,
+    required this.precio,
+    required this.modalidadAtencion,
+    this.consultorio,
+    this.turnosReservados = const [],
+  });
 
   int id;
   DateTime fechaDesde;
@@ -25,21 +26,23 @@ class AgendaTurnos {
   ModalidadAtencion modalidadAtencion;
   Consultorio? consultorio;
 
-  List<Turno> turnosReservados;
-
-  Profesional? profesional;
+  List<TurnoReservado> turnosReservados;
 
   factory AgendaTurnos.fromJson(Map<String, dynamic> json) => AgendaTurnos(
-      id: json["idagenda"],
-      fechaDesde: DateTime.parse(json["fechadesde"]),
-      fechaHasta: DateTime.parse(json["fechahasta"]),
-      horaInicio: json["horainicio"].toTimeOfDay(),
-      horaFin: json["horafin"].toTimeOfDay(),
-      duracion: json["duracion"],
-      precio: json["precio"]?.toDouble(),
-      modalidadAtencion: ModalidadAtencion.fromJson(json["modalidad"]),
-      consultorio: Consultorio.fromJson(json["consultorio"]),
-      turnosReservados:
-          List<Turno>.from(json["turnos"].map((x) => Turno.fromJson(x))),
-      profesional: Profesional.fromJson(json["profesional"]));
+        id: json["idagenda"],
+        fechaDesde: DateTime.parse(json["fechadesde"]),
+        fechaHasta: (json["fechahasta"] != null)
+            ? DateTime.parse(json["fechahasta"])
+            : null,
+        horaInicio: json["horainicio"].toString().toTimeOfDay(),
+        horaFin: json["horafin"].toString().toTimeOfDay(),
+        duracion: json["duracion"],
+        precio: json["precio"]?.toDouble(),
+        modalidadAtencion: ModalidadAtencion.fromJson(json["modalidad"]),
+        consultorio: (json["consultorio"] != null)
+            ? Consultorio.fromJson(json["consultorio"])
+            : null,
+        turnosReservados: List<TurnoReservado>.from(
+            json["turnos"].map((x) => TurnoReservado.fromJson(x))),
+      );
 }

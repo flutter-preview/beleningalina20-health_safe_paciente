@@ -9,6 +9,7 @@ class ObtenerTurnosResponse {
 
   factory ObtenerTurnosResponse.fromJson(Map<String, dynamic> json) =>
       ObtenerTurnosResponse(
-        turnos: List<Turno>.from(json["turnos"].map((x) => Turno.fromJson(x))),
+        turnos: List<Turno>.from(
+            json["turnos"].map((x) => TurnoPaciente.fromJson(x))),
       );
 }

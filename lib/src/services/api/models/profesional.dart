@@ -4,7 +4,6 @@ class Profesional {
   Profesional({
     required this.id,
     this.descripcion,
-    this.disponible = true,
     required this.createdAt,
     required this.updatedAt,
     required this.usuario,
@@ -17,16 +16,12 @@ class Profesional {
   DateTime createdAt;
   DateTime updatedAt;
   Usuario usuario;
-  bool disponible;
   List<EspecialidadProfesional> especialidades;
   List<MatriculaProfesional> matriculasProfesionales;
-
-  List<AgendaTurnos> agendasTurnos = [];
 
   factory Profesional.fromJson(Map<String, dynamic> json) => Profesional(
         id: json["idprofesional"],
         descripcion: json["descripcion"],
-        disponible: false,
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         usuario: Usuario.fromJson(json["usuario"]),

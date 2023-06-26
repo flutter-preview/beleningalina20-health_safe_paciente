@@ -21,7 +21,7 @@ class TurnoService {
 
       Map<String, dynamic> response = apiResponseMapper(resp);
 
-      Turno turno = CrearTurnoResponse.fromJson(response).turno;
+      TurnoPaciente turno = CrearTurnoResponse.fromJson(response).turno;
 
       // TODO Push notification al profesional
       // Post de la mensajeria

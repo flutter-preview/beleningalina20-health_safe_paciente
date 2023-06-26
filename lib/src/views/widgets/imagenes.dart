@@ -25,10 +25,8 @@ class CircleAvatarImagenPerfil extends StatelessWidget {
         // maxRadius: , No se lo define si se define el radius
         // minRadius: ,
         /*onBackgroundImageError: (exception, stackTrace) {
-          print(exception);
         },
         onForegroundImageError: (exception, stackTrace) {
-          print(exception);
         },*/
         radius: radius,
       ),

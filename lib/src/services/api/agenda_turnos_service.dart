@@ -10,10 +10,8 @@ import 'package:health_safe_paciente/src/services/api/utils/api_response_mapper.
 class AgendaTurnosService {
   Future<List<AgendaTurnosDto>> obtenerAgendasTurnos(int idProfesional) async {
     try {
-      final resp = await http
-          .get(Uri.parse(
-              '${Environments.apiUrl}/agendas/profesional/$idProfesional?fecha=${DateTime.now()}'))
-          .timeout(const Duration(seconds: 3));
+      final resp = await http.get(Uri.parse(
+          '${Environments.apiUrl}/agendas/profesional/$idProfesional'));
 
       debugPrint(resp.body.toString());
 

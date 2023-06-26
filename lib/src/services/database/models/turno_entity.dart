@@ -13,7 +13,6 @@ class TurnoEntity {
     required this.horaFin,
     required this.precio,
     required this.idPago,
-    required this.idAgendaTurnos,
     required this.especialidad,
     required this.modalidadAtencion,
     required this.profesional,
@@ -27,9 +26,6 @@ class TurnoEntity {
   TimeOfDay horaFin;
   double precio;
   String idPago;
-
-  int idAgendaTurnos;
-
   EspecialidadEntity especialidad;
   ModalidadAtencionEntity modalidadAtencion;
   ConsultorioEntity? consultorio;
@@ -43,7 +39,6 @@ class TurnoEntity {
         'horaFin': horaFin.toString(),
         'precio': precio.toString(),
         'idPago': idPago,
-        'idAgendaTurnos': idAgendaTurnos.toString(),
         'idModalidadAtencion': modalidadAtencion.id.toString(),
         'idConsultorio': consultorio?.id.toString() ?? '',
         'idEspecialidad': especialidad.id.toString(),

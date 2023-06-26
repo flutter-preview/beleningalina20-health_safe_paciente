@@ -33,9 +33,6 @@ class DBProvider {
         horaFin TIME NOT NULL,
         precio DOUBLE NOT NULL,
         idPago STRING NOT NULL,
-
-        idAgendaTurnos INTEGER NOT NULL,
-
         idModalidadAtencion INTEGER NOT NULL,
         idConsultorio INTEGER NOT NULL,
         idProfesional INTEGER NOT NULL,

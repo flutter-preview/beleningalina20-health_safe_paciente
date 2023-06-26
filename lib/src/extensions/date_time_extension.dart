@@ -8,7 +8,7 @@ extension DateTimeExtensions on DateTime {
       String weekday = DateFormat('EEEE', 'es').format(this);
       String month = DateFormat('MMMM', 'es').format(this);
 
-      return "$weekday $day de $month de $year";
+      return "${weekday[0].toUpperCase() + weekday.substring(1).toLowerCase()} $day de $month de $year";
     } else {
       return DateFormat('yyyy/MM/dd').format(this);
     }

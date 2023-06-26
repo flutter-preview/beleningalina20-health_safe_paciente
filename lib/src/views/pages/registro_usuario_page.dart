@@ -223,38 +223,38 @@ class _RegistroUsuarioForm extends StatelessWidget {
           await PacienteService()
               .registro(RegistroPacienteRequest(
                   idUsuario: value.id, ocupacion: request.ocupacion))
-              .then((value) => showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) => AlertDialogBackground(
-                          onAccept: () => Navigator.popUntil(context,
-                              ModalRoute.withName(LoginPage.routeName)),
-                          content: const [
-                            MessageState(
-                                text: "Registro de usuario completado",
-                                iconState: SuccessIcon())
-                          ])))
-              // TODO Revisar por que el loader no se para
+              .then((value) {
+                registroUsuarioFormProvider.isLoading = false;
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => AlertDialogBackground(
+                            onAccept: () => Navigator.popUntil(context,
+                                ModalRoute.withName(LoginPage.routeName)),
+                            content: const [
+                              MessageState(
+                                  text: "Registro de usuario completado",
+                                  iconState: SuccessIcon())
+                            ]));
+              })
               .whenComplete(() => registroUsuarioFormProvider.isLoading = false)
-              .onError((error, stackTrace) => showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) => AlertDialogBackground(
-                          onAccept: () => Navigator.popUntil(context,
-                              ModalRoute.withName(LoginPage.routeName)),
-                          content: [
-                            MessageState(
-                                text: (error.toString().contains(
-                                        // TODO Revisar una mejor forma
-                                        // Desde el backend devuelvan los mensajes para mostrar de errores
-                                        "El usuario con el correo ya existe"))
-                                    ? "EL correo ya esta registrado. Inicia Sesión"
-                                    : "Algo salio durante el registro. Inténtalo más tarde",
-                                iconState: (error.toString().contains(
-                                        "El usuario con el correo ya existe"))
-                                    ? const FailureIcon()
-                                    : null)
-                          ])));
+              .onError((error, stackTrace) {
+                registroUsuarioFormProvider.isLoading = false;
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => AlertDialogBackground(
+                            onAccept: () => Navigator.popUntil(context,
+                                ModalRoute.withName(LoginPage.routeName)),
+                            content: [
+                              MessageState(
+                                  text: error.toString(),
+                                  iconState: (error.toString().contains(
+                                          "El usuario con el correo ya existe"))
+                                      ? const FailureIcon()
+                                      : null)
+                            ]));
+              });
         })
         .whenComplete(() => registroUsuarioFormProvider.isLoading = false)
         .onError((error, stackTrace) => showDialog(
@@ -385,7 +385,7 @@ class _ImagenesDniStep extends StatelessWidget {
 }
 
 class _OcupacionStep extends StatelessWidget {
-  const _OcupacionStep({super.key});
+  const _OcupacionStep();
 
   @override
   Widget build(BuildContext context) {

@@ -40,7 +40,8 @@ class PerfilProfesionalPage extends StatelessWidget {
           onSuccess: (value) {
             profesional.agendasTurnos = value;
             return ChangeNotifierProvider(
-                create: (_) => PerfilProfesionalProvider(),
+                create: (_) =>
+                    PerfilProfesionalProvider(agendasTurnosProfesional: value),
                 child: _PagerView(
                   profesional: profesional,
                   especialidad: especialidad,
