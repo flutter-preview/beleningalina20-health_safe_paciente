@@ -132,7 +132,7 @@ class _ModalidadesAtencionAceptadasAtencion extends StatelessWidget {
 }
 
 class _PoliticaCancelacionTurnosAtencion extends StatelessWidget {
-  const _PoliticaCancelacionTurnosAtencion({super.key});
+  const _PoliticaCancelacionTurnosAtencion();
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class CalificacionProfesionalPage extends StatelessWidget {
+  // TODO Servicio para calificar(calificacion int, comentario string)
   static const String routeName = "CalificacionProfesionalPage";
   const CalificacionProfesionalPage({super.key});
 
@@ -47,6 +48,9 @@ class CalificacionProfesionalPage extends StatelessWidget {
                 RatingBarTextField(
                     onUpdated: (value) => {calificacion = value}),
                 SizedBox(height: Dimens.dimens20),
+                const BasicTextFormField(
+                    hintText: "Comentario sobre la atención recibida",
+                    maxLines: 4),
                 Row(
                   children: [
                     Expanded(
@@ -70,7 +74,6 @@ class CalificacionProfesionalPage extends StatelessWidget {
   }
 
   void _calificarProfesional(BuildContext context, double calificacion) {
-    // TODO Calificar profesional
     Navigator.pop(context);
   }
 }

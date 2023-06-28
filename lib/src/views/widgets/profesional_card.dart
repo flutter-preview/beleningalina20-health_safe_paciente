@@ -4,6 +4,7 @@ import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class ProfesionalCard extends StatelessWidget {
+  // TODO Rango de precios de los turnos, al menos un consultorio y ver las opiniones o calificaciones del profesional
   final ProfesionalDto profesional;
   final void Function()? onPressed;
   final bool expanded;
@@ -27,7 +28,6 @@ class ProfesionalCard extends StatelessWidget {
         children: [
           InfoProfesionalCard(profesional: profesional),
           SizedBox(height: Dimens.dimens10),
-          // TODO Rango de precio y un consultorio
           Align(
             alignment: Alignment.centerRight,
             child: ElevatedButtonCustom(
@@ -73,9 +73,7 @@ class InfoProfesionalCard extends StatelessWidget {
               RatingBarIndicatorCustom(
                 calificacion: 3.0,
                 numeroOpiniones: 10,
-                onPressed: () {
-                  // TODO Ver las opiniones
-                },
+                onPressed: () {},
               )
             ],
           )

@@ -50,34 +50,31 @@ class _VideollamadaPageState extends State<VideollamadaPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                child: Column(
-                  children: [
-                    BodyText(
+              Column(
+                children: [
+                  BodyText(
+                    text:
+                        "SALA DE ESPERA \nTurno con ${turno.profesional.toString()}",
+                    color: Colors.white,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: Dimens.dimens20),
+                  DescriptionText(
+                    textAlign: TextAlign.center,
+                    text:
+                        "Horario del turno: Hoy - ${turno.horaInicio.convertToString()}",
+                    color: Colors.white,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(Dimens.dimens20),
+                    child: InfoProfesionalCard(profesional: turno.profesional),
+                  ),
+                  TextButtonCustom(
                       text:
-                          "SALA DE ESPERA \nTurno con ${turno.profesional.toString()}",
-                      color: Colors.white,
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: Dimens.dimens20),
-                    DescriptionText(
-                      textAlign: TextAlign.center,
-                      text:
-                          "Horario del turno: Hoy - ${turno.horaInicio.convertToString()}",
-                      color: Colors.white,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(Dimens.dimens20),
-                      child:
-                          InfoProfesionalCard(profesional: turno.profesional),
-                    ),
-                    TextButtonCustom(
-                        text:
-                            "Unirse a la videollamada con el ${turno.profesional.toString()}",
-                        onPressed: () => _joinMeeting()),
-                    if (loading) const Loader(),
-                  ],
-                ),
+                          "Unirse a la videollamada con el ${turno.profesional.toString()}",
+                      onPressed: () => _joinMeeting()),
+                  if (loading) const Loader(),
+                ],
               ),
               Column(children: [
                 const DescriptionText(

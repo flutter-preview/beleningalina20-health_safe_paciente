@@ -27,14 +27,12 @@ class TurnoService {
 
       Map<String, dynamic> response = apiResponseMapper(resp);
 
-      TurnoPaciente turno = CrearTurnoResponse.fromJson(response).turno;
+      // TurnoPaciente turno = CrearTurnoResponse.fromJson(response).turno;
 
-      // TODO Push notification al profesional - necesito el id del dispositivo del profesional
-
-      // TODO enviar mensaje con la url de la videollamada -> desactivado ell link
-      // sacar url=https://meet.jit.si/turno_${id}_${dniPaciente}_hsA
+      // TODO Push notification al profesional (idprofesional) / enviar mensaje con la url del la llamada
+      // Desactivado hasta antes 10 minutos
+      // url=https://meet.jit.si/turno_${id}_${dniPaciente}_hsA
       // Tipo de mensaje de llamada
-      // Todo enviar push notification antes de 10 munutos con la url
 
       await MensajeriaService().crearMensajeria(CrearMensajeriaRequest(
           idPaciente: params.idPaciente, idProfesional: params.idProfesional));
