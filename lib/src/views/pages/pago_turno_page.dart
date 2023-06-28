@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
+import 'package:health_safe_paciente/src/views/pages/models/turno.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/services/api/api.dart';
@@ -23,7 +24,7 @@ class PagoTurnoPage extends StatefulWidget {
 class _PagoTurnoPageState extends State<PagoTurnoPage> {
   bool cargandoRedireccionMercadoPago = false;
 
-  late TurnoPacienteDto turno;
+  late TurnoModel turno;
 
   @override
   void initState() {
@@ -64,12 +65,25 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
 
             case "approved":
               if (statusDetail == "accredited") {
-                TurnoService turnoService = TurnoService();
-
+                final autenticacionService =
+                    Provider.of<AutenticacionService>(context, listen: false);
                 turno.idPago = paymentId;
 
-                await turnoService
-                    .crearTurno(CrearTurnoRequest())
+                int idPaciente = await PacienteService()
+                    .obtenerIdPaciente(autenticacionService.usuario?.id ?? 0);
+
+                CrearTurnoRequest request = CrearTurnoRequest(
+                    fecha: turno.fecha,
+                    horaInicio: turno.horaInicio,
+                    horaFin: turno.horaFin,
+                    idAgendaTurnos: turno.idAgendaTurnos,
+                    idPagoMercadoPago: turno.idPago!,
+                    idPaciente: idPaciente,
+                    idEspecialidad: turno.especialidad.id,
+                    idProfesional: turno.profesional.id);
+
+                await TurnoService()
+                    .crearTurno(request)
                     .then((value) => showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -137,7 +151,7 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
 
   @override
   Widget build(BuildContext context) {
-    turno = ModalRoute.of(context)?.settings.arguments as TurnoPacienteDto;
+    turno = ModalRoute.of(context)?.settings.arguments as TurnoModel;
 
     return SafeArea(
         child: Scaffold(
@@ -179,7 +193,7 @@ class _GradienteContainer extends StatelessWidget {
 }
 
 class _DescriptionPago extends StatelessWidget {
-  final TurnoPacienteDto turno;
+  final TurnoModel turno;
   const _DescriptionPago({Key? key, required this.turno}) : super(key: key);
 
   @override
@@ -211,7 +225,7 @@ class _DescriptionPago extends StatelessWidget {
 
 class _AccionesPagarTurno extends StatelessWidget {
   final void Function(bool) updateMercadoPagoState;
-  final TurnoPacienteDto turno;
+  final TurnoModel turno;
 
   const _AccionesPagarTurno(
       {Key? key, required this.updateMercadoPagoState, required this.turno})
@@ -270,6 +284,7 @@ class _AccionesPagarTurno extends StatelessWidget {
 
     MercadoPagoService()
         .pagarTurno(preference)
+        .then((value) => updateMercadoPagoState(false))
         .whenComplete(() => updateMercadoPagoState(false));
   }
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
+import 'package:health_safe_paciente/src/views/pages/models/models.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/views/providers/providers.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
-import 'package:provider/provider.dart';
 
 class TurnosProfesionalPage extends StatelessWidget {
   final ProfesionalDto profesional;
@@ -180,6 +181,8 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
             horaInicioTurnoAux.add(Duration(minutes: agendaTurnos.duracion));
 
         TurnoModel turno = TurnoModel(
+            modalidadAtencion: agendaTurnos.modalidadAtencion,
+            consultorio: agendaTurnos.consultorio,
             profesional: profesional,
             especialidad: especialidad,
             idAgendaTurnos: agendaTurnos.id,
@@ -232,27 +235,6 @@ class _TurnosProfesionalDisponibles extends StatelessWidget {
   }
 }
 
-class TurnoModel {
-  ProfesionalDto profesional;
-  EspecialidadDto especialidad;
-  int idAgendaTurnos;
-  bool disponible;
-  DateTime fecha;
-  TimeOfDay horaInicio;
-  TimeOfDay horaFin;
-  double precio;
-
-  TurnoModel(
-      {required this.profesional,
-      required this.disponible,
-      required this.idAgendaTurnos,
-      required this.especialidad,
-      required this.fecha,
-      required this.horaInicio,
-      required this.horaFin,
-      required this.precio});
-}
-
 class _TurnoContainer extends StatelessWidget {
   final TurnoModel? turno;
 
@@ -266,7 +248,7 @@ class _TurnoContainer extends StatelessWidget {
             ? () {
                 Navigator.pushNamed(
                     context, DetalleSolicitudTurnoPage.routeName,
-                    arguments: turno);
+                    arguments: turno!);
               }
             : null,
         child: Container(

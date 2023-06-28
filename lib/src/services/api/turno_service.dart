@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/helpers/local_storage_manager.dart';
+import 'package:health_safe_paciente/src/services/api/api.dart';
 import 'package:http/http.dart' as http;
 import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/database/turno_service.dart'
@@ -12,10 +14,16 @@ import 'package:health_safe_paciente/src/services/api/utils/api_exceptions.dart'
 class TurnoService {
   Future crearTurno(CrearTurnoRequest params) async {
     try {
-      final resp = await http
-          .post(Uri.parse("${Environments.apiUrl}/turnos"),
-              body: params.request())
-          .timeout(const Duration(seconds: 3));
+      String? token = await LocalStorage.localStorage.getToken();
+      if (token == null) {
+        throw ApiException(message: "No hay token guardado");
+      }
+      final resp = await http.post(Uri.parse("${Environments.apiUrl}/turnos"),
+          body: params.request(),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+          }).timeout(const Duration(seconds: 3));
 
       debugPrint(resp.body.toString());
 
@@ -23,8 +31,10 @@ class TurnoService {
 
       TurnoPaciente turno = CrearTurnoResponse.fromJson(response).turno;
 
-      // TODO Push notification al profesional
-      // Post de la mensajeria
+      // TODO Push notification al profesional - necesito el id del dispositivo del profesional
+
+      await MensajeriaService().crearMensajeria(CrearMensajeriaRequest(
+          idPaciente: params.idPaciente, idProfesional: params.idProfesional));
 
       database.TurnoService()
           .guardarTurno(TurnoPacienteDto.fromApi(turno).toEntity());

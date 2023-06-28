@@ -55,4 +55,7 @@ class UsuarioDto {
       urlImagenPerfil: urlImagenPerfil,
       sexo: sexo,
       rol: rol.toEntity());
+
+  @override
+  String toString() => "$nombre $apellido";
 }

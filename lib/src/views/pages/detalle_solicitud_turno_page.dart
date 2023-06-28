@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:health_safe_paciente/src/views/pages/models/models.dart';
 import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/localization/localizacion_service.dart';
@@ -15,8 +16,7 @@ class DetalleSolicitudTurnoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TurnoPacienteDto turno =
-        ModalRoute.of(context)?.settings.arguments as TurnoPacienteDto;
+    TurnoModel turno = ModalRoute.of(context)?.settings.arguments as TurnoModel;
 
     return SafeArea(
         child: Scaffold(
@@ -34,7 +34,7 @@ class DetalleSolicitudTurnoPage extends StatelessWidget {
 }
 
 class _SolicitarTurnoButton extends StatelessWidget {
-  final TurnoPacienteDto turno;
+  final TurnoModel turno;
 
   const _SolicitarTurnoButton({Key? key, required this.turno})
       : super(key: key);
@@ -43,7 +43,7 @@ class _SolicitarTurnoButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButtonCustom(
       text: "Solicitar turno",
-      margin: EdgeInsets.all(Dimens.dimens40),
+      margin: EdgeInsets.all(Dimens.dimens20),
       onPressed: () => Navigator.pushNamed(context, PagoTurnoPage.routeName,
           arguments: turno),
       backgroundColor: Colors.white,
@@ -53,7 +53,7 @@ class _SolicitarTurnoButton extends StatelessWidget {
 }
 
 class _DetalleTurno extends StatelessWidget {
-  final TurnoPacienteDto turno;
+  final TurnoModel turno;
   const _DetalleTurno({required this.turno});
 
   @override
@@ -84,18 +84,17 @@ class _DetalleTurno extends StatelessWidget {
                     information: turno.horaInicio.convertToString()),
                 InformacionDetalle(
                     title: "Modalidad: ",
-                    information: turno.modalidadAtencion.descripcion),
+                    information: turno.modalidadAtencion.toString()),
                 InformacionDetalle(
                     title: "Profesional: ",
                     information: turno.profesional.toString()),
                 InformacionDetalle(
                     title: "Especialidad: ",
-                    information: turno.especialidad.descripcion),
+                    information: turno.especialidad.toString()),
                 if (turno.consultorio != null)
                   _Consultorio(consultorio: turno.consultorio!),
                 InformacionDetalle(
-                    title: "Paciente: ",
-                    information: "${usuario?.apellido}, ${usuario?.nombre}"),
+                    title: "Paciente: ", information: usuario.toString()),
               ],
             ),
           )),

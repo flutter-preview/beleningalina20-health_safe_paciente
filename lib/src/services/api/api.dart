@@ -8,3 +8,4 @@ export 'package:health_safe_paciente/src/services/api/agenda_turnos_service.dart
 export 'package:health_safe_paciente/src/services/api/socket_api_service.dart';
 export 'package:health_safe_paciente/src/services/api/turno_service.dart';
 export 'package:health_safe_paciente/src/services/api/paciente_service.dart';
+export 'package:health_safe_paciente/src/services/api/mensajeria_service.dart';

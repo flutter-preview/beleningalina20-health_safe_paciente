@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:health_safe_paciente/src/services/api/models/turno.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:health_safe_paciente/src/services/api/api.dart';
 import 'package:health_safe_paciente/src/views/pages/pages.dart';

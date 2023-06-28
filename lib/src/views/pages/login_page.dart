@@ -108,8 +108,6 @@ class _LoginForm extends StatelessWidget {
           builder: (context) => const AlertDialogBackground(content: [
                 DescriptionText(text: "Correo y/o contraseña incorrectos")
               ]));
-
-      // TODO Cuando el registro como paciente no esta completo
     });
   }
 }

@@ -53,7 +53,7 @@ class _InfoTurno extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      InfoProfesionalCard(profesional: turno.profesional!),
+      InfoProfesionalCard(profesional: turno.profesional),
       InformacionDetalle(
           title: "Hora: ", information: turno.horaInicio.convertToString()),
       InformacionDetalle(

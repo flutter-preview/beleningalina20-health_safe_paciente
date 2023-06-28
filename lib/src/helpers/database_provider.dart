@@ -19,7 +19,7 @@ class DBProvider {
     final String path = join(documentsDirectory.path, "health_safe.db");
 
     return await openDatabase(path,
-        version: 6,
+        version: 7,
         onCreate: (Database db, int version) async => await createTables(db));
   }
 

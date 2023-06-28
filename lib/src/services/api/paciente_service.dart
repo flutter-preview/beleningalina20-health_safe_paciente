@@ -23,4 +23,24 @@ class PacienteService {
       rethrow;
     }
   }
+
+  Future<int> obtenerIdPaciente(int idUsuario) async {
+    try {
+      final resp = await http.post(
+          Uri.parse('${Environments.apiUrl}/pacientes/$idUsuario'),
+          headers: {'Content-Type': 'application/json'});
+
+      debugPrint(resp.body);
+
+      Map<String, dynamic> response = apiResponseMapper(resp);
+
+      Paciente paciente = Paciente.fromJson(response);
+
+      return paciente.id;
+    } on SocketException {
+      throw ApiException(message: 'Falló la comunicación con el servidor');
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
