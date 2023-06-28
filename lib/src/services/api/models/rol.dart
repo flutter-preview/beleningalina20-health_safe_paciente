@@ -14,7 +14,11 @@ class Rol {
   factory Rol.fromJson(Map<String, dynamic> json) => Rol(
         id: json["idrol"],
         descripcion: json["descripcion"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+        createdAt: (json["createdAt"] != null)
+            ? DateTime.parse(json["createdAt"])
+            : null,
+        updatedAt: (json["updatedAt"] != null)
+            ? DateTime.parse(json["updatedAt"])
+            : null,
       );
 }

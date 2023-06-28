@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:health_safe_paciente/src/helpers/local_storage_manager.dart';
 import 'package:health_safe_paciente/src/services/api/api.dart';
-import 'package:http/http.dart' as http;
 import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:health_safe_paciente/src/services/database/turno_service.dart'
-    as database;
 import 'package:health_safe_paciente/src/services/api/constants/environments.dart';
 import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:health_safe_paciente/src/services/api/utils/api_response_mapper.dart';
@@ -35,9 +33,6 @@ class TurnoService {
 
       await MensajeriaService().crearMensajeria(CrearMensajeriaRequest(
           idPaciente: params.idPaciente, idProfesional: params.idProfesional));
-
-      database.TurnoService()
-          .guardarTurno(TurnoPacienteDto.fromApi(turno).toEntity());
     } on SocketException {
       throw ApiException(message: 'Falló la comunicación con el servidor');
     } catch (e) {

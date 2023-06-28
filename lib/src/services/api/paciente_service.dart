@@ -26,8 +26,8 @@ class PacienteService {
 
   Future<int> obtenerIdPaciente(int idUsuario) async {
     try {
-      final resp = await http.post(
-          Uri.parse('${Environments.apiUrl}/pacientes/$idUsuario'),
+      final resp = await http.get(
+          Uri.parse('${Environments.apiUrl}/pacientes/usuario/$idUsuario'),
           headers: {'Content-Type': 'application/json'});
 
       debugPrint(resp.body);

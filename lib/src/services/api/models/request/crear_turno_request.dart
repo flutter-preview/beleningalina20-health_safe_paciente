@@ -24,12 +24,13 @@ class CrearTurnoRequest {
       required this.idProfesional});
 
   Map<String, dynamic> toJson() => {
-        'fecha': fecha,
+        'fecha': fecha.toString(),
         'horainicio': horaInicio.convertToString(),
         'horafin': horaFin.convertToString(),
-        'idagendaturnos': idAgendaTurnos,
+        'idagenda': idAgendaTurnos,
         'idespecialidad': idEspecialidad,
-        'idpaciente': idPaciente
+        'idpaciente': idPaciente,
+        'idpagomercadopago': idPagoMercadoPago,
       };
   String request() => jsonEncode(toJson());
 }

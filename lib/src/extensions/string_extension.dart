@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 extension StringExtensions on String {
   TimeOfDay toTimeOfDay() {
+    if (this == "null") throw Exception("Error al convertir");
     var hour = int.tryParse(substring(0, 2));
+
     var minute = int.tryParse(substring(3, 5));
 
     if (hour != null && minute != null) {

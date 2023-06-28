@@ -1,5 +1,4 @@
 import 'package:health_safe_paciente/src/services/api/models/models.dart';
-import 'package:health_safe_paciente/src/services/database/models/models.dart';
 
 class EspecialidadDto {
   int id;
@@ -9,15 +8,6 @@ class EspecialidadDto {
 
   factory EspecialidadDto.fromApi(Especialidad especialidad) => EspecialidadDto(
       id: especialidad.id, descripcion: especialidad.descripcion);
-
-  factory EspecialidadDto.fromDatabase(EspecialidadEntity especialidad) =>
-      EspecialidadDto(
-          id: especialidad.id, descripcion: especialidad.descripcion);
-
-  EspecialidadEntity toEntity() => EspecialidadEntity(
-        id: id,
-        descripcion: descripcion,
-      );
 
   @override
   String toString() => descripcion;

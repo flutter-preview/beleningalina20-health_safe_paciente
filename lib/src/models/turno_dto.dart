@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/api/models/models.dart';
-import 'package:health_safe_paciente/src/services/database/models/models.dart';
 
 abstract class TurnoDto {
   DateTime fecha;
@@ -28,7 +27,7 @@ class TurnoReservadoDto extends TurnoDto {
 }
 
 class TurnoPacienteDto extends TurnoDto {
-  int id;
+  int? id;
   ProfesionalDto profesional;
   ModalidadAtencionDto modalidadAtencion;
   ConsultorioDto? consultorio;
@@ -41,7 +40,7 @@ class TurnoPacienteDto extends TurnoDto {
       {required super.fecha,
       required super.horaInicio,
       required super.horaFin,
-      required this.id,
+      this.id,
       required this.profesional,
       required this.modalidadAtencion,
       this.consultorio,
@@ -61,17 +60,4 @@ class TurnoPacienteDto extends TurnoDto {
       idPago: turno.idPago,
       precio: turno.precio,
       especialidad: EspecialidadDto.fromApi(turno.especialidad));
-
-  TurnoEntity toEntity() => TurnoEntity(
-      id: id,
-      especialidad: especialidad.toEntity(),
-      fecha: fecha,
-      fechaSolicita: fechaSolicita,
-      horaFin: horaFin,
-      horaInicio: horaInicio,
-      idPago: idPago,
-      modalidadAtencion: modalidadAtencion.toEntity(),
-      precio: precio,
-      profesional: profesional.toEntity(),
-      consultorio: consultorio?.toEntity());
 }

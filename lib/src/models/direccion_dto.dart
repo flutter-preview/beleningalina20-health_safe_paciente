@@ -1,6 +1,5 @@
 import 'package:health_safe_paciente/src/models/localidad_dto.dart';
 import 'package:health_safe_paciente/src/services/api/models/models.dart';
-import 'package:health_safe_paciente/src/services/database/models/models.dart';
 
 class DireccionDto {
   int id;
@@ -24,12 +23,6 @@ class DireccionDto {
       numero: direccion.numero,
       localidad: LocalidadDto.fromApi(direccion.localidad));
 
-  DireccionEntity toEntity() => DireccionEntity(
-      id: id,
-      calle: calle,
-      numero: numero,
-      piso: piso,
-      localidad: localidad.toEntity());
   @override
   String toString() => "$calle $numero";
 }

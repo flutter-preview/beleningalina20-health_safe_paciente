@@ -1,3 +1,4 @@
+export 'package:health_safe_paciente/src/services/api/models/response/obtener_roles_response.dart';
 export 'package:health_safe_paciente/src/services/api/models/response/crear_turno_response.dart';
 export 'package:health_safe_paciente/src/services/api/models/response/login_response.dart';
 export 'package:health_safe_paciente/src/services/api/models/response/obtener_agendas_turnos_por_profesional_response.dart';

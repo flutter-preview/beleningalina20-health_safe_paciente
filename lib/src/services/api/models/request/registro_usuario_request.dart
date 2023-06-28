@@ -11,7 +11,7 @@ class RegistroUsuarioRequest {
   File imagenPerfil;
   File imagenDniFrente;
   File imagenDniDorso;
-  int idRol = 1; // TODO Cambiar cuando se ejecute de nuevo el backend
+  int? idRol;
   String ocupacion = '';
 
   RegistroUsuarioRequest({

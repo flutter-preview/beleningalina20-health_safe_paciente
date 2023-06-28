@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
-import 'package:health_safe_paciente/src/views/pages/models/turno.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/views/pages/models/turno.dart';
 import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/services/api/api.dart';
 import 'package:health_safe_paciente/src/services/api/models/models.dart';
@@ -29,9 +28,7 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
   @override
   void initState() {
     setState(() => cargandoRedireccionMercadoPago = false);
-
     procesandoRespuestaMercadoPago();
-
     super.initState();
   }
 
@@ -46,29 +43,11 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
           String statusDetail = call.arguments[2];
 
           switch (status) {
-            case "pending":
-            case "authorized":
-            case "in_process":
-            case "in_meditiation":
-            case "rejected":
-            case "cancelled":
-            case "refunded":
-            case "charged_back":
-              return showDialog(
-                  context: context,
-                  builder: (context) => const AlertDialogBackground(content: [
-                        MessageState(
-                            text:
-                                "Error al procesar tu pago. Inténtalo más tarde.",
-                            iconState: FailureIcon())
-                      ]));
-
             case "approved":
               if (statusDetail == "accredited") {
                 final autenticacionService =
                     Provider.of<AutenticacionService>(context, listen: false);
                 turno.idPago = paymentId;
-
                 int idPaciente = await PacienteService()
                     .obtenerIdPaciente(autenticacionService.usuario?.id ?? 0);
 
@@ -82,54 +61,42 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
                     idEspecialidad: turno.especialidad.id,
                     idProfesional: turno.profesional.id);
 
-                await TurnoService()
-                    .crearTurno(request)
-                    .then((value) => showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) => AlertDialogBackground(
-                                onAccept: () =>
-                                    Navigator.pushNamedAndRemoveUntil(context,
-                                        HomePage.routeName, (route) => false),
-                                content: const [
-                                  MessageState(
-                                      text: "Pago Exitoso",
-                                      iconState: SuccessIcon())
-                                ])))
-                    .onError((error, _) => showDialog(
-                        context: context,
-                        builder: (context) => AlertDialogBackground(
-                                onAccept: () =>
-                                    Navigator.pushNamedAndRemoveUntil(context,
-                                        HomePage.routeName, (route) => false),
-                                content: const [
-                                  MessageState(
-                                      text:
-                                          "Error al procesar tu pago. Inténtalo más tarde.",
-                                      iconState: FailureIcon())
-                                ])));
+                await TurnoService().crearTurno(request).then((value) {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => AlertDialogBackground(
+                              onAccept: () => Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  HomePage.routeName,
+                                  (route) => false),
+                              content: const [
+                                MessageState(
+                                    text: "Pago Exitoso",
+                                    iconState: SuccessIcon())
+                              ]));
+                }).onError((error, _) {
+                  errorPago();
+                }).whenComplete(() =>
+                    setState(() => cargandoRedireccionMercadoPago = false));
               } else {
-                throw (Exception(
-                    "Este status de pago no esta considerado ${call.arguments[0]}"));
+                setState(() => cargandoRedireccionMercadoPago = false);
+                return errorPago();
               }
               break;
 
             default:
-              throw (Exception(
-                  "Este status de pago no esta considerado ${call.arguments[0]}"));
+              setState(() => cargandoRedireccionMercadoPago = false);
+              return errorPago();
           }
           break;
 
         case "mercadoPagoFailed":
-          return showDialog(
-              context: context,
-              builder: (context) => const AlertDialogBackground(content: [
-                    MessageState(
-                        text: "Error al procesar tu pago. Inténtalo más tarde.",
-                        iconState: FailureIcon())
-                  ]));
+          setState(() => cargandoRedireccionMercadoPago = false);
+          return errorPago();
 
         case "mercadoPagoCanceled":
+          setState(() => cargandoRedireccionMercadoPago = false);
           return showDialog(
               context: context,
               builder: (context) => const AlertDialogBackground(content: [
@@ -138,15 +105,20 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
                   ]));
 
         default:
-          return showDialog(
-              context: context,
-              builder: (context) => const AlertDialogBackground(content: [
-                    MessageState(
-                        text: "Error al procesar tu pago. Inténtalo más tarde.",
-                        iconState: FailureIcon())
-                  ]));
+          setState(() => cargandoRedireccionMercadoPago = false);
+          return errorPago();
       }
     });
+  }
+
+  void errorPago() {
+    showDialog(
+        context: context,
+        builder: (context) => const AlertDialogBackground(content: [
+              MessageState(
+                  text: "Error al procesar tu pago. Inténtalo más tarde.",
+                  iconState: FailureIcon())
+            ]));
   }
 
   @override
@@ -282,9 +254,10 @@ class _AccionesPagarTurno extends StatelessWidget {
           ExcludedPayment(id: 'pagofacil')
         ]));
 
-    MercadoPagoService()
+    await MercadoPagoService()
         .pagarTurno(preference)
         .then((value) => updateMercadoPagoState(false))
+        .onError((error, stackTrace) => updateMercadoPagoState(false))
         .whenComplete(() => updateMercadoPagoState(false));
   }
 }

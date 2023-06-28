@@ -17,7 +17,7 @@ class Paciente {
 
   factory Paciente.fromJson(Map<String, dynamic> json) => Paciente(
         id: json["idpaciente"],
-        usuario: Usuario.fromJson(json["idusuario"]),
+        usuario: Usuario.fromJson(json["usuario"]),
         ocupacion: json["ocupacion"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
