@@ -25,7 +25,8 @@ class TurnoService {
 
       debugPrint(resp.body.toString());
 
-      Map<String, dynamic> response = apiResponseMapper(resp);
+      // Map<String, dynamic> response =
+      apiResponseMapper(resp);
 
       // TurnoPaciente turno = CrearTurnoResponse.fromJson(response).turno;
 
@@ -45,7 +46,8 @@ class TurnoService {
 
   Future<List<TurnoPacienteDto>> obtenerTurnos(int idUsuario) async {
     try {
-      int idPaciente = await PacienteService().obtenerIdPaciente(idUsuario);
+      PacienteDto paciente = await PacienteService().obtenerPaciente(idUsuario);
+      int idPaciente = paciente.id;
       final resp = await http.get(
           Uri.parse('${Environments.apiUrl}/turnos/paciente/$idPaciente'),
           headers: {

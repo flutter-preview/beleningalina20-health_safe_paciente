@@ -7,7 +7,7 @@ class FutureStatesBuilder<T> extends StatelessWidget {
 
   final Widget Function(T)? onSuccess;
   final Widget Function()? onNull;
-  final Widget Function()? onError;
+  final Widget Function(dynamic)? onError;
   final Widget Function()? onEmpty;
   final Widget Function(T?)? someAction;
 
@@ -31,7 +31,7 @@ class FutureStatesBuilder<T> extends StatelessWidget {
 
           if (snapshot.hasError) {
             if (onError != null) {
-              return onError!();
+              return onError!(snapshot.error);
             } else {
               return const MessageState(
                   text: "Algo salió mal. Inténtalo más tarde.",

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'package:health_safe_paciente/src/services/api/utils/api_exceptions.dart';
 import 'package:health_safe_paciente/src/services/api/utils/api_response_mapper.dart';
@@ -24,7 +25,7 @@ class PacienteService {
     }
   }
 
-  Future<int> obtenerIdPaciente(int idUsuario) async {
+  Future<PacienteDto> obtenerPaciente(int idUsuario) async {
     try {
       final resp = await http.get(
           Uri.parse('${Environments.apiUrl}/pacientes/usuario/$idUsuario'),
@@ -36,7 +37,7 @@ class PacienteService {
 
       Paciente paciente = Paciente.fromJson(response);
 
-      return paciente.id;
+      return PacienteDto.fromApi(paciente);
     } on SocketException {
       throw ApiException(message: 'Falló la comunicación con el servidor');
     } catch (e) {

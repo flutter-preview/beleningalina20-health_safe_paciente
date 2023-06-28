@@ -31,7 +31,7 @@ class MisTurnosPage extends StatelessWidget {
                     .obtenerTurnos(autenticacionService.usuario!.id),
                 onEmpty: () => const MessageState(
                     text: "No hay turnos guardados", iconState: EmptyIcon()),
-                onError: () => const MessageState(
+                onError: (_) => const MessageState(
                     text: "Algo salió mal al cargar la informacion",
                     iconState: FailureIcon()),
                 onSuccess: (value) => ChangeNotifierProvider(

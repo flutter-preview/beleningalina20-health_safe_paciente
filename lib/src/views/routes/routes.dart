@@ -20,4 +20,9 @@ Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
       VideollamadaPage.routeName: (_) => const VideollamadaPage(),
       CalificacionProfesionalPage.routeName: (_) =>
           const CalificacionProfesionalPage(),
+      MiCuentaPage.routeName: (_) => const MiCuentaPage(),
+      CuentaDatosUsuarioPage.routeName: (_) => const CuentaDatosUsuarioPage(),
+      CuentaDatosPersonalesPage.routeName: (_) =>
+          const CuentaDatosPersonalesPage(),
+      CuentaDatosPacientePage.routeName: (_) => const CuentaDatosPacientePage(),
     };

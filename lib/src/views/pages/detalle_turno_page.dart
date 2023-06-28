@@ -98,7 +98,7 @@ class _ConsultorioAgendaTurnos extends StatelessWidget {
         FutureStatesBuilder<LatLng>(
           future: LocalizacionService()
               .obtenerLatitudLongitud(consultorio.direccion),
-          onError: () => const MessageState(
+          onError: (_) => const MessageState(
               text:
                   "Algo salió mal al cargar el mapa y la ubicacion del consultorio. Inténtalo más tarde.",
               iconState: FailureIcon()),

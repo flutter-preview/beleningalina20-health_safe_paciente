@@ -50,3 +50,30 @@ class ListTileDrawerOption extends StatelessWidget {
     );
   }
 }
+
+class ListTileMenuOpcion extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final String paginaDestino;
+  const ListTileMenuOpcion(
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      required this.icon,
+      required this.paginaDestino});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(Dimens.dimens20),
+      child: ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: GradientIcon(
+              icon: Icon(icon, color: Colors.blue, size: Dimens.dimens70)),
+          title: DescriptionText(text: title),
+          subtitle: SubdescriptionText(text: subtitle, color: Colors.grey),
+          onTap: () => Navigator.pushNamed(context, paginaDestino)),
+    );
+  }
+}

@@ -18,7 +18,8 @@ class HeaderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.symmetric(
-            vertical: Dimens.dimens20, horizontal: Dimens.dimens10),
+            vertical: (sufixIcon != null) ? Dimens.dimens5 : Dimens.dimens20,
+            horizontal: Dimens.dimens10),
         color: ColorsApp.azulBusqueda,
         child: Row(
           children: [

@@ -68,7 +68,7 @@ class _OpcionesDrawer extends StatelessWidget {
       future: _DrawerProvider.drawerProvider.opcionesDrawer,
       onEmpty: () => const MessageState(
           text: "No hay opciones disponibles", iconState: EmptyIcon()),
-      onError: () => const MessageState(
+      onError: (_) => const MessageState(
           text: "Algo salió mal al cargar las opciones.",
           iconState: FailureIcon()),
       onSuccess: (value) => Column(

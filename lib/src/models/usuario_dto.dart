@@ -11,6 +11,8 @@ class UsuarioDto {
   DateTime? fechaNacimiento;
   String sexo;
   String urlImagenPerfil;
+  String urlImagenDniFrente;
+  String urlImagenDniDorso;
   RolDto rol;
 
   UsuarioDto(
@@ -23,6 +25,8 @@ class UsuarioDto {
       this.fechaNacimiento,
       required this.sexo,
       required this.urlImagenPerfil,
+      required this.urlImagenDniFrente,
+      required this.urlImagenDniDorso,
       required this.rol});
 
   factory UsuarioDto.fromApi(Usuario usuario) => UsuarioDto(
@@ -35,6 +39,8 @@ class UsuarioDto {
       fechaNacimiento: usuario.fechaNacimiento,
       sexo: usuario.sexo,
       urlImagenPerfil: usuario.imagenPerfil,
+      urlImagenDniFrente: usuario.imagenDniFrente,
+      urlImagenDniDorso: usuario.imagenDniDorso,
       rol: RolDto.fromApi(usuario.rol));
 
   @override

@@ -33,7 +33,7 @@ class PerfilProfesionalPage extends StatelessWidget {
           onEmpty: () => const MessageState(
               text: "El profesional no tiene agendas de turnos disponibles",
               iconState: EmptyIcon()),
-          onError: () => const MessageState(
+          onError: (_) => const MessageState(
               text:
                   "Algo salió mal al cargar las agendas de turnos del profesional. Inténtalo más tarde.",
               iconState: FailureIcon()),

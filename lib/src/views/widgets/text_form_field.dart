@@ -189,6 +189,7 @@ class BasicTextFormField extends StatelessWidget {
   final Color? borderColor;
   final void Function(String)? onChanged;
   final Color? labelColor;
+  final Widget? suffixIcon;
 
   const BasicTextFormField({
     super.key,
@@ -199,6 +200,7 @@ class BasicTextFormField extends StatelessWidget {
     this.borderColor,
     this.onChanged,
     this.labelColor,
+    this.suffixIcon,
   });
 
   @override
@@ -212,6 +214,7 @@ class BasicTextFormField extends StatelessWidget {
         keyboardType: TextInputType.text,
         onChanged: onChanged,
         maxLength: maxLenght,
+        suffixIcon: suffixIcon,
         textCapitalization: TextCapitalization.sentences);
   }
 }
@@ -248,13 +251,16 @@ class EmailTextFormField extends StatelessWidget {
   final void Function(String)? onChanged;
   final String? Function(String?)? validator;
   final Color? labelColor;
+  final Color? borderColor;
+  final Widget? suffixIcon;
 
-  const EmailTextFormField({
-    super.key,
-    this.onChanged,
-    this.validator,
-    this.labelColor,
-  });
+  const EmailTextFormField(
+      {super.key,
+      this.onChanged,
+      this.validator,
+      this.labelColor,
+      this.suffixIcon,
+      this.borderColor});
 
   @override
   Widget build(BuildContext context) {
@@ -264,6 +270,8 @@ class EmailTextFormField extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       onChanged: onChanged,
       validator: validator,
+      suffixIcon: suffixIcon,
+      borderColor: borderColor,
     );
   }
 }
@@ -274,6 +282,8 @@ class ContrasenaTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool withMaxLenght;
   final Color? labelColor;
+  final Color? borderColor;
+  final Widget? suffixIcon;
 
   const ContrasenaTextFormField(
       {super.key,
@@ -281,7 +291,9 @@ class ContrasenaTextFormField extends StatelessWidget {
       this.onChanged,
       this.validator,
       this.labelColor,
-      this.withMaxLenght = false});
+      this.withMaxLenght = false,
+      this.borderColor,
+      this.suffixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -292,17 +304,22 @@ class ContrasenaTextFormField extends StatelessWidget {
             Provider.of<_ContrasenaTextFormFieldProvider>(context);
         return _TextFormFieldCustom(
           labelColor: labelColor,
+          borderColor: borderColor,
           hintText: 'Contraseña',
           obscureText: !contrasenaProvider.esVisible,
           keyboardType: TextInputType.visiblePassword,
-          suffixIcon: (value.isNotEmpty)
-              ? IconButton(
+          suffixIcon: Row(mainAxisSize: MainAxisSize.min, children: [
+            if (value.isNotEmpty)
+              IconButton(
                   icon: Icon((contrasenaProvider.esVisible)
                       ? Icons.visibility
                       : Icons.visibility_off),
                   onPressed: () => contrasenaProvider.esVisible =
                       !contrasenaProvider.esVisible)
-              : null,
+            else
+              Container(),
+            if (suffixIcon != null) suffixIcon!
+          ]),
           onChanged: onChanged,
           validator: validator,
           maxLength: (withMaxLenght) ? 16 : null,

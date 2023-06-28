@@ -81,18 +81,21 @@ class ImagenPerfil extends StatelessWidget {
 
 class ImagenDni extends StatelessWidget {
   final File? imagenDni;
+  final String? urlImagenDni;
   final AssetImage imagenPlaceholder;
-  final void Function(File) onChanged;
+  final void Function(File)? onChanged;
   final String label;
   final Color? labelColor;
 
   const ImagenDni(
       {super.key,
-      required this.imagenDni,
+      this.imagenDni,
       required this.imagenPlaceholder,
-      required this.onChanged,
+      this.onChanged,
       required this.label,
-      this.labelColor});
+      this.urlImagenDni,
+      this.labelColor})
+      : assert(imagenDni == null || urlImagenDni == null);
 
   @override
   Widget build(BuildContext context) {
@@ -111,21 +114,26 @@ class ImagenDni extends StatelessWidget {
                   child: Image(
                     image: (imagenDni != null)
                         ? FileImage(imagenDni!)
-                        : imagenPlaceholder as ImageProvider<Object>,
+                        : (urlImagenDni != null)
+                            ? NetworkImage(urlImagenDni!)
+                            : imagenPlaceholder as ImageProvider<Object>,
                     fit: BoxFit.cover,
                     height: SizeConfig.height * 0.25,
                     width: double.infinity,
                   )),
-              Positioned(
-                  top: SizeConfig.height * 0.21,
-                  left: SizeConfig.height * 0.37,
-                  child: CircleAvatar(
-                      backgroundColor: ColorsApp.azulBusqueda,
-                      radius: Dimens.dimens30,
-                      child: IconButton(
-                          onPressed: () => seleccionImagen(context, onChanged),
-                          icon: const Icon(Icons.camera_alt,
-                              color: Colors.white)))),
+              (onChanged != null)
+                  ? Positioned(
+                      top: SizeConfig.height * 0.21,
+                      left: SizeConfig.height * 0.37,
+                      child: CircleAvatar(
+                          backgroundColor: ColorsApp.azulBusqueda,
+                          radius: Dimens.dimens30,
+                          child: IconButton(
+                              onPressed: () =>
+                                  seleccionImagen(context, onChanged!),
+                              icon: const Icon(Icons.camera_alt,
+                                  color: Colors.white))))
+                  : Container(),
             ],
           ),
         ),

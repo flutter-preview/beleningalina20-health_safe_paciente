@@ -61,7 +61,7 @@ class _ListadoProfesionales extends StatelessWidget {
               idLocalidad: localidad?.codigoPostal)),
       onEmpty: () => const MessageState(
           text: "No se encontraron profesionales", iconState: EmptyIcon()),
-      onError: () => const MessageState(
+      onError: (_) => const MessageState(
           text: "Algo salió mal al cargar la informacion",
           iconState: FailureIcon()),
       onSuccess: (value) => ListView.separated(

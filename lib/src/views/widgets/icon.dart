@@ -53,3 +53,25 @@ class EmptyIcon extends StatelessWidget {
     return const Icon(Icons.sentiment_neutral_rounded, color: Colors.grey);
   }
 }
+
+class GradientIcon extends StatelessWidget {
+  final Widget? icon;
+  const GradientIcon({super.key, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+        shaderCallback: (Rect bounds) {
+          return const LinearGradient(
+            colors: [
+              ColorsApp.azulBusqueda,
+              ColorsApp.celesteFondo,
+              ColorsApp.azulBusqueda,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ).createShader(bounds);
+        },
+        child: icon);
+  }
+}
