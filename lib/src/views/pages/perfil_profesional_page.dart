@@ -88,8 +88,8 @@ class _PagerView extends StatelessWidget {
                   especialidad: especialidad,
                 )
               : (perfilProfesionalProvider.paginaActual == 1)
-                  ? const AtencionProfesionalPage()
-                  : const InformacionProfesionalPage()
+                  ? AtencionProfesionalPage(profesional: profesional)
+                  : InformacionProfesionalPage(profesional: profesional)
         ],
       ),
     );

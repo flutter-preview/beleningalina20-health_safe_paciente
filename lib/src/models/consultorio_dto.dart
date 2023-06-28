@@ -12,4 +12,7 @@ class ConsultorioDto {
       id: consultorio.id,
       descripcion: consultorio.descripcion,
       direccion: DireccionDto.fromApi(consultorio.direccion));
+
+  @override
+  String toString() => descripcion ?? '';
 }

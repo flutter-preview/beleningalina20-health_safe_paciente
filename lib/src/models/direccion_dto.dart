@@ -24,5 +24,5 @@ class DireccionDto {
       localidad: LocalidadDto.fromApi(direccion.localidad));
 
   @override
-  String toString() => "$calle $numero";
+  String toString() => "$calle $numero, $localidad";
 }

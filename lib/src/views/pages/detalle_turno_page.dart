@@ -144,6 +144,7 @@ class _AccionesTurnoReservado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO La cancelacion solo esta disponible hasta un dia antes de la fecha de turno
     return ElevatedButtonCustom(
         text: "Cancelar turno",
         expanded: true,
