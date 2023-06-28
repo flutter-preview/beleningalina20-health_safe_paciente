@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.beleningalina.health_safe_paciente">
+    package="com.beleningalina.health_safe_paciente"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -7,9 +8,14 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> 
    
    <application
+        tools:replace="android:label"
         android:label="Health Safe - Paciente"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <service
+            android:name="org.jitsi.meet.sdk.ConnectionService"
+            android:exported="true"/>
 
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyDdJOG4V2FTvr96wd_atf4S24oXwi4UWnI"/>

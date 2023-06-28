@@ -72,17 +72,19 @@ class TextButtonCustom extends StatelessWidget {
   final String text;
   final void Function() onPressed;
   final Color foregroundColor;
+  final bool enabled;
 
   const TextButtonCustom(
       {super.key,
       required this.text,
       required this.onPressed,
+      this.enabled = true,
       this.foregroundColor = Colors.lightBlue});
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed,
+      onPressed: (enabled) ? onPressed : null,
       // autofocus: ,
       // clipBehavior: ,
       // focusNode: ,
@@ -119,7 +121,7 @@ class TextButtonCustom extends StatelessWidget {
         ),
         // visualDensity: ,
       ),
-      child: Text(text),
+      child: Text(text, textAlign: TextAlign.center),
     );
   }
 }

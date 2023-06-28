@@ -4,6 +4,7 @@ import 'package:health_safe_paciente/src/extensions/extensions.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/localization/localizacion_service.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
+import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class DetalleTurnoPage extends StatelessWidget {
@@ -67,8 +68,7 @@ class _InfoTurno extends StatelessWidget {
           turno.consultorio != null)
         _ConsultorioAgendaTurnos(consultorio: turno.consultorio!)
       else
-        _LinkVideollamadaButton(
-            fechaTurno: turno.fecha, idProfesional: turno.profesional.id),
+        _LinkVideollamadaButton(turno: turno),
       SizedBox(height: Dimens.dimens10),
       if (turno.fecha.isAfter(DateTime.now()))
         const _AccionesTurnoReservado()
@@ -111,18 +111,18 @@ class _ConsultorioAgendaTurnos extends StatelessWidget {
 }
 
 class _LinkVideollamadaButton extends StatelessWidget {
-  final DateTime fechaTurno;
-  final int? idProfesional;
-  const _LinkVideollamadaButton({required this.fechaTurno, this.idProfesional});
+  final TurnoPacienteDto turno;
+  const _LinkVideollamadaButton({required this.turno});
 
   @override
   Widget build(BuildContext context) {
-    if (fechaTurno.isAfter(DateTime.now()) && idProfesional != null) {
+    if (turno.fecha.isAfter(DateTime.now())) {
       return TextButtonCustom(
           text: "Unirse a la videollamada",
           foregroundColor: Colors.blue,
-          onPressed: () => {} // TODO Unirse a la videollamada.
-          );
+          onPressed: () => Navigator.pushNamed(
+              context, VideollamadaPage.routeName,
+              arguments: turno));
     } else {
       return Container();
     }
@@ -139,7 +139,8 @@ class _AccionesTurnoReservado extends StatelessWidget {
         expanded: true,
         foregroundColor: Colors.white,
         backgroundColor: ColorsApp.rojoAsistenciaInmediata,
-        onPressed: () => {} // TODO Cancelacion turno.
+        onPressed: () =>
+            {} // TODO Cancelacion turno -> reintegro de todo el dinero.
         );
   }
 }
