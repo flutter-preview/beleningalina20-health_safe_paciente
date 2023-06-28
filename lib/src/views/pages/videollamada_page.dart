@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:provider/provider.dart';
+import 'package:health_safe_paciente/src/extensions/extensions.dart';
+import 'package:health_safe_paciente/src/views/pages/pages.dart';
 import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/api/api.dart';
-import 'package:health_safe_paciente/src/views/pages/home_page.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
@@ -39,28 +40,58 @@ class _VideollamadaPageState extends State<VideollamadaPage> {
   @override
   Widget build(BuildContext context) {
     turno = ModalRoute.of(context)?.settings.arguments as TurnoPacienteDto;
-
     return Scaffold(
       drawer: const DrawerCustom(),
       appBar: const AppbarCustom(),
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const DescriptionText(
-                textAlign: TextAlign.center,
-                text: "La videollama se realiza a través de Jitsi Meet ®"),
-            SizedBox(height: Dimens.dimens20),
-            Image(
-                image: const AssetImage('assets/imgs/jitsi_meet.png'),
-                height: Dimens.dimens100),
-            SizedBox(height: Dimens.dimens20),
-            TextButtonCustom(
-                text:
-                    "Unirse a la videollamada con el ${turno.profesional.toString()}",
-                onPressed: () => _joinMeeting()),
-            if (loading) const Loader()
-          ]),
+      backgroundColor: ColorsApp.azulLogin,
+      body: Padding(
+        padding: EdgeInsets.all(Dimens.dimens20),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                child: Column(
+                  children: [
+                    BodyText(
+                      text:
+                          "SALA DE ESPERA \nTurno con ${turno.profesional.toString()}",
+                      color: Colors.white,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: Dimens.dimens20),
+                    DescriptionText(
+                      textAlign: TextAlign.center,
+                      text:
+                          "Horario del turno: Hoy - ${turno.horaInicio.convertToString()}",
+                      color: Colors.white,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(Dimens.dimens20),
+                      child:
+                          InfoProfesionalCard(profesional: turno.profesional),
+                    ),
+                    TextButtonCustom(
+                        text:
+                            "Unirse a la videollamada con el ${turno.profesional.toString()}",
+                        onPressed: () => _joinMeeting()),
+                    if (loading) const Loader(),
+                  ],
+                ),
+              ),
+              Column(children: [
+                const DescriptionText(
+                    textAlign: TextAlign.center,
+                    color: Colors.white,
+                    text:
+                        "La videollamada se realizará a través de Jitsi Meet"),
+                SizedBox(height: Dimens.dimens10),
+                Image(
+                    image: const AssetImage('assets/imgs/jitsi_meet.png'),
+                    height: Dimens.dimens50),
+              ])
+            ]),
+      ),
     );
   }
 
@@ -134,12 +165,15 @@ class _VideollamadaPageState extends State<VideollamadaPage> {
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialogBackground(
-                onAccept: () => Navigator.popUntil(
-                    context, ModalRoute.withName(HomePage.routeName)),
+                onAccept: () {
+                  Navigator.popUntil(
+                      context, ModalRoute.withName(HomePage.routeName));
+                  Navigator.pushNamed(
+                      context, CalificacionProfesionalPage.routeName,
+                      arguments: turno.profesional);
+                },
                 content: [
-                  const DescriptionText(
-                      text:
-                          "La videollamada fue finalizada. En unos momentos, puedes ver detalle de tu consulta"),
+                  const DescriptionText(text: "El turno finalizó"),
                   SizedBox(height: Dimens.dimens20),
                   const SuccessIcon()
                 ]));

@@ -28,16 +28,6 @@ class ProfesionalCard extends StatelessWidget {
           InfoProfesionalCard(profesional: profesional),
           SizedBox(height: Dimens.dimens10),
           // TODO Rango de precio y un consultorio
-          /*const DescriptionText(
-            text: '~ POR DEFINIRSE ~',
-            textAlign: TextAlign.start,
-          ).withPrefixIcon(Icons.location_on, Colors.grey[700]!),*/
-          /*SizedBox(height: Dimens.dimens10),
-          const DescriptionText(
-            text: "Precio: ~ POR DEFINIRSE ~",
-            textAlign: TextAlign.start,
-          ).withPrefixIcon(Icons.monetization_on, Colors.grey[700]!),
-          SizedBox(height: Dimens.dimens10),*/
           Align(
             alignment: Alignment.centerRight,
             child: ElevatedButtonCustom(
@@ -55,34 +45,42 @@ class InfoProfesionalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ImagenPerfilProfesional(
-            urlImagenPerfil: profesional.usuario.urlImagenPerfil),
-        SizedBox(width: Dimens.dimens10),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BodyText(
-                text: profesional.toString(), overflow: TextOverflow.ellipsis),
-            DescriptionText(
-              text: profesional.especialidades
-                  .map((especialidad) => especialidad.descripcion)
-                  .join(", "),
-              overflow: TextOverflow.ellipsis,
-              color: Colors.grey[700] ?? Colors.grey,
-            ),
-            RatingBar(
-              calificacion: 3.0,
-              numeroOpiniones: 10,
-              onPressed: () {
-                // TODO Ver las opiniones
-              },
-            )
-          ],
-        )
-      ],
+    return Container(
+      padding: EdgeInsets.all(Dimens.dimens10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(Dimens.dimens20)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ImagenPerfilProfesional(
+              urlImagenPerfil: profesional.usuario.urlImagenPerfil),
+          SizedBox(width: Dimens.dimens10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BodyText(
+                  text: profesional.toString(),
+                  overflow: TextOverflow.ellipsis),
+              DescriptionText(
+                text: profesional.especialidades
+                    .map((especialidad) => especialidad.descripcion)
+                    .join(", "),
+                overflow: TextOverflow.ellipsis,
+                color: Colors.grey[700] ?? Colors.grey,
+              ),
+              RatingBarIndicatorCustom(
+                calificacion: 3.0,
+                numeroOpiniones: 10,
+                onPressed: () {
+                  // TODO Ver las opiniones
+                },
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }

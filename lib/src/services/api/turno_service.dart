@@ -31,6 +31,11 @@ class TurnoService {
 
       // TODO Push notification al profesional - necesito el id del dispositivo del profesional
 
+      // TODO enviar mensaje con la url de la videollamada -> desactivado ell link
+      // sacar url=https://meet.jit.si/turno_${id}_${dniPaciente}_hsA
+      // Tipo de mensaje de llamada
+      // Todo enviar push notification antes de 10 munutos con la url
+
       await MensajeriaService().crearMensajeria(CrearMensajeriaRequest(
           idPaciente: params.idPaciente, idProfesional: params.idProfesional));
     } on SocketException {

@@ -14,3 +14,4 @@ export 'package:health_safe_paciente/src/views/pages/login_page.dart';
 export 'package:health_safe_paciente/src/views/pages/perfil_profesional_page.dart';
 export 'package:health_safe_paciente/src/views/pages/registro_usuario_page.dart';
 export 'package:health_safe_paciente/src/views/pages/videollamada_page.dart';
+export 'package:health_safe_paciente/src/views/pages/calificacion_profesional_page.dart';

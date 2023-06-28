@@ -260,7 +260,7 @@ class EmailTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return _TextFormFieldCustom(
       labelColor: labelColor,
-      hintText: 'Email',
+      hintText: 'Correo',
       keyboardType: TextInputType.emailAddress,
       onChanged: onChanged,
       validator: validator,

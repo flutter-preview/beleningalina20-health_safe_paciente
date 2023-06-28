@@ -53,6 +53,11 @@ class _InfoTurno extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime inicioTurno = DateTime(turno.fecha.year, turno.fecha.month,
+        turno.fecha.month, turno.horaInicio.hour, turno.horaInicio.minute);
+    DateTime finTurno = DateTime(turno.fecha.year, turno.fecha.month,
+        turno.fecha.month, turno.horaFin.hour, turno.horaFin.minute);
+
     return Column(children: [
       InfoProfesionalCard(profesional: turno.profesional),
       InformacionDetalle(
@@ -66,14 +71,14 @@ class _InfoTurno extends StatelessWidget {
           title: "Precio: ", information: "\$${turno.precio.toString()}"),
       if (turno.modalidadAtencion.descripcion == "Presencial" ||
           turno.consultorio != null)
-        _ConsultorioAgendaTurnos(consultorio: turno.consultorio!)
-      else
-        _LinkVideollamadaButton(turno: turno),
+        _ConsultorioAgendaTurnos(consultorio: turno.consultorio!),
       SizedBox(height: Dimens.dimens10),
-      if (turno.fecha.isAfter(DateTime.now()))
+      if (DateTime.now().isBefore(inicioTurno))
         const _AccionesTurnoReservado()
-      else
+      else if (DateTime.now().isAfter(finTurno))
         const _AccionesTurnoFinalizado()
+      else
+        _LinkVideollamadaButton(turno: turno)
     ]);
   }
 }
@@ -116,7 +121,12 @@ class _LinkVideollamadaButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (turno.fecha.isAfter(DateTime.now())) {
+    DateTime inicioTurno = DateTime(turno.fecha.year, turno.fecha.month,
+        turno.fecha.month, turno.horaInicio.hour, turno.horaInicio.minute);
+    DateTime finTurno = DateTime(turno.fecha.year, turno.fecha.month,
+        turno.fecha.month, turno.horaFin.hour, turno.horaFin.minute);
+    if (DateTime.now().isAfter(inicioTurno) &&
+        DateTime.now().isBefore(finTurno)) {
       return TextButtonCustom(
           text: "Unirse a la videollamada",
           foregroundColor: Colors.blue,

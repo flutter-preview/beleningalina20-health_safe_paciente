@@ -18,4 +18,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
       HomeChatPage.routeName: (_) => const HomeChatPage(),
       ChatPage.routeName: (_) => const ChatPage(),
       VideollamadaPage.routeName: (_) => const VideollamadaPage(),
+      CalificacionProfesionalPage.routeName: (_) =>
+          const CalificacionProfesionalPage(),
     };
