@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'package:health_safe_paciente/src/helpers/local_storage_manager.dart';
 import 'package:health_safe_paciente/src/services/api/api.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:health_safe_paciente/src/services/api/constants/environments.dart';
 import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:health_safe_paciente/src/services/api/utils/api_response_mapper.dart';
@@ -40,27 +40,28 @@ class TurnoService {
     }
   }
 
-  Future<List<Turno>> obtenerTurnos(int idPaciente) async {
-    return []; /*await _obtenerTurnosService(idPaciente).then((value) {
-      return value.turnos;
-    }).onError((Exception error, stackTrace) => throw error);*/
-  }
-
-  /*Future<ObtenerTurnosResponse> _obtenerTurnosService(int idPaciente) async {
+  Future<List<TurnoPacienteDto>> obtenerTurnos(int idUsuario) async {
     try {
-      /*final resp = await http
-          .get(Uri.parse(BaseEndpoints.obtenerTurnosPorPaciente))
-          .timeout(const Duration(seconds: 3));
+      int idPaciente = await PacienteService().obtenerIdPaciente(idUsuario);
+      final resp = await http.get(
+          Uri.parse('${Environments.apiUrl}/turnos/paciente/$idPaciente'),
+          headers: {
+            'Content-Type': 'application/json',
+          });
 
       debugPrint(resp.body.toString());
 
       Map<String, dynamic> response = apiResponseMapper(resp);
 
-      return ObtenerTurnosResponse.fromJson(response);*/
+      List<TurnoPaciente> turnos =
+          ObtenerTurnosResponse.fromJson(response).turnos;
+
+      return List<TurnoPacienteDto>.from(
+          turnos.map((turno) => TurnoPacienteDto.fromApi(turno)));
     } on SocketException {
       throw ApiException(message: 'Falló la comunicación con el servidor');
     } catch (e) {
       rethrow;
     }
-  }*/
+  }
 }

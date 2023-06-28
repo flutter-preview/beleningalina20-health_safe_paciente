@@ -57,13 +57,14 @@ class TurnoPaciente extends Turno {
       fecha: DateTime.parse(json['fecha']),
       horaInicio: json['horainicio'].toString().toTimeOfDay(),
       horaFin: json['horafin'].toString().toTimeOfDay(),
-      profesional: Profesional.fromJson(json['profesional']),
+      profesional: Profesional.fromJson(json['agenda']['profesional']),
       especialidad: Especialidad.fromJson(json['especialidad']),
       fechaSolicita: DateTime.parse(json['fechasolicita']),
-      modalidadAtencion: ModalidadAtencion.fromJson(json['modalidadatencion']),
+      modalidadAtencion:
+          ModalidadAtencion.fromJson(json['agenda']['modalidad']),
       consultorio: (json['consultorio'] != null)
           ? Consultorio.fromJson(json['consultorio'])
           : null,
-      idPago: json['idPago'],
-      precio: json['precio']);
+      idPago: json['idpagomercadopago'],
+      precio: double.tryParse(json['agenda']['precio'].toString()) ?? 0.0);
 }

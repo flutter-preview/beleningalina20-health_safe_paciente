@@ -1,7 +1,7 @@
 import 'package:health_safe_paciente/src/services/api/models/models.dart';
 
 class ObtenerTurnosResponse {
-  List<Turno> turnos;
+  List<TurnoPaciente> turnos;
 
   ObtenerTurnosResponse({
     required this.turnos,
@@ -9,7 +9,7 @@ class ObtenerTurnosResponse {
 
   factory ObtenerTurnosResponse.fromJson(Map<String, dynamic> json) =>
       ObtenerTurnosResponse(
-        turnos: List<Turno>.from(
+        turnos: List<TurnoPaciente>.from(
             json["turnos"].map((x) => TurnoPaciente.fromJson(x))),
       );
 }

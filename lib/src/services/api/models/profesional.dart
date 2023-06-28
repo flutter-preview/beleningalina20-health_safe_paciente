@@ -7,8 +7,8 @@ class Profesional {
     required this.createdAt,
     required this.updatedAt,
     required this.usuario,
-    required this.especialidades,
-    required this.matriculasProfesionales,
+    this.especialidades = const [],
+    this.matriculasProfesionales = const [],
   });
 
   int id;
@@ -16,6 +16,7 @@ class Profesional {
   DateTime createdAt;
   DateTime updatedAt;
   Usuario usuario;
+
   List<EspecialidadProfesional> especialidades;
   List<MatriculaProfesional> matriculasProfesionales;
 
@@ -25,12 +26,15 @@ class Profesional {
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         usuario: Usuario.fromJson(json["usuario"]),
-        especialidades: List<EspecialidadProfesional>.from(
-            json["PE_especialidades"]
+        especialidades: (json["PE_especialidades"] == null)
+            ? []
+            : List<EspecialidadProfesional>.from(json["PE_especialidades"]
                 .map((x) => EspecialidadProfesional.fromJson(x))),
-        matriculasProfesionales: List<MatriculaProfesional>.from(
-            json["PM_matriculas_profesionales"]
-                .map((x) => MatriculaProfesional.fromJson(x))),
+        matriculasProfesionales: (json["PM_matriculas_profesionales"] == null)
+            ? []
+            : List<MatriculaProfesional>.from(
+                json["PM_matriculas_profesionales"]
+                    .map((x) => MatriculaProfesional.fromJson(x))),
       );
 }
 

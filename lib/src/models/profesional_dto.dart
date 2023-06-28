@@ -15,7 +15,7 @@ class ProfesionalDto {
     this.descripcion,
     this.disponible = true,
     required this.usuario,
-    required this.especialidades,
+    this.especialidades = const [],
   });
 
   factory ProfesionalDto.fromApi(Profesional profesional) => ProfesionalDto(
