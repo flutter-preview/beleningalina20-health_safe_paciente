@@ -25,4 +25,5 @@ Map<String, WidgetBuilder> getApplicationRoutes() => <String, WidgetBuilder>{
       CuentaDatosPersonalesPage.routeName: (_) =>
           const CuentaDatosPersonalesPage(),
       CuentaDatosPacientePage.routeName: (_) => const CuentaDatosPacientePage(),
+      HistoriaClinicaPage.routeName: (_) => const HistoriaClinicaPage(),
     };

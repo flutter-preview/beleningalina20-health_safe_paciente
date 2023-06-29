@@ -73,6 +73,7 @@ class _InfoTurno extends StatelessWidget {
           turno.consultorio != null)
         _ConsultorioAgendaTurnos(consultorio: turno.consultorio!),
       SizedBox(height: Dimens.dimens10),
+      const _AccionesTurnoFinalizado(),
       if (DateTime.now().isBefore(inicioTurno))
         const _AccionesTurnoReservado()
       else if (DateTime.now().isAfter(finTurno))
@@ -144,15 +145,13 @@ class _AccionesTurnoReservado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO La cancelacion solo esta disponible hasta un dia antes de la fecha de turno
+    // TODO La cancelacion solo esta disponible hasta un dia antes de la fecha de turno. Reintegro de la plata
     return ElevatedButtonCustom(
         text: "Cancelar turno",
         expanded: true,
         foregroundColor: Colors.white,
         backgroundColor: ColorsApp.rojoAsistenciaInmediata,
-        onPressed: () =>
-            {} // TODO Cancelacion turno -> reintegro de todo el dinero.
-        );
+        onPressed: () => {});
   }
 }
 
@@ -187,8 +186,7 @@ class _AccionesTurnoFinalizado extends StatelessWidget {
                 icon: Icons.folder,
                 title: "Historia\nClínica",
                 onTap: () =>
-                    {} // TODO Ir a Historia clinica (los registros que hizo este profesional)
-                )
+                    Navigator.pushNamed(context, HistoriaClinicaPage.routeName))
           ],
         )
       ],

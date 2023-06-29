@@ -1,0 +1,58 @@
+{
+    "idUsuario": "idUsuario",
+    "registrosHC": [
+        {
+            "numEpisodio": "1",
+            "fecha": "01/01/2000",
+            "diagnostico": "ABCDEF",
+            "descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sit amet congue lorem. Curabitur euismod congue magna, ultrices pretium ex tristique at. Pellentesque sed nulla congue, commodo neque ac, accumsan tellus. Nunc in tempor sapien, maximus pellentesque diam. Donec ac nulla sed lorem aliquet lobortis et ut arcu."
+        },
+        {
+            "numEpisodio": "2",
+            "fecha": "01/01/2000",
+            "diagnostico": "ABCDEF",
+            "descripcion": "Sed iaculis gravida odio, sit amet dignissim leo pulvinar non. In tincidunt nunc nisl, et consectetur urna pellentesque a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget congue odio. Duis in tempor nulla. Sed cursus pellentesque ante, eu accumsan ipsum dictum nec."
+        },{
+            "numEpisodio": "3",
+            "fecha": "01/01/2000",
+            "diagnostico": "ABCDEF",
+            "descripcion": "Suspendisse leo nunc, maximus sed libero a, blandit sollicitudin diam. Vestibulum at nulla at eros auctor luctus et id nisi. Ut sed turpis leo. Quisque ut commodo tortor, quis pellentesque tortor"
+        },{
+            "numEpisodio": "4",
+            "fecha": "01/01/2000",
+            "diagnostico": "ABCDEF",
+            "descripcion": "Nam at elit pretium, lacinia dolor vel, tempor nisi. Mauris dapibus convallis massa, vel facilisis dui consequat ut. Nulla laoreet dui eget dolor faucibus gravida. Nunc a vestibulum nisi, et finibus libero."
+        },{
+            "numEpisodio": "5",
+            "fecha": "01/01/2000",
+            "diagnostico": "ABCDEF",
+            "descripcion": "Integer porttitor enim at mi pretium scelerisque. Donec rhoncus aliquet ipsum, ac hendrerit nisi scelerisque id. Sed facilisis odio nec ante rutrum, tempor laoreet sem finibus. Phasellus semper, ligula vitae accumsan pulvinar, sapien ipsum tincidunt ex, sit amet rutrum lacus ipsum in mauris."
+        },{
+            "numEpisodio": "6",
+            "fecha": "01/01/2000",
+            "diagnostico": "ABCDEF",
+            "descripcion": "Phasellus a ante mattis, efficitur felis nec, interdum est. Sed dignissim ultricies lorem, a vehicula augue iaculis vehicula. Suspendisse semper purus vitae bibendum eleifend. Mauris finibus sodales feugiat. Mauris quam arcu, gravida feugiat eleifend semper, pharetra ut lectus. Fusce ac dapibus quam, eget sagittis ex."
+        },{
+            "numEpisodio": "7",
+            "fecha": "01/01/2000",
+            "diagnostico": "ABCDEF",
+            "descripcion": "Sed dapibus nibh ac lorem bibendum scelerisque. Quisque sit amet pharetra nisl. Donec efficitur augue vitae nibh egestas, non iaculis risus luctus. Donec molestie imperdiet cursus. Duis eu rutrum ligula. Donec molestie magna justo, ac tempor ante dictum commodo. Donec sodales feugiat augue vitae iaculis. Morbi efficitur velit et nibh suscipit rutrum. Integer a finibus turpis. Integer blandit turpis ut sodales euismod."
+        },{
+            "numEpisodio": "8",
+            "fecha": "01/01/2000",
+            "diagnostico": "ABCDEF",
+            "descripcion": "Nam varius semper arcu, in faucibus lectus tempus eget. Aliquam tincidunt turpis vel turpis mattis lacinia. Mauris vitae elit id justo elementum dignissim eget vitae nisi. Integer consectetur iaculis nisl, sed convallis lectus commodo sit amet. Aliquam laoreet aliquet volutpat. Nullam imperdiet aliquam nibh, cursus suscipit quam venenatis vel."
+        },{
+            "numEpisodio": "9",
+            "fecha": "01/01/2000",
+            "diagnostico": "ABCDEF",
+            "descripcion": "Donec luctus id eros non sodales. Cras orci enim, ornare ac accumsan ut, venenatis ut metus. Suspendisse lobortis aliquet quam. Sed a ullamcorper risus. Nam id dui id eros pulvinar iaculis nec a metus. Quisque ac magna aliquam, tempor tellus ut, venenatis massa. Donec pretium rhoncus viverra."
+        },{
+            "numEpisodio": "10",
+            "fecha": "01/01/2000",
+            "diagnostico": "ABCDEF",
+            "descripcion": "Maecenas imperdiet id metus in dapibus. Integer maximus, urna ac malesuada mollis, mi nulla porta lorem, et pharetra turpis magna sed ante. Cras eget ligula nunc. Pellentesque velit arcu, pellentesque a semper quis, maximus a urna."
+        }
+    ]
+
+}

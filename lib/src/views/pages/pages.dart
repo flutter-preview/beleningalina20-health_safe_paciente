@@ -19,3 +19,4 @@ export 'package:health_safe_paciente/src/views/pages/mi_cuenta_page.dart';
 export 'package:health_safe_paciente/src/views/pages/cuenta_datos_usuario_page.dart';
 export 'package:health_safe_paciente/src/views/pages/cuenta_datos_personales_page.dart';
 export 'package:health_safe_paciente/src/views/pages/cuenta_datos_paciente_page.dart';
+export 'package:health_safe_paciente/src/views/pages/historia_clinica_page.dart';

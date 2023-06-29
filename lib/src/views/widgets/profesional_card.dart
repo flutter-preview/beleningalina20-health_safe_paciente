@@ -46,7 +46,6 @@ class InfoProfesionalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(Dimens.dimens10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(Dimens.dimens20)),

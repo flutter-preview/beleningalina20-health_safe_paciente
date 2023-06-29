@@ -35,3 +35,8 @@ export 'package:health_safe_paciente/src/services/api/models/universidad.dart';
 export 'package:health_safe_paciente/src/services/api/models/usuario.dart';
 export 'package:health_safe_paciente/src/services/api/models/modalidad_atencion.dart';
 export 'package:health_safe_paciente/src/services/api/models/pais.dart';
+export 'package:health_safe_paciente/src/services/api/models/antecedente.dart';
+export 'package:health_safe_paciente/src/services/api/models/tipo_antecedente.dart';
+export 'package:health_safe_paciente/src/services/api/models/episodio.dart';
+export 'package:health_safe_paciente/src/services/api/models/indicacion_medica.dart';
+export 'package:health_safe_paciente/src/services/api/models/prescripcion_medica.dart';

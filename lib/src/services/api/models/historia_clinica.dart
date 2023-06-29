@@ -1,6 +1,13 @@
 class HistoriaClinica {
-  HistoriaClinica();
+  int id;
+
+  double? peso;
+  double? altura;
+  HistoriaClinica({required this.id, this.peso, this.altura});
 
   factory HistoriaClinica.fromJson(Map<String, dynamic> json) =>
-      HistoriaClinica();
+      HistoriaClinica(
+          id: json['idhistoriaclinica'],
+          peso: json['peso'],
+          altura: json['altura']);
 }

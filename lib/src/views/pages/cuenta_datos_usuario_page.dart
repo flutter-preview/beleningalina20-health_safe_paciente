@@ -6,7 +6,7 @@ import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
 
 class CuentaDatosUsuarioPage extends StatelessWidget {
-  // TODO Falta la integracion. Definir como se manejaria
+  // TODO Falta la integracion. Definir como se manejaria. Url de la imagen modificada para actualizar el usuario
   static const String routeName = "CuentaDatosUsuarioPage";
   const CuentaDatosUsuarioPage({super.key});
 
@@ -180,7 +180,6 @@ class _ImagenPerfilUsuario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO - servicio para modificar la imagen que me traiga la url
     final autenticacionService = Provider.of<AutenticacionService>(context);
     final datosUsuarioFormProvider =
         Provider.of<DatosUsuarioFormProvider>(context);
