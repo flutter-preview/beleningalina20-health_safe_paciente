@@ -43,14 +43,21 @@ class TitleText extends StatelessWidget {
       this.color = Colors.black,
       this.textAlign = TextAlign.start,
       this.prefixIcon,
-      this.fontWeight = FontWeight.normal});
+      this.fontWeight = FontWeight.w500});
 
   @override
   Widget build(BuildContext context) {
+    // d35 ->28
+    // d30 -> 24
+    // d25 -> 20
+    // d20 -> 16
     return Text(
       text,
       style: TextStyle(
-          fontSize: Dimens.dimens35, color: color, fontWeight: fontWeight),
+          fontSize: Dimens.dimens30,
+          color: color,
+          fontWeight: fontWeight,
+          fontFamily: 'Montserrat'),
       textAlign: textAlign,
     );
   }
@@ -68,7 +75,7 @@ class SubtitleText extends StatelessWidget {
       required this.text,
       this.color = Colors.black,
       this.textAlign = TextAlign.start,
-      this.fontWeight = FontWeight.normal,
+      this.fontWeight = FontWeight.w400,
       this.prefixIcon});
 
   @override
@@ -77,10 +84,10 @@ class SubtitleText extends StatelessWidget {
       text,
       textAlign: textAlign,
       style: TextStyle(
-        fontSize: Dimens.dimens30,
-        color: color,
-        fontWeight: fontWeight,
-      ),
+          fontSize: Dimens.dimens25,
+          color: color,
+          fontWeight: fontWeight,
+          fontFamily: 'Montserrat'),
     );
   }
 }
@@ -106,10 +113,10 @@ class BodyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text,
         style: TextStyle(
-          fontSize: fontSize ?? Dimens.dimens25,
-          color: color,
-          decoration: decoration,
-        ),
+            fontSize: fontSize ?? Dimens.dimens25,
+            color: color,
+            decoration: decoration,
+            fontFamily: 'Montserrat'),
         overflow: overflow,
         textAlign: textAlign);
   }
@@ -137,7 +144,10 @@ class DescriptionText extends StatelessWidget {
       textAlign: textAlign,
       overflow: overflow,
       style: TextStyle(
-          fontSize: Dimens.dimens20, color: color, fontWeight: fontWeight),
+          fontSize: Dimens.dimens20,
+          color: color,
+          fontWeight: fontWeight,
+          fontFamily: 'Montserrat'),
     );
   }
 }
@@ -164,7 +174,10 @@ class SubdescriptionText extends StatelessWidget {
       textAlign: textAlign,
       overflow: overflow,
       style: TextStyle(
-          fontSize: Dimens.dimens18, color: color, fontWeight: fontWeight),
+          fontSize: Dimens.dimens18,
+          color: color,
+          fontWeight: fontWeight,
+          fontFamily: 'Montserrat'),
     );
   }
 }

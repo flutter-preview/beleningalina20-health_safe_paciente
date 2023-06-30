@@ -18,32 +18,51 @@ class LoginPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorsApp.azulLogin,
-        body: Padding(
-          padding: EdgeInsets.all(Dimens.dimens20),
-          child: LayoutBuilder(
-            builder: (context, constraint) => SingleChildScrollView(
-              // https://github.com/flutter/flutter/issues/18711
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                    minWidth: constraint.maxWidth,
-                    minHeight: constraint.maxHeight),
-                child: IntrinsicHeight(
-                  child: Column(children: <Widget>[
-                    const LogoHealthSafe(),
-                    Expanded(
-                      child: ChangeNotifierProvider(
-                          create: (_) => LoginFormProvider(),
-                          child: const _LoginForm()),
+        body: Stack(
+          children: [
+            const _LoginBackground(),
+            Padding(
+              padding: EdgeInsets.all(Dimens.dimens20),
+              child: LayoutBuilder(
+                builder: (context, constraint) => SingleChildScrollView(
+                  // https://github.com/flutter/flutter/issues/18711
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                        minWidth: constraint.maxWidth,
+                        minHeight: constraint.maxHeight),
+                    child: IntrinsicHeight(
+                      child: Column(children: <Widget>[
+                        const LogoHealthSafe(),
+                        Expanded(
+                          child: ChangeNotifierProvider(
+                              create: (_) => LoginFormProvider(),
+                              child: const _LoginForm()),
+                        ),
+                        const _RegistroUsuarioButton()
+                      ]),
                     ),
-                  ]),
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
-        bottomNavigationBar: const _RegistroUsuarioPage(),
       ),
     );
+  }
+}
+
+class _LoginBackground extends StatelessWidget {
+  const _LoginBackground();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [ColorsApp.azulLogin, ColorsApp.azulBusqueda])));
   }
 }
 
@@ -71,6 +90,7 @@ class _LoginForm extends StatelessWidget {
             (loginFormProvider.isLoading)
                 ? const Loader()
                 : ElevatedButtonCustom(
+                    margin: EdgeInsets.symmetric(horizontal: Dimens.dimens40),
                     text: 'Iniciar sesión',
                     onPressed: (loginFormProvider.isValidForm())
                         ? () async {
@@ -112,8 +132,8 @@ class _LoginForm extends StatelessWidget {
   }
 }
 
-class _RegistroUsuarioPage extends StatelessWidget {
-  const _RegistroUsuarioPage();
+class _RegistroUsuarioButton extends StatelessWidget {
+  const _RegistroUsuarioButton();
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +142,7 @@ class _RegistroUsuarioPage extends StatelessWidget {
           text: "¿No tienes cuenta aún?", color: Colors.white),
       TextButtonCustom(
           text: "Registraté",
+          foregroundColor: ColorsApp.azulLogin,
           onPressed: () =>
               Navigator.of(context).pushNamed(RegistroUsuarioPage.routeName))
     ]);
