@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:health_safe_paciente/src/views/providers/providers.dart';
 import 'package:provider/provider.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
+import 'package:health_safe_paciente/src/views/providers/providers.dart';
 import 'package:health_safe_paciente/src/services/api/api.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';

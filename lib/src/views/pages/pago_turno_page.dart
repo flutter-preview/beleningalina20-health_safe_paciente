@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:health_safe_paciente/src/models/models.dart';
 import 'package:provider/provider.dart';
 import 'package:health_safe_paciente/src/views/pages/models/turno.dart';
 import 'package:health_safe_paciente/src/extensions/extensions.dart';
