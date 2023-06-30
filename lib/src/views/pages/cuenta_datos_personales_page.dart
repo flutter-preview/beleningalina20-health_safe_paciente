@@ -67,39 +67,43 @@ class _DatosPersonalesForm extends StatelessWidget {
               children: [
                 _DatosPersonalesUsuario(
                     label: "Nombre",
-                    datoUsuario: autenticacionService.usuario!.nombre),
+                    datoUsuario: autenticacionService.paciente!.usuario.nombre),
                 SizedBox(height: Dimens.dimens20),
                 _DatosPersonalesUsuario(
                     label: "Apellido",
-                    datoUsuario: autenticacionService.usuario!.apellido),
+                    datoUsuario:
+                        autenticacionService.paciente!.usuario.apellido),
                 SizedBox(height: Dimens.dimens20),
                 _DatosPersonalesUsuario(
                     label: "Fecha de nacimiento",
-                    datoUsuario: autenticacionService.usuario!.fechaNacimiento!
+                    datoUsuario: autenticacionService
+                        .paciente!.usuario.fechaNacimiento!
                         .convertToString()),
                 SizedBox(height: Dimens.dimens20),
                 _DatosPersonalesUsuario(
                     label: "DNI",
-                    datoUsuario: autenticacionService.usuario!.dni.toString()),
+                    datoUsuario:
+                        autenticacionService.paciente!.usuario.dni.toString()),
                 SizedBox(height: Dimens.dimens20),
                 _DatosPersonalesUsuario(
                     label: "Sexo",
-                    datoUsuario: (autenticacionService.usuario!.sexo == "F")
-                        ? "Femenino"
-                        : "Masculino"),
+                    datoUsuario:
+                        (autenticacionService.paciente!.usuario.sexo == "F")
+                            ? "Femenino"
+                            : "Masculino"),
                 SizedBox(height: Dimens.dimens20),
                 ImagenDni(
                     labelColor: Colors.black,
-                    urlImagenDni:
-                        autenticacionService.usuario?.urlImagenDniFrente,
+                    urlImagenDni: autenticacionService
+                        .paciente!.usuario.urlImagenDniFrente,
                     imagenPlaceholder:
                         const AssetImage('assets/imgs/dni_frente.png'),
                     label: 'Imagen DNI frente'),
                 SizedBox(height: Dimens.dimens20),
                 ImagenDni(
                     labelColor: Colors.black,
-                    urlImagenDni:
-                        autenticacionService.usuario?.urlImagenDniDorso,
+                    urlImagenDni: autenticacionService
+                        .paciente!.usuario.urlImagenDniDorso,
                     imagenPlaceholder:
                         const AssetImage('assets/imgs/dni_dorso.png'),
                     label: 'Imagen DNI dorso'),

@@ -14,7 +14,7 @@ class DrawerCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final autenticacionService = Provider.of<AutenticacionService>(context);
-    final usuario = autenticacionService.usuario;
+    final paciente = autenticacionService.paciente;
 
     return Drawer(
       backgroundColor: ColorsApp.azulLogin,
@@ -22,9 +22,9 @@ class DrawerCustom extends StatelessWidget {
       child:
           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         _HeaderDrawer(
-            imagenPerfil: usuario?.urlImagenPerfil ?? '',
-            nombre: usuario?.nombre ?? '',
-            apellido: usuario?.apellido ?? ''),
+            imagenPerfil: paciente?.usuario.urlImagenPerfil ?? '',
+            nombre: paciente?.usuario.nombre ?? '',
+            apellido: paciente?.usuario.apellido ?? ''),
         const _OpcionesDrawer()
       ]),
     );
@@ -99,9 +99,8 @@ class _OpcionesDrawer extends StatelessWidget {
             Provider.of<AutenticacionService>(context, listen: false);
         var permissionHandler =
             Provider.of<PermissionHandler>(context, listen: false);
-        var socketService =
-            Provider.of<SocketApiService>(context, listen: false);
-        socketService.disconnect();
+        // var socketService = Provider.of<SocketApiService>(context, listen: false);
+        // socketService.disconnect();
         autenticacionService.logout();
         permissionHandler.close();
         Navigator.of(context).pushNamedAndRemoveUntil(

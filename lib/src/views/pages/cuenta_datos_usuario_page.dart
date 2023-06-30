@@ -95,7 +95,8 @@ class _CorreoUsuario extends StatelessWidget {
               SizedBox(width: Dimens.dimens20),
               Expanded(
                   child: DescriptionText(
-                      text: autenticacionService.usuario?.correo ?? '')),
+                      text:
+                          autenticacionService.paciente?.usuario.correo ?? '')),
               IconButton(
                   icon: const Icon(Icons.edit, color: Colors.blue),
                   onPressed: () {
@@ -112,7 +113,7 @@ class _CorreoUsuario extends StatelessWidget {
                     if (datosUsuarioFormProvider.esValidoCorreo()) {
                       // llamada al servicio para modificar la contrasena
                       if (datosUsuarioFormProvider.correo != '') {
-                        autenticacionService.usuario?.correo =
+                        autenticacionService.paciente?.usuario.correo =
                             datosUsuarioFormProvider.correo!;
                       }
 
@@ -160,7 +161,7 @@ class _ContrasenaUsuario extends StatelessWidget {
                     if (datosUsuarioFormProvider.esValidaContrasena()) {
                       // llamada al servicio para modificar el correo
                       if (datosUsuarioFormProvider.contrasena != '') {
-                        autenticacionService.usuario?.contrasena =
+                        autenticacionService.paciente?.usuario.contrasena =
                             datosUsuarioFormProvider.contrasena!;
                       }
 
@@ -191,7 +192,8 @@ class _ImagenPerfilUsuario extends StatelessWidget {
           CircleAvatarImagenPerfil(
             image: (datosUsuarioFormProvider.imagenPerfil == null)
                 ? NetworkImage(
-                    autenticacionService.usuario?.urlImagenPerfil ?? '')
+                    autenticacionService.paciente?.usuario.urlImagenPerfil ??
+                        '')
                 : FileImage(datosUsuarioFormProvider.imagenPerfil!)
                     as ImageProvider<Object>?,
             radius: Dimens.dimens100,
@@ -230,8 +232,8 @@ class _ImagenPerfilUsuario extends StatelessWidget {
                                     .then((value) =>
                                         "https://www.dzoom.org.es/wp-content/uploads/2020/02/portada-foto-perfil-redes-sociales-consejos.jpg");
 
-                                autenticacionService.usuario?.urlImagenPerfil =
-                                    urlImagenPerfil;
+                                autenticacionService.paciente?.usuario
+                                    .urlImagenPerfil = urlImagenPerfil;
                                 datosUsuarioFormProvider.modificarImagenPerfil =
                                     false;
                               },

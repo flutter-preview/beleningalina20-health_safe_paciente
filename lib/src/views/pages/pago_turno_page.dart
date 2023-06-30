@@ -49,9 +49,7 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
                 final autenticacionService =
                     Provider.of<AutenticacionService>(context, listen: false);
                 turno.idPago = paymentId;
-                PacienteDto paciente = await PacienteService()
-                    .obtenerPaciente(autenticacionService.usuario?.id ?? 0);
-                int idPaciente = paciente.id;
+                int idPaciente = autenticacionService.paciente?.id ?? 0;
 
                 CrearTurnoRequest request = CrearTurnoRequest(
                     fecha: turno.fecha,
@@ -83,7 +81,13 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
                     setState(() => cargandoRedireccionMercadoPago = false));
               } else {
                 setState(() => cargandoRedireccionMercadoPago = false);
-                return errorPago();
+                showDialog(
+                    context: context,
+                    builder: (context) => const AlertDialogBackground(content: [
+                          MessageState(
+                              text: "Algo salió mal al crear tu turno",
+                              iconState: FailureIcon())
+                        ]));
               }
               break;
 
@@ -234,7 +238,7 @@ class _AccionesPagarTurno extends StatelessWidget {
 
     final autenticacionService =
         Provider.of<AutenticacionService>(context, listen: false);
-    final usuario = autenticacionService.usuario;
+    final paciente = autenticacionService.paciente;
 
     Preference preference = Preference(
         items: [
@@ -246,9 +250,9 @@ class _AccionesPagarTurno extends StatelessWidget {
               currencyId: "ARS")
         ],
         payer: Payer(
-            name: usuario?.nombre ?? '',
-            surname: usuario?.apellido ?? '',
-            email: usuario?.correo ?? ''),
+            name: paciente?.usuario.nombre ?? '',
+            surname: paciente?.usuario.apellido ?? '',
+            email: paciente?.usuario.correo ?? ''),
         paymentMethods: PaymentMethods(excludedPaymentTypes: [
           ExcludedPayment(id: 'ticket')
         ], excludedPaymentMethods: [

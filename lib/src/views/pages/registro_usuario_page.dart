@@ -225,12 +225,21 @@ class _RegistroUsuarioForm extends StatelessWidget {
                   idUsuario: value.id, ocupacion: request.ocupacion))
               .then((value) {
                 registroUsuarioFormProvider.isLoading = false;
+                final autenticacionService =
+                    Provider.of<AutenticacionService>(context, listen: false);
+                autenticacionService.paciente = value;
                 showDialog(
                     context: context,
                     barrierDismissible: false,
                     builder: (context) => AlertDialogBackground(
-                            onAccept: () => Navigator.popUntil(context,
-                                ModalRoute.withName(LoginPage.routeName)),
+                            onAccept: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  LoginPage.routeName,
+                                  ModalRoute.withName(LoginPage.routeName));
+                              Navigator.of(context)
+                                  .pushReplacementNamed(HomePage.routeName);
+                            },
                             content: const [
                               MessageState(
                                   text: "Registro de usuario completado",

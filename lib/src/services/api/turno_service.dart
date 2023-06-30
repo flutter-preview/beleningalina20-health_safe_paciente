@@ -21,7 +21,7 @@ class TurnoService {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': token
-          }).timeout(const Duration(seconds: 3));
+          });
 
       debugPrint(resp.body.toString());
 
@@ -44,10 +44,8 @@ class TurnoService {
     }
   }
 
-  Future<List<TurnoPacienteDto>> obtenerTurnos(int idUsuario) async {
+  Future<List<TurnoPacienteDto>> obtenerTurnos(int idPaciente) async {
     try {
-      PacienteDto paciente = await PacienteService().obtenerPaciente(idUsuario);
-      int idPaciente = paciente.id;
       final resp = await http.get(
           Uri.parse('${Environments.apiUrl}/turnos/paciente/$idPaciente'),
           headers: {

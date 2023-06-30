@@ -28,7 +28,7 @@ class MisTurnosPage extends StatelessWidget {
             Expanded(
               child: FutureStatesBuilder<List<TurnoPacienteDto>>(
                 future: TurnoService()
-                    .obtenerTurnos(autenticacionService.usuario!.id),
+                    .obtenerTurnos(autenticacionService.paciente!.id),
                 onEmpty: () => const MessageState(
                     text: "No hay turnos guardados", iconState: EmptyIcon()),
                 onError: (_) => const MessageState(

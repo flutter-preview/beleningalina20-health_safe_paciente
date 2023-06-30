@@ -29,8 +29,7 @@ class UsuarioService {
               'imgdnidorso', params.imagenDniDorso.path)
         ]);
 
-      http.StreamedResponse streamResponse =
-          await request.send().timeout(const Duration(seconds: 10));
+      http.StreamedResponse streamResponse = await request.send();
       http.Response resp = await http.Response.fromStream(streamResponse);
 
       debugPrint(resp.body.toString());

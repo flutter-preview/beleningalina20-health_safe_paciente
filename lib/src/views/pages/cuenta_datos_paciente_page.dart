@@ -53,24 +53,8 @@ class _DatosPacienteForm extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FutureStatesBuilder<PacienteDto>(
-                  future: PacienteService()
-                      .obtenerPaciente(autenticacionService.usuario?.id ?? 0),
-                  onSuccess: (paciente) =>
-                      _OcupacionPacienteForm(ocupacion: paciente.ocupacion),
-                  onError: (error) => const Column(
-                    children: [
-                      Text("Algo salio mal"),
-                      FailureIcon(),
-                    ],
-                  ),
-                  onNull: () => const Column(
-                    children: [
-                      Text("No se encontró el paciente"),
-                      FailureIcon()
-                    ],
-                  ),
-                ),
+                _OcupacionPacienteForm(
+                    ocupacion: autenticacionService.paciente?.ocupacion ?? '')
               ],
             ),
           )),
@@ -86,6 +70,7 @@ class _OcupacionPacienteForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final datosPacienteFormProvider =
         Provider.of<DatosPacienteFormProvider>(context);
+    final autenticacionService = Provider.of<AutenticacionService>(context);
 
     return (!datosPacienteFormProvider.modificarOcupacion)
         ? Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
@@ -106,7 +91,8 @@ class _OcupacionPacienteForm extends StatelessWidget {
                 onPressed: () {
                   if (datosPacienteFormProvider.esValidaOcupacion()) {
                     if (datosPacienteFormProvider.ocupacion != '') {
-                      // todo llamada a servicio para actualizar la ocupacion
+                      autenticacionService.paciente?.ocupacion =
+                          datosPacienteFormProvider.ocupacion!;
                     }
 
                     datosPacienteFormProvider.modificarOcupacion = false;

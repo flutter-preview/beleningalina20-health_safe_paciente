@@ -3,14 +3,14 @@ import 'package:health_safe_paciente/src/services/api/models/models.dart';
 class LoginResponse {
   LoginResponse({
     required this.token,
-    required this.usuario,
+    required this.paciente,
   });
 
   String token;
-  Usuario usuario;
+  Paciente paciente;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
         token: json["token"],
-        usuario: Usuario.fromJson(json["usuario"]),
+        paciente: Paciente.fromJson(json["paciente"]),
       );
 }

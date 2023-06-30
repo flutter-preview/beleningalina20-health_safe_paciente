@@ -60,7 +60,7 @@ class _DetalleTurno extends StatelessWidget {
   Widget build(BuildContext context) {
     final autenticacionService =
         Provider.of<AutenticacionService>(context, listen: false);
-    final usuario = autenticacionService.usuario;
+    final paciente = autenticacionService.paciente;
 
     return Expanded(
       child: Container(
@@ -91,10 +91,13 @@ class _DetalleTurno extends StatelessWidget {
                 InformacionDetalle(
                     title: "Especialidad: ",
                     information: turno.especialidad.toString()),
+                InformacionDetalle(
+                    title: "Precio: ", information: "\$${turno.precio}"),
                 if (turno.consultorio != null)
                   _Consultorio(consultorio: turno.consultorio!),
                 InformacionDetalle(
-                    title: "Paciente: ", information: usuario.toString()),
+                    title: "Paciente: ",
+                    information: paciente?.usuario.toString()),
               ],
             ),
           )),

@@ -9,10 +9,10 @@ import 'package:health_safe_paciente/src/services/api/models/models.dart';
 import 'package:health_safe_paciente/src/helpers/local_storage_manager.dart';
 
 class AutenticacionService extends ChangeNotifier {
-  UsuarioDto? _usuario;
-  UsuarioDto? get usuario => _usuario;
-  set usuario(UsuarioDto? value) {
-    _usuario = value;
+  PacienteDto? _paciente;
+  PacienteDto? get paciente => _paciente;
+  set paciente(PacienteDto? value) {
+    _paciente = value;
     notifyListeners();
   }
 
@@ -29,7 +29,7 @@ class AutenticacionService extends ChangeNotifier {
 
       LoginResponse loginResponse = LoginResponse.fromJson(response);
 
-      usuario = UsuarioDto.fromApi(loginResponse.usuario);
+      paciente = PacienteDto.fromApi(loginResponse.paciente);
       LocalStorage.localStorage.setToken(loginResponse.token);
     } on SocketException {
       throw ApiException(message: 'Falló la comunicación con el servidor');
@@ -40,6 +40,6 @@ class AutenticacionService extends ChangeNotifier {
 
   void logout() async {
     await LocalStorage.localStorage.deleteToken();
-    usuario = null;
+    paciente = null;
   }
 }

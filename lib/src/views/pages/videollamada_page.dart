@@ -110,12 +110,13 @@ class _VideollamadaPageState extends State<VideollamadaPage> {
     };
 
     var options = JitsiMeetingOptions(
-        room: "turno_${turno.id}_${autenticacionService.usuario?.dni}_hsA")
+        room:
+            "turno_${turno.id}_${autenticacionService.paciente?.usuario.dni}_hsA")
       ..subject =
-          "${autenticacionService.usuario.toString()} - ${turno.profesional.toString()}"
-      ..userDisplayName = autenticacionService.usuario.toString()
-      ..userEmail = autenticacionService.usuario?.correo
-      ..userAvatarURL = autenticacionService.usuario?.urlImagenPerfil
+          "${autenticacionService.paciente?.usuario.toString()} - ${turno.profesional.toString()}"
+      ..userDisplayName = autenticacionService.paciente?.usuario.toString()
+      ..userEmail = autenticacionService.paciente?.usuario.correo
+      ..userAvatarURL = autenticacionService.paciente?.usuario.urlImagenPerfil
       ..featureFlags.addAll(featureFlags);
 
     debugPrint(options.serverURL);
