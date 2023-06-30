@@ -33,8 +33,14 @@ class MiCuentaPage extends StatelessWidget {
                 subtitle: "Cambia tu ocupación",
                 icon: Icons.work_rounded,
                 paginaDestino: CuentaDatosPacientePage.routeName),
+            Divider(),
+            ListTileMenuOpcion(
+                title: "Historia clínica",
+                subtitle:
+                    "Mira todos los registros realizados en tu historia clínica",
+                icon: Icons.work_rounded,
+                paginaDestino: HistoriaClinicaPage.routeName),
             // TODO Medios de pagos - obtener los comprobantes de los pagos de los turnos - endpoint de mercado pago
-            // TODO Mi historia clinica
           ],
         ),
       ),

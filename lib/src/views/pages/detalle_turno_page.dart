@@ -76,7 +76,7 @@ class _InfoTurno extends StatelessWidget {
       if (DateTime.now().isBefore(inicioTurno))
         const _AccionesTurnoReservado()
       else if (DateTime.now().isAfter(finTurno))
-        const _AccionesTurnoFinalizado()
+        _AccionesTurnoFinalizado(turno: turno)
       else
         _LinkVideollamadaButton(turno: turno)
     ]);
@@ -157,7 +157,8 @@ class _AccionesTurnoReservado extends StatelessWidget {
 }
 
 class _AccionesTurnoFinalizado extends StatelessWidget {
-  const _AccionesTurnoFinalizado();
+  final TurnoPacienteDto turno;
+  const _AccionesTurnoFinalizado({required this.turno});
 
   @override
   Widget build(BuildContext context) {
@@ -186,9 +187,9 @@ class _AccionesTurnoFinalizado extends StatelessWidget {
             IconButtonText(
                 icon: Icons.folder,
                 title: "Historia\nClínica",
-                onTap: () =>
-                    {} // TODO Ir a Historia clinica (los registros que hizo este profesional)
-                )
+                onTap: () => Navigator.pushNamed(
+                    context, HistoriaClinicaPage.routeName,
+                    arguments: {'idTurno': turno.id}))
           ],
         )
       ],
