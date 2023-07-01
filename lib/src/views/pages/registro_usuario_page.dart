@@ -352,6 +352,7 @@ class _DatosPersonalesStep extends StatelessWidget {
         ),
         SizedBox(height: Dimens.dimens30),
         DateTimeTextFormField(
+          lastDate: fechaNacimientoPersonaMayorEdad(),
           controller: TextEditingController(
               text: registroUsuarioFormProvider.fechaNacimiento
                   ?.convertToString()),
@@ -362,6 +363,12 @@ class _DatosPersonalesStep extends StatelessWidget {
         )
       ],
     );
+  }
+
+  DateTime fechaNacimientoPersonaMayorEdad() {
+    DateTime hoy = DateTime.now();
+    var f = hoy.subtract(const Duration(days: 18 * 365));
+    return f;
   }
 }
 

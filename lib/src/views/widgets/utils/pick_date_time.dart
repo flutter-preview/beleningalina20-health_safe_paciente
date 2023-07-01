@@ -5,7 +5,7 @@ Future<DateTime?> pickDateTime(
   final DateTime? selectedDate = await showDatePicker(
     context: context,
     initialEntryMode: DatePickerEntryMode.calendarOnly,
-    initialDate: DateTime.now(),
+    initialDate: lastDate,
     firstDate: firstDate,
     lastDate: lastDate,
   );

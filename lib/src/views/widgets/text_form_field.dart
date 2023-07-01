@@ -175,8 +175,10 @@ class DateTimeTextFormField extends StatelessWidget {
         },
         readOnly: true,
         onTap: () async {
-          final DateTime? selectedDate = await pickDateTime(context,
-              DateTime(1920), DateTime.now().add(const Duration(days: 1)));
+          final DateTime? selectedDate = await pickDateTime(
+              context,
+              initialDate ?? DateTime(1920),
+              lastDate ?? DateTime.now().add(const Duration(days: 1)));
           if (selectedDate != null) {
             onChanged(selectedDate);
             controller?.text = selectedDate.toString();
