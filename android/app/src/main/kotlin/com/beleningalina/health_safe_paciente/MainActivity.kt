@@ -52,8 +52,10 @@ class MainActivity: FlutterActivity() {
 
         val channelMercadoPagoResp = MethodChannel(flutterView, "health_safe/mercado_pago_response")
 
+
         when(resultCode) {
             MercadoPagoCheckout.PAYMENT_RESULT_CODE -> {
+                println("PAYMENT_RESULT_CODE -> Result code: $resultCode")
                 val payment = data?.getSerializableExtra(MercadoPagoCheckout.EXTRA_PAYMENT_RESULT) as Payment
                 println("Payment: $payment")
                 val paymentStatus = payment.paymentStatus
@@ -69,6 +71,8 @@ class MainActivity: FlutterActivity() {
             }
 
             Activity.RESULT_CANCELED -> {
+                println("RESULT_CANCELED -> Result code: $resultCode = 0")
+
                 val arrayList = arrayListOf<String>(
                     "Error"
                 )
@@ -76,6 +80,8 @@ class MainActivity: FlutterActivity() {
             }
 
             else -> {
+                println("RESULT_CANCELED -> Result code: $resultCode")
+
                 val arrayList = arrayListOf<String>(
                     "Cancelado"
                 )

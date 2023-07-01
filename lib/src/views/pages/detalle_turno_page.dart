@@ -51,6 +51,7 @@ class _InfoTurno extends StatelessWidget {
 
   final TurnoPacienteDto turno;
 
+// TODO REvisar que se sobre sale de la pagina
   @override
   Widget build(BuildContext context) {
     DateTime inicioTurno = DateTime(turno.fecha.year, turno.fecha.month,
@@ -73,12 +74,12 @@ class _InfoTurno extends StatelessWidget {
           turno.consultorio != null)
         _ConsultorioAgendaTurnos(consultorio: turno.consultorio!),
       SizedBox(height: Dimens.dimens10),
-      /*if (DateTime.now().isBefore(inicioTurno))
+      if (DateTime.now().isBefore(inicioTurno))
         const _AccionesTurnoReservado()
       else if (DateTime.now().isAfter(finTurno))
         _AccionesTurnoFinalizado(turno: turno)
-      else*/
-      _LinkVideollamadaButton(turno: turno)
+      else
+        _LinkVideollamadaButton(turno: turno)
     ]);
   }
 }

@@ -98,6 +98,15 @@ class _DetalleTurno extends StatelessWidget {
                 InformacionDetalle(
                     title: "Paciente: ",
                     information: paciente?.usuario.toString()),
+                SizedBox(height: Dimens.dimens10),
+                BasicTextFormField(
+                  hintText: "Motivo de la consulta: ",
+                  maxLines: 4,
+                  bold: true,
+                  borderColor: Colors.black,
+                  labelColor: Colors.black,
+                  onChanged: (value) => turno.comentario = value,
+                )
               ],
             ),
           )),

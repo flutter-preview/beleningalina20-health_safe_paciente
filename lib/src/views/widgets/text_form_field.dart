@@ -20,6 +20,7 @@ class _TextFormFieldCustom extends StatelessWidget {
   final void Function()? onTap;
   final TextEditingController? controller;
   final Color? labelColor;
+  final bool bold;
 
   const _TextFormFieldCustom(
       {this.hintText = '',
@@ -36,7 +37,8 @@ class _TextFormFieldCustom extends StatelessWidget {
       this.readOnly = false,
       this.onTap,
       this.controller,
-      this.labelColor});
+      this.labelColor,
+      this.bold = false});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,10 @@ class _TextFormFieldCustom extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (withDescriptionHintText)
-          DescriptionText(text: hintText, color: labelColor ?? Colors.white),
+          DescriptionText(
+              text: hintText,
+              color: labelColor ?? Colors.white,
+              fontWeight: (bold) ? FontWeight.w500 : FontWeight.normal),
         SizedBox(height: Dimens.dimens10),
         TextFormField(
           controller: controller,
@@ -196,6 +201,7 @@ class BasicTextFormField extends StatelessWidget {
   final void Function(String)? onChanged;
   final Color? labelColor;
   final Widget? suffixIcon;
+  final bool bold;
 
   const BasicTextFormField({
     super.key,
@@ -207,6 +213,7 @@ class BasicTextFormField extends StatelessWidget {
     this.onChanged,
     this.labelColor,
     this.suffixIcon,
+    this.bold = false,
   });
 
   @override
@@ -214,6 +221,7 @@ class BasicTextFormField extends StatelessWidget {
     return _TextFormFieldCustom(
         labelColor: labelColor,
         hintText: hintText,
+        bold: bold,
         maxLines: maxLines,
         borderColor: borderColor,
         withDescriptionHintText: withDescriptionHintText,
