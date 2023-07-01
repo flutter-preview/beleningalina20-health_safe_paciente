@@ -8,6 +8,6 @@ class HistoriaClinicaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // arguments idTurno int?
     return Container();
-    // TODO
+    // TODO Historia clinica page
   }
 }

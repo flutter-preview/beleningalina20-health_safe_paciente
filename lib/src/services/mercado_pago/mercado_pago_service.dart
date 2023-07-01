@@ -13,8 +13,7 @@ class MercadoPagoService {
       CheckoutResponse checkoutResponse = CheckoutResponse.fromJson(result);
       const channelMercadoPago = MethodChannel("health_safe/mercado_pago");
       await channelMercadoPago.invokeMethod("mercadoPago", <String, dynamic>{
-        "publicKey":
-            MercadoPagoCredentials.mpPublicKeyDEV, // TODO Cambiar a prod
+        "publicKey": MercadoPagoCredentials.mpPublicKeyDEV, // Prueba
         "preferenceId": checkoutResponse.checkout.id
       });
     } on PlatformException {

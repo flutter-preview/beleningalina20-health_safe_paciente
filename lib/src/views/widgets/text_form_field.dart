@@ -151,13 +151,17 @@ class DateTimeTextFormField extends StatelessWidget {
   final void Function(DateTime) onChanged;
   final TextEditingController? controller;
   final Color? labelColor;
+  final DateTime? initialDate;
+  final DateTime? lastDate;
 
   const DateTimeTextFormField(
       {super.key,
       required this.hintText,
       required this.onChanged,
       this.controller,
-      this.labelColor});
+      this.labelColor,
+      this.initialDate,
+      this.lastDate});
 
   @override
   Widget build(BuildContext context) {

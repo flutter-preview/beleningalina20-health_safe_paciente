@@ -181,7 +181,6 @@ class _ImagenPerfilUsuario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO - servicio para modificar la imagen que me traiga la url
     final autenticacionService = Provider.of<AutenticacionService>(context);
     final datosUsuarioFormProvider =
         Provider.of<DatosUsuarioFormProvider>(context);

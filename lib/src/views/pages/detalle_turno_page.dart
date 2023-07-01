@@ -73,12 +73,12 @@ class _InfoTurno extends StatelessWidget {
           turno.consultorio != null)
         _ConsultorioAgendaTurnos(consultorio: turno.consultorio!),
       SizedBox(height: Dimens.dimens10),
-      if (DateTime.now().isBefore(inicioTurno))
+      /*if (DateTime.now().isBefore(inicioTurno))
         const _AccionesTurnoReservado()
       else if (DateTime.now().isAfter(finTurno))
         _AccionesTurnoFinalizado(turno: turno)
-      else
-        _LinkVideollamadaButton(turno: turno)
+      else*/
+      _LinkVideollamadaButton(turno: turno)
     ]);
   }
 }
@@ -144,14 +144,14 @@ class _AccionesTurnoReservado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO La cancelacion solo esta disponible hasta un dia antes de la fecha de turno
     return ElevatedButtonCustom(
         text: "Cancelar turno",
         expanded: true,
         foregroundColor: Colors.white,
         backgroundColor: ColorsApp.rojoAsistenciaInmediata,
         onPressed: () =>
-            {} // TODO Cancelacion turno -> reintegro de todo el dinero.
+            {} // TODO La cancelacion solo esta disponible hasta un dia antes de la fecha de turno. REintegro de la plata
+
         );
   }
 }
