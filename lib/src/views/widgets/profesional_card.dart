@@ -46,7 +46,6 @@ class InfoProfesionalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(Dimens.dimens10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(Dimens.dimens20)),
@@ -71,9 +70,8 @@ class InfoProfesionalCard extends StatelessWidget {
                 color: Colors.grey[700] ?? Colors.grey,
               ),
               RatingBarIndicatorCustom(
-                calificacion: 3.0,
-                numeroOpiniones: 10,
-                onPressed: () {},
+                calificacion: profesional.calificacion,
+                cantidadCalificaciones: profesional.cantidadCalificaciones,
               )
             ],
           )

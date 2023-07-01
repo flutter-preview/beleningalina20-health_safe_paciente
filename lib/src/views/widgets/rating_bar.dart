@@ -6,14 +6,13 @@ import 'package:provider/provider.dart';
 
 class RatingBarIndicatorCustom extends StatelessWidget {
   final double calificacion;
-  final int numeroOpiniones;
-  final void Function()? onPressed;
+  final int cantidadCalificaciones;
 
-  const RatingBarIndicatorCustom(
-      {super.key,
-      required this.calificacion,
-      required this.numeroOpiniones,
-      this.onPressed});
+  const RatingBarIndicatorCustom({
+    super.key,
+    required this.calificacion,
+    required this.cantidadCalificaciones,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +26,10 @@ class RatingBarIndicatorCustom extends StatelessWidget {
             itemCount: 5,
             itemSize: SizeConfig.height * 0.03,
             direction: Axis.horizontal),
-        TextButtonCustom(
-          foregroundColor: Colors.blue,
-          onPressed: onPressed ?? () {},
-          text: "$numeroOpiniones opiniones",
+        SizedBox(width: Dimens.dimens10),
+        DescriptionText(
+          color: Colors.blue,
+          text: "$cantidadCalificaciones calificaciones",
         )
       ],
     );

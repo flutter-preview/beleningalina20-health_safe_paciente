@@ -121,6 +121,7 @@ class DescriptionText extends StatelessWidget {
   final TextAlign textAlign;
   final FontWeight? fontWeight;
   final TextOverflow? overflow;
+  final TextDecoration? decoration;
 
   const DescriptionText(
       {super.key,
@@ -128,7 +129,8 @@ class DescriptionText extends StatelessWidget {
       this.color = Colors.black,
       this.textAlign = TextAlign.start,
       this.fontWeight,
-      this.overflow});
+      this.overflow,
+      this.decoration});
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +139,10 @@ class DescriptionText extends StatelessWidget {
       textAlign: textAlign,
       overflow: overflow,
       style: TextStyle(
-          fontSize: Dimens.dimens20, color: color, fontWeight: fontWeight),
+          decoration: decoration,
+          fontSize: Dimens.dimens20,
+          color: color,
+          fontWeight: fontWeight),
     );
   }
 }
