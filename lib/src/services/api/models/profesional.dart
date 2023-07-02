@@ -17,7 +17,6 @@ class Profesional {
   DateTime createdAt;
   DateTime updatedAt;
   Usuario usuario;
-  // TODO Cambiar por lo que trae el permiso
   double calificacion;
   int cantidadCalificaciones;
 

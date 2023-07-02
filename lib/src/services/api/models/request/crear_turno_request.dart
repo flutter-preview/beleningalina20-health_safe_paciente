@@ -12,6 +12,7 @@ class CrearTurnoRequest {
   int idPaciente;
   int idEspecialidad;
   int idProfesional;
+  String comentario;
 
   CrearTurnoRequest(
       {required this.fecha,
@@ -21,7 +22,8 @@ class CrearTurnoRequest {
       required this.idPagoMercadoPago,
       required this.idEspecialidad,
       required this.idPaciente,
-      required this.idProfesional});
+      required this.idProfesional,
+      this.comentario = ''});
 
   Map<String, dynamic> toJson() => {
         'fecha': fecha.toString(),
@@ -31,6 +33,7 @@ class CrearTurnoRequest {
         'idespecialidad': idEspecialidad,
         'idpaciente': idPaciente,
         'idpagomercadopago': idPagoMercadoPago,
+        'comentario': comentario
       };
   String request() => jsonEncode(toJson());
 }

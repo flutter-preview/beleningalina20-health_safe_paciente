@@ -16,6 +16,7 @@ export 'package:health_safe_paciente/src/services/api/models/request/registro_us
 export 'package:health_safe_paciente/src/services/api/models/request/obtener_profesionales_request.dart';
 export 'package:health_safe_paciente/src/services/api/models/request/crear_turno_request.dart';
 export 'package:health_safe_paciente/src/services/api/models/request/crear_mensajeria_request.dart';
+export 'package:health_safe_paciente/src/services/api/models/request/calificar_atencion_turno_request.dart';
 
 export 'package:health_safe_paciente/src/services/api/models/agenda_turnos.dart';
 export 'package:health_safe_paciente/src/services/api/models/consultorio.dart';

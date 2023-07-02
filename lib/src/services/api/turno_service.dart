@@ -10,7 +10,7 @@ import 'package:health_safe_paciente/src/services/api/utils/api_response_mapper.
 import 'package:health_safe_paciente/src/services/api/utils/api_exceptions.dart';
 
 class TurnoService {
-  Future crearTurno(CrearTurnoRequest params) async {
+  Future<TurnoPacienteDto> crearTurno(CrearTurnoRequest params) async {
     try {
       String? token = await LocalStorage.localStorage.getToken();
       if (token == null) {
@@ -25,10 +25,9 @@ class TurnoService {
 
       debugPrint(resp.body.toString());
 
-      // Map<String, dynamic> response =
-      apiResponseMapper(resp);
+      Map<String, dynamic> response = apiResponseMapper(resp);
 
-      // TurnoPaciente turno = CrearTurnoResponse.fromJson(response).turno;
+      TurnoPaciente turno = CrearTurnoResponse.fromJson(response).turno;
 
       // TODO Push notification al profesional (idprofesional) / enviar mensaje con la url del la llamada
       // Desactivado hasta antes 10 minutos
@@ -37,6 +36,8 @@ class TurnoService {
 
       await MensajeriaService().crearMensajeria(CrearMensajeriaRequest(
           idPaciente: params.idPaciente, idProfesional: params.idProfesional));
+
+      return TurnoPacienteDto.fromApi(turno);
     } on SocketException {
       throw ApiException(message: 'Falló la comunicación con el servidor');
     } catch (e) {
@@ -46,6 +47,7 @@ class TurnoService {
 
   Future<List<TurnoPacienteDto>> obtenerTurnos(int idPaciente) async {
     try {
+      // TODO Implementacion del servicio en api
       final resp = await http.get(
           Uri.parse('${Environments.apiUrl}/turnos/paciente/$idPaciente'),
           headers: {
@@ -61,6 +63,22 @@ class TurnoService {
 
       return List<TurnoPacienteDto>.from(
           turnos.map((turno) => TurnoPacienteDto.fromApi(turno)));
+    } on SocketException {
+      throw ApiException(message: 'Falló la comunicación con el servidor');
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future calificarTurno(CalificarAtencionTurnoRequest request) async {
+    try {
+      final resp = await http.post(
+          Uri.parse('${Environments.apiUrl}/turnos?${request.idTurno}}'),
+          body: {'calificacion': request.calificacion});
+
+      debugPrint(resp.body.toString());
+
+      apiResponseMapper(resp);
     } on SocketException {
       throw ApiException(message: 'Falló la comunicación con el servidor');
     } catch (e) {

@@ -55,6 +55,8 @@ class _LoginForm extends StatelessWidget {
     final loginFormProvider = Provider.of<LoginFormProvider>(context);
 
     return Form(
+        // TODO Que se borren los datos cuando sea login fallido
+        // TODO Que se borren los datos si el usuario pasa a registro
         key: loginFormProvider.formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

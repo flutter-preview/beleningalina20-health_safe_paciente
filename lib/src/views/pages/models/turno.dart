@@ -15,6 +15,8 @@ class TurnoModel {
 
   String? idPago;
 
+  String? comentario;
+
   TurnoModel(
       {required this.profesional,
       required this.disponible,
@@ -25,5 +27,6 @@ class TurnoModel {
       required this.fecha,
       required this.horaInicio,
       required this.horaFin,
-      required this.precio});
+      required this.precio,
+      this.comentario = ''});
 }

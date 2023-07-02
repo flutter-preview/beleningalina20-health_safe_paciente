@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:health_safe_paciente/src/theme/themes.dart';
 import 'package:health_safe_paciente/src/views/widgets/widgets.dart';
-import 'package:provider/provider.dart';
 
 class RatingBarIndicatorCustom extends StatelessWidget {
   final double calificacion;
@@ -29,7 +28,7 @@ class RatingBarIndicatorCustom extends StatelessWidget {
         SizedBox(width: Dimens.dimens10),
         DescriptionText(
           color: Colors.blue,
-          text: "$cantidadCalificaciones calificaciones",
+          text: "$cantidadCalificaciones opiniones",
         )
       ],
     );
@@ -37,29 +36,38 @@ class RatingBarIndicatorCustom extends StatelessWidget {
 }
 
 class RatingBarTextField extends StatelessWidget {
-  final void Function(double)? onUpdated;
-  const RatingBarTextField({super.key, this.onUpdated});
+  final double rating;
+  final Function(double) onRatingUpdate;
+  const RatingBarTextField(
+      {super.key, required this.rating, required this.onRatingUpdate});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => RatingBarTextFieldProvider(),
-      child: _RatingBarTextField(onUpdated: onUpdated),
+    return Column(
+      children: [
+        const DescriptionText(
+          text: "Mi calificacion",
+          textAlign: TextAlign.center,
+          color: Colors.white,
+        ),
+        SizedBox(height: Dimens.dimens10),
+        _RatingBarTextField(rating: rating, onRatingUpdate: onRatingUpdate),
+      ],
     );
   }
 }
 
 class _RatingBarTextField extends StatelessWidget {
-  final void Function(double)? onUpdated;
+  final double rating;
+  final Function(double) onRatingUpdate;
 
-  const _RatingBarTextField({this.onUpdated});
+  const _RatingBarTextField(
+      {required this.rating, required this.onRatingUpdate});
 
   @override
   Widget build(BuildContext context) {
-    final ratingBarProvider = Provider.of<RatingBarTextFieldProvider>(context);
-
     return RatingBar.builder(
-      initialRating: ratingBarProvider.rating,
+      initialRating: rating,
       minRating: 0.0,
       maxRating: 5.0,
       direction: Axis.horizontal,
@@ -69,20 +77,7 @@ class _RatingBarTextField extends StatelessWidget {
       itemSize: SizeConfig.height * 0.04,
       itemBuilder: (context, index) =>
           const Icon(Icons.star, color: Colors.cyan),
-      onRatingUpdate: (value) {
-        ratingBarProvider.rating = value;
-        if (onUpdated != null) onUpdated!(value);
-      },
+      onRatingUpdate: onRatingUpdate,
     );
-  }
-}
-
-class RatingBarTextFieldProvider extends ChangeNotifier {
-  double _rating = 0.0;
-
-  double get rating => _rating;
-  set rating(double value) {
-    _rating = value;
-    notifyListeners();
   }
 }

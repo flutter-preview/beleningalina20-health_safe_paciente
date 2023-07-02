@@ -40,6 +40,7 @@ class _VideollamadaPageState extends State<VideollamadaPage> {
   @override
   Widget build(BuildContext context) {
     turno = ModalRoute.of(context)?.settings.arguments as TurnoPacienteDto;
+
     return Scaffold(
       drawer: const DrawerCustom(),
       appBar: const AppbarCustom(),
@@ -50,39 +51,37 @@ class _VideollamadaPageState extends State<VideollamadaPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(
-                children: [
-                  BodyText(
-                    text:
-                        "SALA DE ESPERA \nTurno con ${turno.profesional.toString()}",
-                    color: Colors.white,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: Dimens.dimens20),
-                  DescriptionText(
-                    textAlign: TextAlign.center,
-                    text:
-                        "Horario del turno: Hoy - ${turno.horaInicio.convertToString()}",
-                    color: Colors.white,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(Dimens.dimens20),
-                    child: InfoProfesionalCard(profesional: turno.profesional),
-                  ),
-                  TextButtonCustom(
+              Expanded(
+                child: Column(
+                  children: [
+                    BodyText(
+                      text: "SALA DE ESPERA - ${turno.profesional.toString()}",
+                      color: Colors.white,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: Dimens.dimens80),
+                    InfoProfesionalCard(profesional: turno.profesional),
+                    SizedBox(height: Dimens.dimens40),
+                    DescriptionText(
+                      textAlign: TextAlign.center,
                       text:
-                          "Unirse a la videollamada con el ${turno.profesional.toString()}",
-                      onPressed: () => _joinMeeting()),
-                  if (loading) const Loader(),
-                ],
+                          "Turno: ${turno.fecha.convertToString(longFormat: true)} - ${turno.horaInicio.convertToString()}",
+                      color: Colors.white,
+                    ),
+                    SizedBox(height: Dimens.dimens40),
+                    TextButtonCustom(
+                        text: "Unirse a la videollamada",
+                        onPressed: () => _joinMeeting()),
+                    if (loading) const Loader(),
+                  ],
+                ),
               ),
-              Column(children: [
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 const DescriptionText(
                     textAlign: TextAlign.center,
                     color: Colors.white,
-                    text:
-                        "La videollamada se realizará a través de Jitsi Meet"),
-                SizedBox(height: Dimens.dimens10),
+                    text: "La videollamada mediante Jitsi Meet"),
+                SizedBox(width: Dimens.dimens10),
                 Image(
                     image: const AssetImage('assets/imgs/jitsi_meet.png'),
                     height: Dimens.dimens50),
@@ -167,8 +166,8 @@ class _VideollamadaPageState extends State<VideollamadaPage> {
                   Navigator.popUntil(
                       context, ModalRoute.withName(HomePage.routeName));
                   Navigator.pushNamed(
-                      context, CalificacionProfesionalPage.routeName,
-                      arguments: turno.profesional);
+                      context, CalificacionAtencionProfesionalPage.routeName,
+                      arguments: turno);
                 },
                 content: [
                   const DescriptionText(text: "El turno finalizó"),

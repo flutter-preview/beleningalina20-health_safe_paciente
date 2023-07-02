@@ -45,6 +45,8 @@ class MisTurnosPage extends StatelessWidget {
       ),
     );
   }
+  // TODO Ordernar los turnos por hora de inicio
+  // TODO Se tendria que validar que el pacietne no tenga un turno que coincida con el que quiere solicitar
 }
 
 class _CalendarioTurnos extends StatelessWidget {
@@ -211,8 +213,17 @@ class _InfoTurnoPaciente extends StatelessWidget {
               ],
             )
           ]),
-          onTap: () => Navigator.pushNamed(context, DetalleTurnoPage.routeName,
-              arguments: turno)),
+          onTap: () {
+            List<EspecialidadDto> especialidades =
+                turno.profesional.especialidades;
+
+            if (especialidades.isEmpty) {
+              turno.profesional.especialidades.add(turno.especialidad);
+            }
+
+            Navigator.pushNamed(context, DetalleTurnoPage.routeName,
+                arguments: turno);
+          }),
     );
   }
 }

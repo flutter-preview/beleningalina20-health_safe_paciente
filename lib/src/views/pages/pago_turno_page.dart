@@ -42,88 +42,79 @@ class _PagoTurnoPageState extends State<PagoTurnoPage> {
           String status = call.arguments[1];
           String statusDetail = call.arguments[2];
 
-          switch (status) {
-            case "approved":
-              if (statusDetail == "accredited") {
-                final autenticacionService =
-                    Provider.of<AutenticacionService>(context, listen: false);
-                turno.idPago = paymentId;
-                int idPaciente = autenticacionService.paciente?.id ?? 0;
+          if (status == "approved" && statusDetail == "accredited") {
+            final autenticacionService =
+                Provider.of<AutenticacionService>(context, listen: false);
+            turno.idPago = paymentId;
+            int idPaciente = autenticacionService.paciente?.id ?? 0;
 
-                CrearTurnoRequest request = CrearTurnoRequest(
-                    fecha: turno.fecha,
-                    horaInicio: turno.horaInicio,
-                    horaFin: turno.horaFin,
-                    idAgendaTurnos: turno.idAgendaTurnos,
-                    idPagoMercadoPago: turno.idPago!,
-                    idPaciente: idPaciente,
-                    idEspecialidad: turno.especialidad.id,
-                    idProfesional: turno.profesional.id);
+            CrearTurnoRequest request = CrearTurnoRequest(
+                fecha: turno.fecha,
+                horaInicio: turno.horaInicio,
+                horaFin: turno.horaFin,
+                idAgendaTurnos: turno.idAgendaTurnos,
+                idPagoMercadoPago: turno.idPago!,
+                idPaciente: idPaciente,
+                idEspecialidad: turno.especialidad.id,
+                idProfesional: turno.profesional.id,
+                comentario: turno.comentario ?? '');
 
-                await TurnoService().crearTurno(request).then((value) {
-                  showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) => AlertDialogBackground(
-                              onAccept: () => Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  HomePage.routeName,
-                                  (route) => false),
-                              content: const [
-                                MessageState(
-                                    text: "Pago Exitoso",
-                                    iconState: SuccessIcon())
-                              ]));
-                }).onError((error, _) {
-                  errorPago();
-                }).whenComplete(() =>
-                    setState(() => cargandoRedireccionMercadoPago = false));
-              } else {
-                setState(() => cargandoRedireccionMercadoPago = false);
-                showDialog(
-                    context: context,
-                    builder: (context) => const AlertDialogBackground(content: [
-                          MessageState(
-                              text: "Algo salió mal al crear tu turno",
-                              iconState: FailureIcon())
-                        ]));
-              }
-              break;
-
-            default:
-              setState(() => cargandoRedireccionMercadoPago = false);
-              return errorPago();
+            await TurnoService().crearTurno(request).then((value) {
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) => AlertDialogBackground(
+                          onAccept: () => Navigator.pushNamedAndRemoveUntil(
+                              context, HomePage.routeName, (route) => false),
+                          content: const [
+                            MessageState(
+                                text: "Tu turno fue registrado con éxito",
+                                iconState: SuccessIcon())
+                          ]));
+            }).onError((error, _) {
+              showDialog(
+                  context: context,
+                  builder: (context) => const AlertDialogBackground(content: [
+                        MessageState(
+                            // TODO El turno no se registro pero si el pago
+                            text: "Tu turno no se pude registrar",
+                            iconState: FailureIcon())
+                      ]));
+            }).whenComplete(
+                () => setState(() => cargandoRedireccionMercadoPago = false));
+          } else {
+            setState(() => cargandoRedireccionMercadoPago = false);
+            showDialog(
+                context: context,
+                builder: (context) => const AlertDialogBackground(content: [
+                      MessageState(
+                          text: "Algo salió mal al crear tu turno",
+                          iconState: FailureIcon())
+                    ]));
           }
+
           break;
 
         case "mercadoPagoFailed":
           setState(() => cargandoRedireccionMercadoPago = false);
-          return errorPago();
+
+          break;
 
         case "mercadoPagoCanceled":
+          setState(() => cargandoRedireccionMercadoPago = false);
+
+          break;
+
+        default:
           setState(() => cargandoRedireccionMercadoPago = false);
           return showDialog(
               context: context,
               builder: (context) => const AlertDialogBackground(content: [
                     MessageState(
-                        text: "Pago cancelado", iconState: FailureIcon())
+                        text: "Algo salió mal", iconState: FailureIcon())
                   ]));
-
-        default:
-          setState(() => cargandoRedireccionMercadoPago = false);
-          return errorPago();
       }
     });
-  }
-
-  void errorPago() {
-    showDialog(
-        context: context,
-        builder: (context) => const AlertDialogBackground(content: [
-              MessageState(
-                  text: "Error al procesar tu pago. Inténtalo más tarde.",
-                  iconState: FailureIcon())
-            ]));
   }
 
   @override
@@ -224,7 +215,7 @@ class _AccionesPagarTurno extends StatelessWidget {
       Expanded(
         child: ElevatedButtonCustom(
             expanded: false,
-            text: "Continuar",
+            text: "Pagar",
             foregroundColor: Colors.white,
             backgroundColor: ColorsApp.azulBusqueda,
             onPressed: () => ejecutarMercadoPago(context)),
