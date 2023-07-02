@@ -1,0 +1,29 @@
+{
+    "page" : "PacienteDrawer",
+    "options" : [
+        {
+            "title": "Inicio",
+            "routeName" : "HomePage"
+        },
+        {
+            "title": "Mi cuenta",
+            "routeName": "MiCuentaPage"
+        }, 
+        {
+            "title": "Mis turnos",
+            "routeName": "MisTurnosPage"
+        },
+        {
+            "title": "Configuracion",
+            "routeName": "ConfiguracionPage"
+        },
+        {
+            "title": "Ayuda y comentarios",
+            "routeName": "AyudaComentariosPage"
+        },
+        {
+            "title": "Cerrar Sesión",
+            "routeName": "LoginPage"
+        }
+    ]
+}
